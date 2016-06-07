@@ -9,10 +9,10 @@ padding: 0;
 }
 
 body {
-    background: -webkit-linear-gradient(right top, #1BCBFF , #1F51AC); 
-    background: -o-linear-gradient(bottom left, #1BCBFF, #1F51AC); 
-    background: -moz-linear-gradient(bottom left, #1BCBFF, #1F51AC); 
-    background: linear-gradient(to bottom left, #1BCBFF , #1F51AC); 
+    background: -webkit-linear-gradient(right top, #1BCBFF , #1F51AC);
+    background: -o-linear-gradient(bottom left, #1BCBFF, #1F51AC);
+    background: -moz-linear-gradient(bottom left, #1BCBFF, #1F51AC);
+    background: linear-gradient(to bottom left, #1BCBFF , #1F51AC);
     background-repeat: none;
     /*background: #1F51AC;*/
     /*padding-bottom: 150px;*/
@@ -99,7 +99,7 @@ body {
 
 <center>
 	<div class="centerContent">
-		<h1 class="title"> Louder </h1>
+		<h1 class="title"> Collab </h1>
 		<h3 class="description">Sync phone speakers with friends</h3>
 		<button id="generate" class="buttons">Create Room</button>
 		<p id="uuid"></p>
@@ -118,7 +118,7 @@ var id
 io.socket.post('/Room/generateCode', '')
 
 io.socket.on('receiveCode', function (data){
-	$('#uuid').text('https://louderapp.herokuapp.com/'+data.uuid)
+	$('#uuid').text('https://collab.party/'+data.uuid)
 	id = data.uuid
 })
 
