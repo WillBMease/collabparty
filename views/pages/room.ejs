@@ -226,6 +226,17 @@ $('#invite').click(function(){
 	}
 })
 
+var checkLoadedInt
+
+function checkLoaded(url){
+  if ($('#song1').get(0).duration < 1){
+    $('#song1').get(0).src = url
+  }
+  else {
+    clearInterval(checkLoadedInt)
+  }
+}
+
 io.socket.on('addSong', function(data){
   console.log('got add song message')
   setTimeout(function(){
@@ -237,6 +248,7 @@ io.socket.on('addSong', function(data){
 
     $('#song1').get(0).play()
     $('#song1').get(0).pause()
+    checkLoadedInt = setInterval(checkLoaded(data.url), 1000)
   }, 5000)
 })
 
@@ -246,7 +258,6 @@ $('#add').click(function(){
   io.socket.post('/Room/addSong', {url: url, code: code})
   $('#ytsearch').val('')
 })
-
 
 
 </script>
