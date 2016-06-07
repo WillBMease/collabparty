@@ -52,7 +52,7 @@ module.exports = {
 
     var split = url.split('watch?v=')
     video.pipe(fs.createWriteStream('assets/styles/' + split[1] + '.mp3'));
-    sails.sockets.broadcast(req.body.code, 'addSong', {url: '/audio/' + split[1] + '.mp3'})
+    sails.sockets.broadcast(req.body.code, 'addSong', {url: '/styles/' + split[1] + '.mp3'})
   },
 
   join: function(req, res){
