@@ -1,0 +1,252 @@
+<head>
+<style>
+
+html, body {
+height: 100%;
+margin: 0;
+padding: 0;
+}
+
+body {
+    background: -webkit-linear-gradient(right top, #1BCBFF , #1F51AC);
+    background: -o-linear-gradient(bottom left, #1BCBFF, #1F51AC);
+    background: -moz-linear-gradient(bottom left, #1BCBFF, #1F51AC);
+    background: linear-gradient(to bottom left, #1BCBFF , #1F51AC);
+    background-repeat: none;
+    /*background: #1F51AC;*/
+    /*padding-bottom: 150px;*/
+    overflow: hidden;
+}
+
+#username {
+	position: relative;
+	float: right;
+}
+
+#invite {
+	position: fixed;
+	border-radius: 500px;
+	width: 65px;
+	height: 65px;
+	background: red;
+	color: white;
+	font-size: 35px;
+	bottom: 35px;
+	right: 35px;
+	text-align: center;
+	line-height: 65px;
+}
+
+.sidebar {
+	height: 100%;
+	width: 200px;
+	position: fixed;
+	left: -200px;
+	background: gray;
+	-webkit-transition: all .5s ease;
+  	transition: all .5s ease;
+}
+
+.sidetop {
+	position: relative;
+	width: 100%;
+	height: 30px;
+	background: red;
+}
+
+.sidebar.active {
+	left: 0px;
+}
+
+.ytsearch {
+	position: relative;
+}
+
+#songList {
+	position: relative;
+	width: 300px;
+	float: right;
+	top: 100px;
+}
+
+.song {
+	position: relative;
+	width: 300px;
+	height: 50px;
+	border: 1px solid black;
+	background: gray;
+}
+
+.uuid {
+	position: fixed;
+	top: 10px;
+	left: 10px;
+	color: white;
+}
+.menubar {
+	/*position: fixed;*/
+}
+#ytsearch {
+	position: relative;
+	display: inline-block;
+	float: left;
+}
+#add {
+	position: relative;
+	display: inline-block;
+	float: left;
+}
+#enable {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  background: green;
+  color: white;
+  float: right;
+}
+
+</style>
+
+</head>
+
+<script src="/js/dependencies/sails.io.js"></script>
+<script src="/js/dependencies/jquery.min.js"></script>
+
+<div class="uuid">none</div>
+<div id="username">will</div>
+
+<div id="invite">+</div>
+
+<div class="sidebar">
+	<div class="sidetop"></div>
+	<div class="adding">
+		<input id="ytsearch" type="text" value="https://www.youtube.com/watch?v=jhgVu2lsi_k">
+		<button id="add">Add</button>
+	</div>
+</div>
+
+<div id="enable">ENABLE</div>
+<audio id="enableAudio" style="display:none;">
+  <source src="/audio/jhgVu2lsi_k.mp3" type="audio/mp3">
+</audio>
+
+<!-- <ul id="songs"></ul> -->
+
+<center>
+
+<div id="songList">
+	<!-- <div class="song"></div>
+	<div class="song"></div>
+	<div class="song"></div>
+	<div class="song"></div>
+	<div class="song"></div>
+	<div class="song"></div> -->
+</div>
+
+
+</center>
+
+<!-- <script src="/js/youtube.js"></script> -->
+
+<script>
+
+
+function detectmob() {
+ if( navigator.userAgent.match(/Android/i)
+ || navigator.userAgent.match(/webOS/i)
+ || navigator.userAgent.match(/iPhone/i)
+ || navigator.userAgent.match(/iPad/i)
+ || navigator.userAgent.match(/iPod/i)
+ || navigator.userAgent.match(/BlackBerry/i)
+ || navigator.userAgent.match(/Windows Phone/i)
+ || (window.innerWidth <= 800 && window.innerHeight <= 600)
+ ){
+    return true;
+  }
+ else {
+    return false;
+  }
+}
+
+var isMobile = detectmob()
+
+
+setTimeout(function(){
+	if (isMobile){
+		// $('#titleName').text('mobile')
+		$('#freq').hide()
+		$('#audios').css('margin-top', '200px')
+	}
+	// else
+		// $('#titleName').text('laptop')
+}, 2000)
+
+var code = null
+
+$(document).ready(function(){
+	console.log((window.location.hash).replace('#', ''))
+  code = (window.location.hash).replace('#', '')
+	$('.uuid').text(code)
+  io.socket.post('/Room/join', {code: code})
+})
+
+var low = 999999
+
+var pingInt = setInterval(ping, 50)
+
+var pingct = 0
+
+function ping(){
+	var obj = {}
+	obj.start = +new Date()
+	io.socket.post('/Room/ping/', obj, function(data){
+    var end = +new Date()
+    var result = (end - data.start) / 2
+    if (result < low){
+    	low = result
+    }
+  })
+	pingct++
+	if (pingct > 20){
+		clearInterval(pingInt)
+		console.log(low)
+	}
+}
+
+var open = false
+
+$('#invite').click(function(){
+	if (!open){
+		$('.sidebar').css('left', '0px')
+		open = true
+	}
+	else {
+		$('.sidebar').css('left', '-200px')
+		open = false
+	}
+})
+
+io.socket.on('addSong', function(data){
+  console.log('got add song message')
+  setTimeout(function(){
+    $('#songList').append('<div class="song">'+
+      '<audio id="song1" controls>'+
+        '<source src="'+data.url+'" type="audio/mp3">'+
+      '</audio>'+
+    '</div>')
+
+    $('#song1').get(0).play()
+    $('#song1').get(0).pause()
+  }, 5000)
+})
+
+$('#add').click(function(){
+	// $('#songList').append('<div class="song">'+$('#ytsearch').val()+'</div>')
+  var url = $('#ytsearch').val()
+  io.socket.post('/Room/addSong', {url: url, code: code})
+  $('#ytsearch').val('')
+})
+
+
+
+</script>

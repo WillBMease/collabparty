@@ -1,0 +1,174 @@
+<head>
+
+<style>
+
+html, body {
+height: 100%;
+margin: 0;
+padding: 0;
+}
+
+body {
+    background: -webkit-linear-gradient(right top, #1BCBFF , #1F51AC); 
+    background: -o-linear-gradient(bottom left, #1BCBFF, #1F51AC); 
+    background: -moz-linear-gradient(bottom left, #1BCBFF, #1F51AC); 
+    background: linear-gradient(to bottom left, #1BCBFF , #1F51AC); 
+    background-repeat: none;
+    /*background: #1F51AC;*/
+    /*padding-bottom: 150px;*/
+    overflow: hidden;
+}
+
+.menubar {
+	position: fixed;
+	/*background: white;*/
+	width: 100%;
+	height: 50px;
+	top: 0;
+	left: 0;
+}
+
+.centerContent {
+	position: relative;
+	top: 30px;
+}
+
+.title {
+	position: relative;
+	color: white;
+	font-size: 72px;
+}
+
+.description {
+	color: white;
+	position: relative;
+	font-size: 32px;
+	top: -40px;
+}
+
+.buttons {
+	border: 2px dotted white;
+	position: relative;
+	background: none;
+	color: white;
+	font-size: 20px;
+	border-radius: 10px;
+	-webkit-transition: all .4s ease;
+  	transition: all .4s ease;
+}
+
+.buttons:hover {
+	-webkit-transition: all .4s ease;
+  	transition: all .4s ease;
+  	border: 3px solid white;
+}
+
+#login {
+	float: right;
+	width: 100px;
+	height: 50px;
+}
+
+#signup {
+	float: right;
+	width: 100px;
+	height: 50px;
+}
+
+#generate {
+	width: 200px;
+	height: 100px;
+}
+
+#uuid {
+	color: white;
+	font-size: 30px;
+}
+
+</style>
+
+<script src="/js/dependencies/sails.io.js"></script>
+<script src="/js/dependencies/jquery.min.js"></script>
+
+</head>
+
+<div class="menubar">
+	<button id="login" class="buttons" onclick="window.location.href='/login'">Login</button>
+	<button id="signup" class="buttons" onclick="window.location.href='/register'">Sign up </button>
+</div>
+
+<center>
+	<div class="centerContent">
+		<h1 class="title"> Louder </h1>
+		<h3 class="description">Sync phone speakers with friends</h3>
+		<button id="generate" class="buttons">Create Room</button>
+		<p id="uuid"></p>
+		<input type="text" placeholder="join room...">
+		<button class="buttons">Join</button>
+	</div>
+</center>
+
+
+
+
+<script>
+
+var id
+
+io.socket.post('/Room/generateCode', '')
+
+io.socket.on('receiveCode', function (data){
+	$('#uuid').text('https://louderapp.herokuapp.com/'+data.uuid)
+	id = data.uuid
+})
+
+var low = 999999
+
+io.socket.on('pong', function (data){
+	console.log(data)
+	var end = +new Date()
+	var result = (end - data.start) / 2
+	console.log(result)
+	if (result < low){
+		low = result
+	}
+})
+
+// var pingInt = setInterval(ping(), 200)
+
+var pingct = 0
+for (var i = 0 ; i < 10 ; i++){
+	setTimeout(function(){
+		var obj = {}
+	obj.start = +new Date()
+	io.socket.post('/Room/ping/', obj)
+	pingct++
+	if (pingct > 20){
+		// clearInterval(pingInt)
+		console.log(low)
+	}
+	}, i*100)
+}
+// ping()
+// ping()
+
+function ping(){
+	var obj = {}
+	obj.start = +new Date()
+	io.socket.post('/Room/ping/', obj)
+	pingct++
+	if (pingct > 20){
+		clearInterval(pingInt)
+		console.log(low)
+	}
+}
+
+$('#generate').click(function(){
+	window.location.href += 'room?#' + id
+	// window.location.hash = id
+	// window.reload()
+})
+
+
+
+</script>
