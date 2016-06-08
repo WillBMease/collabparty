@@ -27,16 +27,16 @@ module.exports = {
 	generateCode: function(req, res){
 		generateUUID(function (uuid){
 			req.socket.emit('receiveCode', {uuid: uuid})
-			// sails.sockets.blast('receiveCode', {uuid: uuid})
 		})
 	},
 
 	ping: function(req, res){
-		// req.body.server = +new Date()
-		console.log('ping')
 		res.send(req.body)
-		// sails.sockets.blast('pong', req.body)
 	},
+
+  storeOffset: function(req, res){
+    console.log(req.body)
+  },
 
   addSong: function(req, res){
     console.log('add song')
@@ -56,7 +56,6 @@ module.exports = {
   },
 
   join: function(req, res){
-    console.log('join')
     sails.sockets.join(req, req.body.code)
   }
 

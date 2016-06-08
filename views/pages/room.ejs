@@ -199,7 +199,7 @@ var pingct = 0
 function ping(){
 	var obj = {}
 	obj.start = +new Date()
-	io.socket.post('/Room/ping/', obj, function(data){
+	io.socket.post('/Room/ping/', obj, function (data){
     var end = +new Date()
     var result = (end - data.start) / 2
     if (result < low){
@@ -210,6 +210,7 @@ function ping(){
 	if (pingct > 20){
 		clearInterval(pingInt)
 		console.log(low)
+    io.socket.post('/Room/storeOffset', {low: low})
 	}
 }
 
