@@ -181,7 +181,7 @@ setTimeout(function(){
 		// $('#titleName').text('laptop')
 }, 2000)
 
-var code = null
+var code = null, myid = Math.floor(Math.random() * 99999)
 
 $(document).ready(function(){
 	console.log((window.location.hash).replace('#', ''))
@@ -230,13 +230,20 @@ $('#invite').click(function(){
 var checkLoadedInt
 
 function checkLoaded(url){
-  if ($('#song1').get(0).duration < 1){
-    $('#song1').get(0).src = url
-  }
-  else {
-    clearInterval(checkLoadedInt)
-  }
+  // if ($('#song1').get(0).duration < 1){
+  //   $('#song1').get(0).src = url
+  // }
+  // else {
+  //   clearInterval(checkLoadedInt)
+  // }
+  io.socket.post('/Room/currentTime', {id: myid, code: code, currentTime: $('#song1').get(0).currentTime})
 }
+
+io.socket.on('currentTime', function (data){
+  if (data.id != myid){
+    $('#song1').get(0).currentTime = data.currentTime
+  }
+})
 
 io.socket.on('addSong', function(data){
   console.log('got add song message')

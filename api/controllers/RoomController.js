@@ -38,6 +38,10 @@ module.exports = {
     console.log(req.body)
   },
 
+  currentTime: function(req, res){
+    sails.sockets.broadcast(req.body.code, 'currentTime', req.body)
+  },
+
   addSong: function(req, res){
     console.log('add song')
     var url = req.body.url
