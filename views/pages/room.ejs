@@ -254,9 +254,11 @@ io.socket.on('addSong', function(data){
       '</audio>'+
     '</div>')
 
-    $('#song1').get(0).play()
-    $('#song1').get(0).pause()
-    checkLoadedInt = setInterval(checkLoaded(data.url), 2000)
+    setTimeout(function(){
+      $('#song1').get(0).play()
+      $('#song1').get(0).pause()
+      checkLoadedInt = setInterval(checkLoaded(data.url), 2000)
+    }, 2000)
   }, 5000)
 })
 
