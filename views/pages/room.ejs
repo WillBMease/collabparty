@@ -240,7 +240,9 @@ function checkLoaded(url){
 }
 
 io.socket.on('currentTime', function (data){
+  console.log(data)
   if (data.id != myid){
+    console.log('setting time')
     $('#song1').get(0).currentTime = data.currentTime
   }
 })
