@@ -264,11 +264,11 @@ $('#add').click(function(){
   var url = $('#ytsearch').val()
   io.socket.post('/Room/addSong', {url: url, code: code})
   $('#ytsearch').val('')
-  setTimeout(function(){
-    $('#song1').get(0).play()
-    $('#song1').get(0).pause()
-    checkLoadedInt = setInterval(checkLoaded(data.url), 2000)
-  }, 7000)
+  // setTimeout(function(){
+  //   $('#song1').get(0).play()
+  //   $('#song1').get(0).pause()
+  //   checkLoadedInt = setInterval(checkLoaded(data.url), 2000)
+  // }, 7000)
 })
 
 $('#play').click(function(){
@@ -278,6 +278,7 @@ $('#play').click(function(){
     currentTime: $('#song1').get(0).currentTime,
     id: myid
   }
+  $('#song1').get(0).play()
   io.socket.post('/Room/play', low)
 })
 
