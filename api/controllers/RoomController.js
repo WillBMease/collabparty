@@ -22,6 +22,8 @@ var chosen = [alphabet, digits]
     callback(uuid);
 }
 
+var offsets = []
+
 module.exports = {
 
 	generateCode: function(req, res){
@@ -31,11 +33,16 @@ module.exports = {
 	},
 
 	ping: function(req, res){
+    req.body.server = +new Date()
 		res.send(req.body)
 	},
 
   storeOffset: function(req, res){
-    console.log(req.body)
+    offsets[req.body.id] = req.body.offset
+  },
+
+  play: function(req, res){
+    sails.sockets.broadcast(req.body.code, 'play', req.body)
   },
 
   currentTime: function(req, res){
