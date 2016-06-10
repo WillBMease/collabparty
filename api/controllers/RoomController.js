@@ -42,10 +42,12 @@ module.exports = {
   },
 
   play: function(req, res){
+    console.log('play')
     sails.sockets.broadcast(req.body.code, 'play', req.body)
   },
 
   updateTime: function(req, res){
+    console.log('updateTime')
     sails.sockets.broadcast(req.body.code, 'updateTime', req.body)
   },
 
