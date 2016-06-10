@@ -280,8 +280,11 @@ $('#add').click(function(){
   // }, 7000)
 })
 
+var updateTimeInt
+
 $('#play').click(function(){
   var obj = {
+    code: code,
     time: +new Date(),
     offset: low.offset,
     currentTime: $('#song1').get(0).currentTime,
@@ -289,13 +292,37 @@ $('#play').click(function(){
   }
   $('#song1').get(0).play()
   io.socket.post('/Room/play', low)
+  updateTimeInt = setInterval(updateTime, 1000)
+})
+
+function updateTime(){
+  var obj = {
+    code: code,
+    time: +new Date(),
+    offset: low.offset,
+    currentTime: $('#song1').get(0).currentTime,
+    id: myid
+  }
+  $('#song1').get(0).play()
+  io.socket.post('/Room/updateTime', low)
+}
+
+io.socket.on('updateTime', function (data){
+  if (myid != data.id){
+    var offset = low.offset - data.offset
+    var delay = +new Date() - data.time - offset
+    $('#song1').get(0).currentTime += delay/1000
+    // $('#song1').get(0).play()
+  }
 })
 
 io.socket.on('play', function (data){
-  var offset = low.offset - data.offset
-  var delay = +new Date() - data.time - offset
-  $('#song1').get(0).currentTime += delay/1000
-  $('#song1').get(0).play()
+  if (myid != data.id){
+    var offset = low.offset - data.offset
+    var delay = +new Date() - data.time - offset
+    $('#song1').get(0).currentTime += delay/1000
+    $('#song1').get(0).play()
+  }
 })
 
 

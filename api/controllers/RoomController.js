@@ -45,6 +45,10 @@ module.exports = {
     sails.sockets.broadcast(req.body.code, 'play', req.body)
   },
 
+  updateTime: function(req, res){
+    sails.sockets.broadcast(req.body.code, 'updateTime', req.body)
+  },
+
   currentTime: function(req, res){
     sails.sockets.broadcast(req.body.code, 'currentTime', req.body)
   },
@@ -52,17 +56,17 @@ module.exports = {
   addSong: function(req, res){
     console.log('add song')
     var url = req.body.url
-    var video = youtubedl(url, ['-x', '--extract-audio', '--audio-format', 'mp3'])
-
-    // Will be called when the download starts.
-    video.on('info', function(info) {
-      console.log('Download started');
-      console.log('filename: ' + info.filename);
-      console.log('size: ' + info.size);
-    })
+    // var video = youtubedl(url, ['-x', '--extract-audio', '--audio-format', 'mp3'])
+    //
+    // // Will be called when the download starts.
+    // video.on('info', function(info) {
+    //   console.log('Download started');
+    //   console.log('filename: ' + info.filename);
+    //   console.log('size: ' + info.size);
+    // })
 
     var split = url.split('watch?v=')
-    video.pipe(fs.createWriteStream('assets/styles/' + split[1] + '.mp3'));
+    // video.pipe(fs.createWriteStream('assets/styles/' + split[1] + '.mp3'));
     sails.sockets.broadcast(req.body.code, 'addSong', {url: '/styles/' + split[1] + '.mp3'})
   },
 
