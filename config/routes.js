@@ -40,11 +40,15 @@ module.exports.routes = {
     view: 'pages/room'
   },
 
+  '/mobile': {
+    view: 'pages/mobile'
+  },
+
   'get /login': 'AuthController.login',
   'get /logout': 'AuthController.logout',
   'get /register': 'AuthController.register',
   'post /auth/local': 'AuthController.callback',
-  'post /auth/local/:action': 'AuthController.callback', 
+  'post /auth/local/:action': 'AuthController.callback',
 
   //actually we don't need this code below for this tutorial
   'get /auth/:provider': 'AuthController.provider',
