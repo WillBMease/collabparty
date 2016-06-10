@@ -318,12 +318,12 @@ io.socket.on('updateTime', function (data){
   if (myid != data.id){
     console.log('inside')
     var offset = low.offset - data.offset
-    var delay = ((+new Date() - data.time - offset) / 1000).toFixed(6)
+    var delay = ((+new Date() - data.time + offset) / 1000).toFixed(6)
     var time = data.currentTime + delay
     console.log(delay)
     console.log(player.currentTime)
     if ( !(Math.abs(player.currentTime - time) < 0.045) )
-      player.currentTime = parseInt( time + 0.5 )
+      player.currentTime = parseInt( time + 0.65 )
     // player.play()
   }
 })
