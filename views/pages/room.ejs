@@ -127,7 +127,7 @@ body {
 
 <div id="enable">ENABLE</div>
 <audio id="enableAudio" style="display:none;">
-  <source src="/audio/jhgVu2lsi_k.mp3" type="audio/mp3">
+  <source src="/styles/F9AIkWRD1EQ.mp3" type="audio/mp3">
 </audio>
 
 <!-- <ul id="songs"></ul> -->
@@ -150,6 +150,10 @@ body {
 
 <script>
 
+$('#enable').click(function(){
+  $('#enableAudio').get(0).play()
+  $('#enableAudio').get(0).pause()
+})
 
 function detectmob() {
  if( navigator.userAgent.match(/Android/i)
@@ -256,7 +260,7 @@ io.socket.on('addSong', function(data){
         '<source src="'+data.url+'" type="audio/mp3">'+
       '</audio>'+
     '</div>')
-  }, 5000)
+  }, 7500)
 })
 
 $('#add').click(function(){
