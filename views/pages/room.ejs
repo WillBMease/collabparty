@@ -246,32 +246,33 @@ $('#invite').click(function(){
 var checkLoadedInt
 
 function checkLoaded(url){
-  // if ($('#song1').get(0).duration < 1){
-  //   $('#song1').get(0).src = url
+  // if (player.duration < 1){
+  //   player.src = url
   // }
   // else {
   //   clearInterval(checkLoadedInt)
   // }
-  // io.socket.post('/Room/currentTime', {id: myid, code: code, currentTime: $('#song1').get(0).currentTime})
+  // io.socket.post('/Room/currentTime', {id: myid, code: code, currentTime: player.currentTime})
 }
 
 io.socket.on('currentTime', function (data){
   console.log(data)
   if (data.id != myid){
     console.log('setting time')
-    $('#song1').get(0).currentTime = data.currentTime
+    player.currentTime = data.currentTime
   }
 })
 
 io.socket.on('addSong', function(data){
   console.log('got add song message')
-  setTimeout(function(){
+  // setTimeout(function(){
     $('#songList').append('<div class="song">'+
       '<audio id="song1" controls>'+
         '<source src="'+data.url+'" type="audio/mp3">'+
       '</audio>'+
     '</div>')
-  }, 10)
+    player = document.getElementById('song1')
+  // }, 10)
 })
 
 $('#add').click(function(){
@@ -280,23 +281,23 @@ $('#add').click(function(){
   io.socket.post('/Room/addSong', {url: url, code: code})
   $('#ytsearch').val('')
   // setTimeout(function(){
-  //   $('#song1').get(0).play()
-  //   $('#song1').get(0).pause()
+  //   player.play()
+  //   player.pause()
   //   checkLoadedInt = setInterval(checkLoaded(data.url), 2000)
   // }, 7000)
 })
 
-var updateTimeInt
+var updateTimeInt, player
 
 $('#play').click(function(){
   var obj = {
     code: code,
     time: +new Date(),
     offset: low.offset,
-    currentTime: $('#song1').get(0).currentTime,
+    currentTime: player.currentTime,
     id: myid
   }
-  $('#song1').get(0).play()
+  player.play()
   io.socket.post('/Room/play', obj)
   updateTimeInt = setInterval(updateTime, 1000)
 })
@@ -306,7 +307,7 @@ function updateTime(){
     code: code,
     time: +new Date(),
     offset: low.offset,
-    currentTime: $('#song1').get(0).currentTime,
+    currentTime: player.currentTime,
     id: myid
   }
   io.socket.post('/Room/updateTime', obj)
@@ -321,8 +322,8 @@ io.socket.on('updateTime', function (data){
     console.log(delay)
     if (delay < 0)
       delay = 0
-    $('#song1').get(0).currentTime = ($('#song1').get(0).currentTime).toFixed(6) + delay
-    // $('#song1').get(0).play()
+    player.currentTime = (player.currentTime).toFixed(6) + delay
+    // player.play()
   }
 })
 
@@ -335,8 +336,8 @@ io.socket.on('play', function (data){
     console.log(delay)
     if (delay < 0)
       delay = 0
-    $('#song1').get(0).currentTime = ($('#song1').get(0).currentTime).toFixed(6) + delay
-    $('#song1').get(0).play()
+    player.currentTime = (player.currentTime).toFixed(6) + delay
+    player.play()
   }
 })
 
