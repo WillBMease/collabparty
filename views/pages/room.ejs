@@ -265,7 +265,7 @@ io.socket.on('addSong', function(data){
         '<source src="'+data.url+'" type="audio/mp3">'+
       '</audio>'+
     '</div>')
-  }, 7500)
+  }, 10)
 })
 
 $('#add').click(function(){
@@ -303,7 +303,6 @@ function updateTime(){
     currentTime: $('#song1').get(0).currentTime,
     id: myid
   }
-  $('#song1').get(0).play()
   io.socket.post('/Room/updateTime', obj)
 }
 
@@ -312,11 +311,11 @@ io.socket.on('updateTime', function (data){
   if (myid != data.id){
     console.log('inside')
     var offset = low.offset - data.offset
-    var delay = +new Date() - data.time - offset
+    var delay = ((+new Date() - data.time - offset) / 1000).toFixed(6)
     console.log(delay)
     if (delay < 0)
       delay = 0
-    $('#song1').get(0).currentTime += (delay/1000).toFixed(6)
+    $('#song1').get(0).currentTime = ($('#song1').get(0).currentTime).toFixed(6) + delay
     // $('#song1').get(0).play()
   }
 })
@@ -326,11 +325,11 @@ io.socket.on('play', function (data){
   if (myid != data.id){
     console.log('inside')
     var offset = low.offset - data.offset
-    var delay = +new Date() - data.time - offset
+    var delay = ((+new Date() - data.time - offset) / 1000).toFixed(6)
     console.log(delay)
     if (delay < 0)
       delay = 0
-    $('#song1').get(0).currentTime += (delay/1000).toFixed(2)
+    $('#song1').get(0).currentTime = ($('#song1').get(0).currentTime).toFixed(6) + delay
     $('#song1').get(0).play()
   }
 })
