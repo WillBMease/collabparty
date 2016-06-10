@@ -322,6 +322,7 @@ io.socket.on('updateTime', function (data){
     console.log(delay)
     if (delay < 0)
       delay = 0
+    console.log(player.currentTime)
     player.currentTime = (player.currentTime).toFixed(6) + delay
     // player.play()
   }
