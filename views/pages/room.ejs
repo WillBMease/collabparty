@@ -313,6 +313,9 @@ io.socket.on('updateTime', function (data){
     console.log('inside')
     var offset = low.offset - data.offset
     var delay = +new Date() - data.time - offset
+    console.log(delay)
+    if (delay < 0)
+      delay = 0
     $('#song1').get(0).currentTime += (delay/1000).toFixed(6)
     // $('#song1').get(0).play()
   }
@@ -324,6 +327,9 @@ io.socket.on('play', function (data){
     console.log('inside')
     var offset = low.offset - data.offset
     var delay = +new Date() - data.time - offset
+    console.log(delay)
+    if (delay < 0)
+      delay = 0
     $('#song1').get(0).currentTime += (delay/1000).toFixed(2)
     $('#song1').get(0).play()
   }
