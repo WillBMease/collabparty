@@ -291,7 +291,7 @@ $('#play').click(function(){
     id: myid
   }
   $('#song1').get(0).play()
-  io.socket.post('/Room/play', low)
+  io.socket.post('/Room/play', obj)
   updateTimeInt = setInterval(updateTime, 1000)
 })
 
@@ -304,7 +304,7 @@ function updateTime(){
     id: myid
   }
   $('#song1').get(0).play()
-  io.socket.post('/Room/updateTime', low)
+  io.socket.post('/Room/updateTime', obj)
 }
 
 io.socket.on('updateTime', function (data){
