@@ -322,9 +322,9 @@ io.socket.on('updateTime', function (data){
     console.log(time)
     console.log(delay)
     console.log(player.currentTime)
-    if ( player.currentTime - time < 0.045 )
+    if ( player.currentTime - time < 0.025 )
       player.currentTime = parseInt( time + 1.65 )
-    else if (player.currentTime - time > 0.045)
+    else if (player.currentTime - time > 0.025)
       player.currentTime = parseInt( time + 1.65 )
   }
 })
