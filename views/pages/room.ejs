@@ -319,9 +319,7 @@ io.socket.on('updateTime', function (data){
     var offset = parseFloat(low.offset) - parseFloat(data.offset)
     var delay = parseFloat(((+new Date() - data.time + offset) / 1000).toFixed(6))
     var time = data.currentTime + delay
-    console.log(time)
-    console.log(delay)
-    console.log(player.currentTime)
+    console.log(player.currentTime - time)
     if ( player.currentTime - time < 0.025 ){
       player.currentTime = parseFloat( time ) + 0.025
       console.log('below')
