@@ -317,7 +317,7 @@ io.socket.on('updateTime', function (data){
   console.log('updating time')
   if (myid != data.id){
     var offset = parseFloat(low.offset) - parseFloat(data.offset)
-    var delay = ((+new Date() - data.time + offset) / 1000).toFixed(6)
+    var delay = parseFloat((+new Date() - data.time + offset) / 1000).toFixed(6))
     var time = data.currentTime + delay
     console.log(time)
     console.log(delay)
