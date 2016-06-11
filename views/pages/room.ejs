@@ -317,15 +317,15 @@ io.socket.on('updateTime', function (data){
   console.log('updating time')
   if (myid != data.id){
     var offset = parseInt(low.offset) - parseInt(data.offset)
-    var delay = ((+new Date() - parseInt(data.time) + offset) / 1000).toFixed(6)
+    var delay = ((+new Date() - data.time + offset) / 1000).toFixed(6)
     var time = parseInt(data.currentTime) + parseInt(delay)
     console.log(time)
     console.log(delay)
     console.log(player.currentTime)
     if ( player.currentTime - time < 0.025 )
-      player.currentTime = parseInt( time + 1.65 )
+      player.currentTime = parseInt( time ) + 1.65
     else if (player.currentTime - time > 0.025)
-      player.currentTime = parseInt( time + 1.65 )
+      player.currentTime = parseInt( time ) + 1.65
   }
 })
 
@@ -334,7 +334,7 @@ io.socket.on('play', function (data){
   if (myid != data.id){
     console.log('inside')
     var offset = parseInt(low.offset) - parseInt(data.offset)
-    var delay = ((+new Date() - parseInt(data.time) + offset) / 1000).toFixed(6)
+    var delay = ((+new Date() - data.time + offset) / 1000).toFixed(6)
     console.log(delay)
     if (delay < 0)
       delay = 0
