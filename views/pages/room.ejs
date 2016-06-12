@@ -351,11 +351,13 @@ io.socket.on('updateTime', function (data){
     console.log(player.currentTime - time)
 
     if ( player.currentTime - time < 0.025 ){
-      player.currentTime = parseFloat( time ) + learn.adjust('below')
+      console.log(parseFloat( time ) + parseFloat(learn.adjust('below')))
+      player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('below'))
       console.log('below')
     }
     else if (player.currentTime - time > 0.025){
-      player.currentTime = parseFloat( time ) + learn.adjust('above')
+      console.log(parseFloat( time ) + parseFloat(learn.adjust('above')))
+      player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('above'))
       console.log('above')
     }
   }
