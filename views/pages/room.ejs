@@ -246,28 +246,19 @@ $('#invite').click(function(){
 var checkLoadedInt
 
 function checkLoaded(url){
-    var request = new XMLHttpRequest();
-    request.open('GET', url, true);
-    request.onreadystatechange = function(){
-      console.log(request)
-        if (request.readyState === 4){
-            if (request.status === 404) {
-                console.log("Oh no, it does not exist!");
-            }
-        }
-        else {
-          if ($('#song1').length == 0){
-            $('#songList').append('<div class="song">'+
-              '<audio id="song1" controls>'+
-                '<source src="'+url+'" type="audio/mp3">'+
-              '</audio>'+
-            '</div>')
-            player = document.getElementById('song1')
-          }
-          // clearInterval(checkLoadedInt)
-        }
-    };
-    request.send();
+  var mySound = new Audio();
+  mySound.onerror = function(){ checkLoaded(url) }
+  mySound.onsuccess = function(){
+    if ($('#song1').length == 0){
+      $('#songList').append('<div class="song">'+
+        '<audio id="song1" controls>'+
+          '<source src="'+url+'" type="audio/mp3">'+
+        '</audio>'+
+      '</div>')
+      player = document.getElementById('song1')
+    }
+  }
+  mySound.src = url
 }
 
 io.socket.on('currentTime', function (data){
@@ -281,8 +272,8 @@ io.socket.on('currentTime', function (data){
 io.socket.on('addSong', function(data){
   console.log('got add song message')
   // setTimeout(function(){
-  checkLoaded(data.url)
-    // checkLoadedInt = setInterval(checkLoaded(data.url), 1000)
+  // checkLoaded(data.url)
+    checkLoadedInt = setInterval(checkLoaded(data.url), 1000)
   // }, 10)
 })
 
