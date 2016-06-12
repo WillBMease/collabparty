@@ -248,7 +248,7 @@ var checkLoadedInt
 function checkLoaded(url){
   var mySound = new Audio();
   mySound.onerror = function(){ checkLoaded(url) }
-  mySound.onsuccess = function(){
+  mySound.oncanplay = function(){
     if ($('#song1').length == 0){
       $('#songList').append('<div class="song">'+
         '<audio id="song1" controls>'+
