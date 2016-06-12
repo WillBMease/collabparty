@@ -261,20 +261,18 @@ function checkLoaded(url){
   mySound.src = url
 }
 
-io.socket.on('currentTime', function (data){
-  console.log(data)
-  if (data.id != myid){
-    console.log('setting time')
-    player.currentTime = data.currentTime
-  }
-})
-
 io.socket.on('addSong', function(data){
   console.log('got add song message')
-  // setTimeout(function(){
+  setTimeout(function(){
+    $('#songList').append('<div class="song">'+
+      '<audio id="song1" controls>'+
+        '<source src="'+data.url+'" type="audio/mp3">'+
+      '</audio>'+
+    '</div>')
+    player = document.getElementById('song1')
   // checkLoaded(data.url)
-    checkLoadedInt = setInterval(checkLoaded(data.url), 1000)
-  // }, 10)
+    // checkLoadedInt = setInterval(checkLoaded(data.url), 1000)
+  }, 7000)
 })
 
 $('#add').click(function(){
