@@ -264,7 +264,7 @@ function checkLoaded(url){
             '</div>')
             player = document.getElementById('song1')
           }
-          clearInterval(checkLoadedInt)
+          // clearInterval(checkLoadedInt)
         }
     };
     request.send();
@@ -281,7 +281,8 @@ io.socket.on('currentTime', function (data){
 io.socket.on('addSong', function(data){
   console.log('got add song message')
   // setTimeout(function(){
-    checkLoadedInt = setInterval(checkLoaded(data.url), 1000)
+  checkLoaded(data.url)
+    // checkLoadedInt = setInterval(checkLoaded(data.url), 1000)
   // }, 10)
 })
 
