@@ -246,7 +246,6 @@ $('#invite').click(function(){
 var checkLoadedInt
 
 function checkLoaded(url){
-  if (player.duration < 1){
     var request = new XMLHttpRequest();
     request.open('GET', url, true);
     request.onreadystatechange = function(){
@@ -261,14 +260,10 @@ function checkLoaded(url){
               '<source src="'+url+'" type="audio/mp3">'+
             '</audio>'+
           '</div>')
+          clearInterval(checkLoadedInt)
         }
     };
     request.send();
-  }
-  else {
-    clearInterval(checkLoadedInt)
-  }
-  // io.socket.post('/Room/currentTime', {id: myid, code: code, currentTime: player.currentTime})
 }
 
 io.socket.on('currentTime', function (data){
