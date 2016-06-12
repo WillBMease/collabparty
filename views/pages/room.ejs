@@ -247,7 +247,23 @@ var checkLoadedInt
 
 function checkLoaded(url){
   if (player.duration < 1){
-    player.src = url
+    var request = new XMLHttpRequest();
+    request.open('GET', url, true);
+    request.onreadystatechange = function(){
+        if (request.readyState === 4){
+            if (request.status === 404) {
+                alert("Oh no, it does not exist!");
+            }
+        }
+        elst {
+          $('#songList').append('<div class="song">'+
+            '<audio id="song1" controls>'+
+              '<source src="'+url+'" type="audio/mp3">'+
+            '</audio>'+
+          '</div>')
+        }
+    };
+    request.send();
   }
   else {
     clearInterval(checkLoadedInt)
@@ -266,11 +282,6 @@ io.socket.on('currentTime', function (data){
 io.socket.on('addSong', function(data){
   console.log('got add song message')
   // setTimeout(function(){
-    $('#songList').append('<div class="song">'+
-      '<audio id="song1" controls>'+
-        '<source src="'+data.url+'" type="audio/mp3">'+
-      '</audio>'+
-    '</div>')
     player = document.getElementById('song1')
     checkLoadedInt = setInterval(checkLoaded(data.url), 1000)
   // }, 10)
