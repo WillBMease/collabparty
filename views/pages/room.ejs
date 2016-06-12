@@ -246,12 +246,12 @@ $('#invite').click(function(){
 var checkLoadedInt
 
 function checkLoaded(url){
-  // if (player.duration < 1){
-  //   player.src = url
-  // }
-  // else {
-  //   clearInterval(checkLoadedInt)
-  // }
+  if (player.duration < 1){
+    player.src = url
+  }
+  else {
+    clearInterval(checkLoadedInt)
+  }
   // io.socket.post('/Room/currentTime', {id: myid, code: code, currentTime: player.currentTime})
 }
 
@@ -283,7 +283,7 @@ $('#add').click(function(){
   // setTimeout(function(){
   //   player.play()
   //   player.pause()
-  //   checkLoadedInt = setInterval(checkLoaded(data.url), 2000)
+    checkLoadedInt = setInterval(checkLoaded(data.url), 1000)
   // }, 7000)
 })
 
@@ -313,6 +313,10 @@ function updateTime(){
   io.socket.post('/Room/updateTime', obj)
 }
 
+function learn(){
+
+}
+
 io.socket.on('updateTime', function (data){
   console.log('updating time')
   if (myid != data.id){
@@ -320,6 +324,7 @@ io.socket.on('updateTime', function (data){
     var delay = parseFloat(((+new Date() - data.time + offset) / 1000).toFixed(6))
     var time = data.currentTime + delay
     console.log(player.currentTime - time)
+
     if ( player.currentTime - time < 0.025 ){
       player.currentTime = parseFloat( time ) + 0.25
       console.log('below')
