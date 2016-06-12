@@ -249,17 +249,20 @@ function checkLoaded(url){
     var request = new XMLHttpRequest();
     request.open('GET', url, true);
     request.onreadystatechange = function(){
+      console.log(request)
         if (request.readyState === 4){
             if (request.status === 404) {
                 alert("Oh no, it does not exist!");
             }
         }
         else {
-          $('#songList').append('<div class="song">'+
-            '<audio id="song1" controls>'+
-              '<source src="'+url+'" type="audio/mp3">'+
-            '</audio>'+
-          '</div>')
+          if ($('#song1').length == 0){
+            $('#songList').append('<div class="song">'+
+              '<audio id="song1" controls>'+
+                '<source src="'+url+'" type="audio/mp3">'+
+              '</audio>'+
+            '</div>')
+          }
           clearInterval(checkLoadedInt)
         }
     };
