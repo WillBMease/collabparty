@@ -343,12 +343,12 @@ io.socket.on('updateTime', function (data){
     console.log('time: ' + time)
     console.log(player.currentTime - time)
 
-    if ( player.currentTime - time < 0.08 ){
+    if ( player.currentTime - time < -0.06 ){
       console.log(parseFloat( time ) + parseFloat(learn.adjust('below')))
       player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('below'))
       console.log('below')
     }
-    else if (player.currentTime - time > 0.08){
+    else if (player.currentTime - time > 0.06){
       console.log(parseFloat( time ) + parseFloat(learn.adjust('above')))
       player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('above'))
       console.log('above')
