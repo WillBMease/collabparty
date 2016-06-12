@@ -323,9 +323,24 @@ function updateTime(){
   io.socket.post('/Room/updateTime', obj)
 }
 
-function learn(){
+var Learn = function(){
+  this.increment = 0
 
+  this.adjust = function(status){
+    if (status == 'above'){
+      if (this.increment > 0)
+        this.increment = 0
+      this.increment -= 0.025
+    }
+    else if (status == 'below'){
+      if (this.increment < 0)
+        this.increment = 0
+      this.increment += 0.025
+    }
+  }
 }
+
+var learn = Learn()
 
 io.socket.on('updateTime', function (data){
   console.log('updating time')
@@ -336,11 +351,11 @@ io.socket.on('updateTime', function (data){
     console.log(player.currentTime - time)
 
     if ( player.currentTime - time < 0.025 ){
-      player.currentTime = parseFloat( time ) + 0.25
+      player.currentTime = parseFloat( time ) + learn.adjust('below')
       console.log('below')
     }
     else if (player.currentTime - time > 0.025){
-      player.currentTime = parseFloat( time )
+      player.currentTime = parseFloat( time ) + learn.adjust('above')
       console.log('above')
     }
   }
