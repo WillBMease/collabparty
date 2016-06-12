@@ -299,7 +299,7 @@ $('#play').click(function(){
   }
   player.play()
   io.socket.post('/Room/play', obj)
-  updateTimeInt = setInterval(updateTime, 1000)
+  updateTimeInt = setInterval(updateTime, 400)
 })
 
 function updateTime(){
@@ -320,12 +320,12 @@ var Learn = function(){
     if (status == 'above'){
       if (this.increment > 0)
         this.increment = 0
-      this.increment -= 0.025
+      this.increment -= 0.001
     }
     else if (status == 'below'){
       if (this.increment < 0)
         this.increment = 0
-      this.increment += 0.025
+      this.increment += 0.001
     }
     return this.increment
   }
