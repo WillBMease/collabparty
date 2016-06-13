@@ -323,7 +323,7 @@ $('#add').click(function(){
 var updateTimeInt, player, myAudio, playing = false
 
 $('#play').click(function(){
-  if (playing){
+  if (!playing){
     $(this).text('play')
     playing = true
     var obj = {
