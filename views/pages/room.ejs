@@ -289,10 +289,11 @@ io.socket.on('addSong', function(data){
       '</audio>'+
     '</div>')
 
-    var myAudio = document.getElementById('song1')
-    player = context.createMediaElementSource(myAudio);
-    player.connect(visualizer)
+    player = document.getElementById('song1')
+    audio = context.createMediaElementSource(player);
+    audio.connect(visualizer)
     console.log(player)
+    console.log(audio)
     // player = document.getElementById('song1')
   // checkLoaded(data.url)
     // checkLoadedInt = setInterval(checkLoaded(data.url), 1000)
@@ -311,7 +312,7 @@ $('#add').click(function(){
   // }, 7000)
 })
 
-var updateTimeInt, player
+var updateTimeInt, player, myAudio
 
 $('#play').click(function(){
   var obj = {
@@ -321,8 +322,8 @@ $('#play').click(function(){
     currentTime: player.currentTime,
     id: myid
   }
-  player.start()
-  // player.play()
+  // player.start()
+  player.play()
   io.socket.post('/Room/play', obj)
   updateTimeInt = setInterval(updateTime, 400)
 })
@@ -392,8 +393,8 @@ io.socket.on('play', function (data){
       delay = 0
 
     player.currentTime = parseFloat( (player.currentTime).toFixed(6) + parseFloat(delay) )
-    // player.play()
-    player.start()
+    player.play()
+    // player.start()
   }
 })
 
