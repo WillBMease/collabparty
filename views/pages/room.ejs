@@ -154,9 +154,12 @@ body {
 	<div class="song"></div> -->
 </div>
 
+<canvas id="freq"></canvas>
+
 
 </center>
 
+<script src="/js/visualizer.js"></script>
 <!-- <script src="/js/youtube.js"></script> -->
 
 <script>
@@ -261,6 +264,22 @@ function checkLoaded(url){
   mySound.src = url
 }
 
+// var song
+//
+// function loadSound(url) {
+//   var request = new XMLHttpRequest();
+//   request.open('GET', url, true);
+//   request.responseType = 'arraybuffer';
+//
+//   // Decode asynchronously
+//   request.onload = function() {
+//     context.decodeAudioData(request.response, function(buffer) {
+//       song = buffer;
+//     }, onError);
+//   }
+//   request.send();
+// }
+
 io.socket.on('addSong', function(data){
   console.log('got add song message')
   setTimeout(function(){
@@ -269,7 +288,11 @@ io.socket.on('addSong', function(data){
         '<source src="'+data.url+'" type="audio/mp3">'+
       '</audio>'+
     '</div>')
-    player = document.getElementById('song1')
+
+    var myAudio = document.getElementById('song1')
+    player = context.createMediaElementSource(myAudio);
+    player.connect(visualizer)
+    // player = document.getElementById('song1')
   // checkLoaded(data.url)
     // checkLoadedInt = setInterval(checkLoaded(data.url), 1000)
   }, 7000)
@@ -297,7 +320,8 @@ $('#play').click(function(){
     currentTime: player.currentTime,
     id: myid
   }
-  player.play()
+  player.start()
+  // player.play()
   io.socket.post('/Room/play', obj)
   updateTimeInt = setInterval(updateTime, 400)
 })
@@ -365,8 +389,10 @@ io.socket.on('play', function (data){
     console.log(delay)
     if (delay < 0)
       delay = 0
+
     player.currentTime = parseFloat( (player.currentTime).toFixed(6) + parseFloat(delay) )
-    player.play()
+    // player.play()
+    player.start()
   }
 })
 
