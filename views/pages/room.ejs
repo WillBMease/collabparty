@@ -365,9 +365,12 @@ io.socket.on('updateTime', function (data){
     var offset = parseFloat(low.offset) - parseFloat(data.offset)
     var delay = parseFloat(((+new Date() - data.time + offset) / 1000).toFixed(6))
     var time = data.currentTime + delay
-    console.log('currentTime: ' + player.currentTime)
+    console.log('low.offset: ' + low.offset)
+    console.log('data.offset: ' + data.offset)
+    console.log('offset: ' + offset)
+    console.log('data.time: ' + data.time)
+    console.log('delay: ' + delay)
     console.log('time: ' + time)
-    console.log(player.currentTime - time)
 
     if (player.currentTime - time < -0.019){
       console.log(parseFloat( time ) + parseFloat(learn.adjust('below')))
