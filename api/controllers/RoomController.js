@@ -46,6 +46,11 @@ module.exports = {
     sails.sockets.broadcast(req.body.code, 'play', req.body)
   },
 
+  pause: function(req, res){
+    console.log('pause')
+    sails.sockets.broadcast(req.body.code, 'pause', req.body)
+  },
+
   updateTime: function(req, res){
     console.log('updateTime')
     sails.sockets.broadcast(req.body.code, 'updateTime', req.body)

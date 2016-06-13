@@ -320,20 +320,36 @@ $('#add').click(function(){
   // }, 7000)
 })
 
-var updateTimeInt, player, myAudio
+var updateTimeInt, player, myAudio, playing = false
 
 $('#play').click(function(){
-  var obj = {
-    code: code,
-    time: +new Date(),
-    offset: low.offset,
-    currentTime: player.currentTime,
-    id: myid
+  if (playing){
+    playing = true
+    var obj = {
+      code: code,
+      time: +new Date(),
+      offset: low.offset,
+      currentTime: player.currentTime,
+      id: myid
+    }
+
+    player.play()
+    io.socket.post('/Room/play', obj)
+    updateTimeInt = setInterval(updateTime, 400)
   }
-  // player.start()
-  player.play()
-  io.socket.post('/Room/play', obj)
-  updateTimeInt = setInterval(updateTime, 400)
+  else {
+    var obj = {
+      code: code,
+      time: +new Date(),
+      offset: low.offset,
+      currentTime: player.currentTime,
+      id: myid
+    }
+    playing = false
+    player.pause()
+    io.socket.post('/Room/pause', obj)
+    clearInterval(updateTimeInt)
+  }
 })
 
 function updateTime(){
@@ -409,6 +425,13 @@ io.socket.on('play', function (data){
     player.currentTime = parseFloat( (player.currentTime).toFixed(6) + parseFloat(delay) )
     player.play()
     // player.start()
+  }
+})
+
+io.socket.on('pause', function (data){
+  console.log('pause')
+  if (myid != data.id){
+    player.pause()
   }
 })
 
