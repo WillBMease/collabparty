@@ -292,6 +292,7 @@ io.socket.on('addSong', function(data){
     var myAudio = document.getElementById('song1')
     player = context.createMediaElementSource(myAudio);
     player.connect(visualizer)
+    console.log(player)
     // player = document.getElementById('song1')
   // checkLoaded(data.url)
     // checkLoadedInt = setInterval(checkLoaded(data.url), 1000)
