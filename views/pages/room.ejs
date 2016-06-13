@@ -362,6 +362,9 @@ var learn = new Learn()
 io.socket.on('updateTime', function (data){
   console.log('updating time')
   if (myid != data.id){
+    if (isNaN(low.offset)){
+      low.offset = data.offset
+    }
     var offset = parseFloat(low.offset) - parseFloat(data.offset)
     var delay = parseFloat(((+new Date() - data.time + offset) / 1000).toFixed(6))
     var time = data.currentTime + delay
