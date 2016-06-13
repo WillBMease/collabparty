@@ -324,6 +324,7 @@ var updateTimeInt, player, myAudio, playing = false
 
 $('#play').click(function(){
   if (playing){
+    $(this).text('play')
     playing = true
     var obj = {
       code: code,
@@ -338,6 +339,7 @@ $('#play').click(function(){
     updateTimeInt = setInterval(updateTime, 400)
   }
   else {
+    $(this).text('pause')
     var obj = {
       code: code,
       time: +new Date(),
