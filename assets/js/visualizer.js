@@ -44,15 +44,15 @@ var frameSwitch = function() {
 
 }
 
-      var canv = document.getElementById('freq');
-      var visLine = canv.getContext('2d');
+var canv = document.getElementById('freq');
+var visLine = canv.getContext('2d');
 
 
 var draw = function(){
   // context.clearcanv();
   visLine.clearRect(0,0,canv.width,canv.height)
-  // visualizer.fftSize = 512;
-  visualizer.fftSize = 1024;
+  visualizer.fftSize = 512;
+  // visualizer.fftSize = 1024;
 
   // visualizer.fftSize = 2048
   visualizer.getByteTimeDomainData(timeData);
@@ -114,7 +114,7 @@ var draw = function(){
     // })
     }
   }
-        visLine.lineWidth = 1;
+      visLine.lineWidth = 1;
       visLine.strokeStyle = 'white';
       // visLine.shadowBlur = 3;
       // visLine.hei
