@@ -24,7 +24,7 @@ $('#ytsearch').each(function() {
     			$('.results').empty()
     			// $('#sortable').hide()
     			$.each(results.items, function(index, item) {
-    				autocomplete(item.snippet.title, item.id.videoId)
+    				autocomplete(item.snippet.title, item.id.videoId, item.snippet.thumbnails.high.url)
     			})
     		})
      }
@@ -33,13 +33,13 @@ $('#ytsearch').each(function() {
 
 
 
-function autocomplete(title, id){
+function autocomplete(title, id, image){
   $('.results').append('<li id="'+id+'" class="resultItem">'+title+'</li>')
   $('#'+id).click(function(){
     var url = 'https://www.youtube.com/watch?v=' + id
     io.socket.post('/Room/addSong', {url: url, code: code})
     $('#ytsearch').val('')
-    $('.albumArt').css('background-image', url(item.snippet.thumbnails.high.url))
+    $('.albumArt').css('background-image', url(image))
   })
 	// $('#sr').append('<div id="'+id+'" class="rs">'+title+"</div>")
 	// $('#'+id).click(function(){
