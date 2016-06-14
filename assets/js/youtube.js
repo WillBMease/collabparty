@@ -49,7 +49,7 @@ $('#ytsearch').focus(function(){
 })
 
 $('#ytsearch').focusout(function(){
-  $('.results').hide().empty()
+  $('.results').hide()
 })
 
 function ytinit() {
