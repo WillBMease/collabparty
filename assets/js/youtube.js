@@ -12,7 +12,7 @@ $('#ytsearch').each(function() {
     			// type: "video",
           // type: "search",
     			q: encodeURIComponent(elem.val()).replace(/%20/g, '+'),
-    			maxResults: 10,
+    			maxResults: 25,
     			order: "viewCount"
     			// publishedAfter: "2015-01-01T00:00:00Z"
     		})
