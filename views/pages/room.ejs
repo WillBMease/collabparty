@@ -181,7 +181,7 @@ body {
 
 <div id="songList">
   <div class="song">
-    <audio id="song1" controls>
+    <audio id="song" controls>
       <source src="" type="audio/mp3">
     </audio>
   </div>
@@ -281,7 +281,7 @@ $('#invite').click(function(){
 
 var checkLoadedInt
 
-player = document.getElementById('song1')
+player = document.getElementById('song')
 audio = context.createMediaElementSource(player);
 // audio.connect(visualizer)
 audio.connect(context.destination)
@@ -290,11 +290,6 @@ io.socket.on('addSong', function(data){
   console.log('got add song message')
   $('#songList').empty()
   setTimeout(function(){
-    // $('#songList').append('<div class="song">'+
-    //   '<audio id="song1" controls>'+
-    //     '<source src="'+data.url+'" type="audio/mp3">'+
-    //   '</audio>'+
-    // '</div>')
     loadSong(data.url)
   }, 500)
 })
