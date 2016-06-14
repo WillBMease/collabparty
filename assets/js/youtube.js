@@ -34,6 +34,11 @@ $('#ytsearch').each(function() {
 
 function autocomplete(title, id){
   $('.results').append('<li id="'+id+'" class="resultItem">'+title+'</li>')
+  $('#'+id).click(function(){
+    var url = 'https://www.youtube.com/watch?v=' + id
+    io.socket.post('/Room/addSong', {url: url, code: code})
+    $('#ytsearch').val('')
+  })
 	// $('#sr').append('<div id="'+id+'" class="rs">'+title+"</div>")
 	// $('#'+id).click(function(){
 	// 	// socket.emit('sendYT', title, id)

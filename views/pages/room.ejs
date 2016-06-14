@@ -120,6 +120,8 @@ body {
   position: relative;
   width: 100%;
   height: 50px;
+  border-bottom: 1px solid white;
+  font-size: 12px;
 }
 
 </style>
@@ -137,8 +139,8 @@ body {
 <div class="sidebar">
 	<div class="sidetop"></div>
 	<div class="adding">
-		<input id="ytsearch" type="text" value="https://www.youtube.com/watch?v=F9AIkWRD1EQ">
-		<button id="add">Add</button>
+		<input id="ytsearch" type="text">
+		<!-- <button id="add">Add</button> -->
 	</div>
   <ul class="results"></ul>
 </div>
@@ -300,6 +302,7 @@ function checkLoaded(url){
 
 io.socket.on('addSong', function(data){
   console.log('got add song message')
+  $('#songList').empty()
   setTimeout(function(){
     $('#songList').append('<div class="song">'+
       '<audio id="song1" controls>'+
@@ -313,22 +316,22 @@ io.socket.on('addSong', function(data){
     console.log(player)
     console.log(audio)
     // player = document.getElementById('song1')
-  // checkLoaded(data.url)
+    // checkLoaded(data.url)
     // checkLoadedInt = setInterval(checkLoaded(data.url), 1000)
   }, 7000)
 })
 
-$('#add').click(function(){
-	// $('#songList').append('<div class="song">'+$('#ytsearch').val()+'</div>')
-  var url = $('#ytsearch').val()
-  io.socket.post('/Room/addSong', {url: url, code: code})
-  $('#ytsearch').val('')
-  // setTimeout(function(){
-  //   player.play()
-  //   player.pause()
-    // checkLoadedInt = setInterval(checkLoaded(data.url), 1000)
-  // }, 7000)
-})
+// $('#add').click(function(){
+// 	// $('#songList').append('<div class="song">'+$('#ytsearch').val()+'</div>')
+//   // var url = $('#ytsearch').val()
+//   io.socket.post('/Room/addSong', {url: url, code: code})
+//   $('#ytsearch').val('')
+//   // setTimeout(function(){
+//   //   player.play()
+//   //   player.pause()
+//     // checkLoadedInt = setInterval(checkLoaded(data.url), 1000)
+//   // }, 7000)
+// })
 
 var updateTimeInt, player, myAudio, playing = false
 
