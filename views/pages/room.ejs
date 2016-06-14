@@ -180,12 +180,11 @@ body {
 <div class="albumArt"></div>
 
 <div id="songList">
-	<!-- <div class="song"></div>
-	<div class="song"></div>
-	<div class="song"></div>
-	<div class="song"></div>
-	<div class="song"></div>
-	<div class="song"></div> -->
+  <div class="song">
+    <audio id="song1" controls>
+      <source src="" type="audio/mp3">
+    </audio>
+  </div>
 </div>
 
 <canvas id="freq"></canvas>
@@ -282,66 +281,28 @@ $('#invite').click(function(){
 
 var checkLoadedInt
 
-function checkLoaded(url){
-  var mySound = new Audio();
-  mySound.onerror = function(){ checkLoaded(url) }
-  mySound.oncanplaythrough = function(){
-    if ($('#song1').length == 0){
-      $('#songList').append('<div class="song">'+
-        '<audio id="song1" controls>'+
-          '<source src="'+url+'" type="audio/mp3">'+
-        '</audio>'+
-      '</div>')
-      player = document.getElementById('song1')
-    }
-  }
-  mySound.src = url
-}
-
-// var song
-//
-// function loadSound(url) {
-//   var request = new XMLHttpRequest();
-//   request.open('GET', url, true);
-//   request.responseType = 'arraybuffer';
-//
-//   // Decode asynchronously
-//   request.onload = function() {
-//     context.decodeAudioData(request.response, function(buffer) {
-//       song = buffer;
-//     }, onError);
-//   }
-//   request.send();
-// }
+player = document.getElementById('song1')
+audio = context.createMediaElementSource(player);
+// audio.connect(visualizer)
+audio.connect(context.destination)
 
 io.socket.on('addSong', function(data){
   console.log('got add song message')
   $('#songList').empty()
   setTimeout(function(){
-    $('#songList').append('<div class="song">'+
-      '<audio id="song1" controls>'+
-        '<source src="'+data.url+'" type="audio/mp3">'+
-      '</audio>'+
-    '</div>')
-
-    player = document.getElementById('song1')
-    audio = context.createMediaElementSource(player);
-    // audio.connect(visualizer)
-    audio.connect(context.destination)
+    // $('#songList').append('<div class="song">'+
+    //   '<audio id="song1" controls>'+
+    //     '<source src="'+data.url+'" type="audio/mp3">'+
+    //   '</audio>'+
+    // '</div>')
+    loadSong(data.url)
   }, 500)
 })
 
-// $('#add').click(function(){
-// 	// $('#songList').append('<div class="song">'+$('#ytsearch').val()+'</div>')
-//   // var url = $('#ytsearch').val()
-//   io.socket.post('/Room/addSong', {url: url, code: code})
-//   $('#ytsearch').val('')
-//   // setTimeout(function(){
-//   //   player.play()
-//   //   player.pause()
-//     // checkLoadedInt = setInterval(checkLoaded(data.url), 1000)
-//   // }, 7000)
-// })
+function loadSong(url){
+  player.src = url
+  player.load()
+}
 
 var updateTimeInt, player, myAudio, playing = false
 
