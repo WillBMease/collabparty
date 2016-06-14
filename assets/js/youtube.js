@@ -39,7 +39,7 @@ function autocomplete(title, id, image){
     var url = 'https://www.youtube.com/watch?v=' + id
     io.socket.post('/Room/addSong', {url: url, code: code})
     $('#ytsearch').val('')
-    $('.albumArt').css('background-image', url(image))
+    $('.albumArt').css('background-image', 'url('+image+')')
   })
 	// $('#sr').append('<div id="'+id+'" class="rs">'+title+"</div>")
 	// $('#'+id).click(function(){
