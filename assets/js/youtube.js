@@ -8,7 +8,7 @@ $('#ytsearch').each(function() {
         elem.data('oldVal', elem.val());
 
     		var request = gapi.client.youtube.search.list({
-    			part: "snippet",
+    			// part: "snippet",
     			// type: "video",
           type: "search",
     			q: encodeURIComponent(elem.val()).replace(/%20/g, '+'),
