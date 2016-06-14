@@ -225,7 +225,7 @@ var isMobile = detectmob()
 setTimeout(function(){
 	if (isMobile){
 		// $('#titleName').text('mobile')
-		$('#freq').hide()
+		// $('#freq').hide()
 		$('#audios').css('margin-top', '200px')
 	}
 	// else
@@ -283,8 +283,8 @@ var checkLoadedInt
 
 player = document.getElementById('song')
 audio = context.createMediaElementSource(player);
-// audio.connect(visualizer)
-audio.connect(context.destination)
+audio.connect(visualizer)
+// audio.connect(context.destination)
 
 io.socket.on('addSong', function(data){
   console.log('got add song message')
