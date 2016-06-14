@@ -165,7 +165,7 @@ var learn = new Learn()
 
 io.socket.on('updateTime', function (data){
   console.log('updating time')
-  if (myid != data.id){
+  if (myid != data.id && !synced){
     if (isNaN(low.offset)){
       low.offset = data.offset
     }
@@ -187,6 +187,9 @@ io.socket.on('updateTime', function (data){
       player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('above'))
       console.log('above')
     }
+    else {
+      synced = true
+    }
   }
 })
 
@@ -202,6 +205,7 @@ io.socket.on('play', function (data){
 
     player.currentTime = parseFloat( (player.currentTime).toFixed(6) + parseFloat(delay) )
     player.play()
+    synced = false
     // player.start()
   }
 })
@@ -210,5 +214,6 @@ io.socket.on('pause', function (data){
   console.log('pause')
   if (myid != data.id){
     player.pause()
+    synced = false
   }
 })
