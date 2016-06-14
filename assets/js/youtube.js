@@ -44,11 +44,11 @@ function autocomplete(title, id, image){
   })
 }
 
-$('#ytsearch').on('focus', function(){
+$('#ytsearch').focus(function(){
   $('.results').show()
 })
 
-$('#ytsearch').off('focus', function(){
+$('#ytsearch').focusout(function(){
   $('.results').hide().empty()
 })
 
