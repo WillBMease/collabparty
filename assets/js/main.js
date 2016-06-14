@@ -84,6 +84,9 @@ player = document.getElementById('song')
 io.socket.on('addSong', function(data){
   console.log('got add song message')
   $('#songList').empty()
+  $('.albumArt').css('background-image', 'url(' + data.image + ')')
+  $('.songTitle').text(data.title)
+  $('.results').hide().empty()
   setTimeout(function(){
     loadSong(data.url)
   }, 1000)
@@ -176,12 +179,10 @@ io.socket.on('updateTime', function (data){
     console.log('time: ' + time)
 
     if (player.currentTime - time < -0.015){
-      console.log(parseFloat( time ) + parseFloat(learn.adjust('below')))
       player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('below'))
       console.log('below')
     }
     else if (player.currentTime - time > 0.015){
-      console.log(parseFloat( time ) + parseFloat(learn.adjust('above')))
       player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('above'))
       console.log('above')
     }
