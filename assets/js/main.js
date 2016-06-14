@@ -1,6 +1,8 @@
+var checkLoadedInt, currentSong = null
+
 $('#enableContainer').click(function(){
-  $('#enableAudio').get(0).play()
-  $('#enableAudio').get(0).pause()
+  $('#song').get(0).play()
+  $('#song').get(0).pause()
   $('#enableContainer').remove()
 })
 
@@ -74,19 +76,18 @@ $('#invite').click(function(){
 	}
 })
 
-var checkLoadedInt
-
 player = document.getElementById('song')
 // audio = context.createMediaElementSource(player);
 // audio.connect(visualizer)
 // audio.connect(context.destination)
 
-io.socket.on('addSong', function(data){
+io.socket.on('addSong', function (data){
   console.log('got add song message')
   $('#songList').empty()
   $('.albumArt').css('background-image', 'url(' + data.image + ')')
   $('.songTitle').text(data.title)
   $('.results').hide().empty()
+  currentSong = data
   setTimeout(function(){
     loadSong(data.url)
   }, 1000)
@@ -178,11 +179,11 @@ io.socket.on('updateTime', function (data){
     console.log('delay: ' + delay)
     console.log('time: ' + time)
 
-    if (player.currentTime - time < -0.020){
+    if (player.currentTime - time < -0.025){
       player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('below'))
       console.log('below')
     }
-    else if (player.currentTime - time > 0.020){
+    else if (player.currentTime - time > 0.025){
       player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('above'))
       console.log('above')
     }
