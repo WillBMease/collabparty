@@ -19,12 +19,12 @@ $('#ytsearch').each(function() {
     		request.execute(function(response) {
     			var results = response.result
           console.log(results)
-    			// $('#sr').show()
-    			// $('#sr').empty()
+    			$('.results').show()
+    			$('.results').empty()
     			// $('#sortable').hide()
-    			// $.each(results.items, function(index, item) {
-    			// 	autocomplete(item.snippet.title, item.id.videoId)
-    			// })
+    			$.each(results.items, function(index, item) {
+    				autocomplete(item.snippet.title, item.id.videoId)
+    			})
     		})
      }
   });
@@ -33,6 +33,7 @@ $('#ytsearch').each(function() {
 
 
 function autocomplete(title, id){
+  $('.results').append('<li id="'+id+'" class="resultItem">'+title+'</li>')
 	// $('#sr').append('<div id="'+id+'" class="rs">'+title+"</div>")
 	// $('#'+id).click(function(){
 	// 	// socket.emit('sendYT', title, id)
