@@ -63,8 +63,9 @@ module.exports = {
   addSong: function(req, res){
     console.log('add song')
     var url = req.body.url
-    var video = youtubedl(url, ['-x', '--extract-audio', '--audio-format', 'mp3'])
+    var video = youtubedl(url, ['-x', '--extract-audio', '--audio-format mp3', '--audio-quality 0', 'mp3'])
 
+    console.log(video)
     // Will be called when the download starts.
     video.on('info', function(info) {
       console.log('Download started');
@@ -72,9 +73,13 @@ module.exports = {
       console.log('size: ' + info.size);
     })
 
+    video.on('done', function(info){
+      console.log('done')
+    })
+
     var split = url.split('watch?v=')
-    video.pipe(fs.createWriteStream('assets/styles/' + split[1] + '.mp3'));
-    sails.sockets.broadcast(req.body.code, 'addSong', {url: '/styles/' + split[1] + '.mp3'})
+    video.pipe(fs.createWriteStream('assets/audio/' + split[1] + '.mp3'));
+    sails.sockets.broadcast(req.body.code, 'addSong', {url: '/audio/' + split[1] + '.mp3'})
   },
 
   join: function(req, res){
