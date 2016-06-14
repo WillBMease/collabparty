@@ -90,9 +90,6 @@ module.exports = {
 
       video.pipe(fs.createWriteStream('assets/audio/' + videoid + '.mp3'));
     }
-    else {
-
-    }
 
   },
 
