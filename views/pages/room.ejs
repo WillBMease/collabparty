@@ -353,7 +353,7 @@ io.socket.on('addSong', function(data){
   $('#songList').empty()
   setTimeout(function(){
     loadSong(data.url)
-  }, 500)
+  }, 1000)
 })
 
 function loadSong(url){
