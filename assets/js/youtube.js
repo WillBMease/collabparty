@@ -31,8 +31,6 @@ $('#ytsearch').each(function() {
   });
 });
 
-
-
 function autocomplete(title, id, image){
   $('.results').append('<div id="'+id+'" class="resultItem">'+
     '<div class="resultImage" style="background-image:url('+image+');"></div>'+
@@ -47,6 +45,12 @@ function autocomplete(title, id, image){
     $('.songTitle').text(title)
   })
 }
+
+$('#ytsearch').focus(function(){
+  console.log('focus on')
+}, function(){
+  console.log('focus off')
+})
 
 function ytinit() {
 	gapi.client.setApiKey("AIzaSyDvDcWpPGW8EeltsGtAWK0C2NJu4XPsGs4")

@@ -83,11 +83,14 @@ body {
 	/*position: fixed;*/
 }
 #ytsearch {
-	position: relative;
+	position: fixed;
   width: 80%;
   height: 50px;
-	float: left;
   margin: 0 auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  font-size: 24px;
 }
 #add {
 	position: relative;
@@ -119,20 +122,19 @@ body {
 }
 .results {
   position: relative;
+  display: none;
   width: 100%;
-  list-style: none;
-  padding-left: 0;
+  height: 90%;
+  top: 50px;
+  background: black;
 }
 .resultItem {
   position: relative;
   display: inline-block;
   margin: 10px;
-  width: 75px;
-  height: 125px;
-  border-bottom: 1px solid white;
+  width: 125px;
+  height: 175px;
   font-size: 12px;
-  list-style: none;
-  padding-left: 0;
 }
 .resultImage {
   position: relative;
