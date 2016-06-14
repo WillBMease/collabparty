@@ -9,7 +9,8 @@ $('#ytsearch').each(function() {
 
     		var request = gapi.client.youtube.search.list({
     			part: "snippet",
-    			type: "video",
+    			// type: "video",
+          type: "search",
     			q: encodeURIComponent(elem.val()).replace(/%20/g, '+'),
     			maxResults: 10,
     			order: "viewCount"
