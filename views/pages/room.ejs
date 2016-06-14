@@ -306,7 +306,7 @@ function checkLoaded(url){
 io.socket.on('addSong', function(data){
   console.log('got add song message')
   $('#songList').empty()
-
+  setTimeout(function(){
     $('#songList').append('<div class="song">'+
       '<audio id="song1" controls>'+
         '<source src="'+data.url+'" type="audio/mp3">'+
@@ -317,8 +317,7 @@ io.socket.on('addSong', function(data){
     audio = context.createMediaElementSource(player);
     // audio.connect(visualizer)
     audio.connect(context.destination)
-    console.log(player)
-    console.log(audio)
+  }, 500)
 })
 
 // $('#add').click(function(){

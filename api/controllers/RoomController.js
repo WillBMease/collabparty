@@ -68,29 +68,31 @@ module.exports = {
     var exists = false
 
     if (fs.existsSync('assets/audio/' + videoid + '.mp3')) {
-      console.log('exists check')
-      console.log(fs.statSync(output).size)
-      exists = true
-    }
-
-    var video = youtubedl(url, ['-x', '--extract-audio', '--audio-format=mp3', '--audio-quality=0'])
-    // Will be called when the download starts.
-    video.on('info', function(info) {
-      console.log('Download started');
-      console.log('filename: ' + info._filename);
-      console.log('size: ' + info.size);
-    })
-
-    video.on('complete', function(info){
-      console.log('complete')
-    })
-
-    video.on('end', function(info){
-      console.log('end')
       sails.sockets.broadcast(req.body.code, 'addSong', {url: '/audio/' + videoid + '.mp3'})
-    })
+    }
+    else {
+      var video = youtubedl(url, ['-x', '--extract-audio', '--audio-format=mp3', '--audio-quality=0'])
+      // Will be called when the download starts.
+      video.on('info', function(info) {
+        console.log('Download started');
+        console.log('filename: ' + info._filename);
+        console.log('size: ' + info.size);
+      })
 
-    video.pipe(fs.createWriteStream('assets/audio/' + videoid + '.mp3'));
+      video.on('complete', function(info){
+        console.log('complete')
+      })
+
+      video.on('end', function(info){
+        console.log('end')
+        sails.sockets.broadcast(req.body.code, 'addSong', {url: '/audio/' + videoid + '.mp3'})
+      })
+
+      video.pipe(fs.createWriteStream('assets/audio/' + videoid + '.mp3'));
+    }
+    else {
+
+    }
 
   },
 
