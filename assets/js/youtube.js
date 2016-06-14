@@ -36,6 +36,7 @@ $('#ytsearch').each(function() {
 function autocomplete(title, id, image){
   $('.results').append('<li id="'+id+'" class="resultItem">'+title+'</li>')
   $('#'+id).click(function(){
+    console.log('click')
     var url = 'https://www.youtube.com/watch?v=' + id
     io.socket.post('/Room/addSong', {url: url, code: code})
     $('#ytsearch').val('')
