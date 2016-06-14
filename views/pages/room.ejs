@@ -295,9 +295,9 @@ $('#invite').click(function(){
 var checkLoadedInt
 
 player = document.getElementById('song')
-audio = context.createMediaElementSource(player);
+// audio = context.createMediaElementSource(player);
 // audio.connect(visualizer)
-audio.connect(context.destination)
+// audio.connect(context.destination)
 
 io.socket.on('addSong', function(data){
   console.log('got add song message')
