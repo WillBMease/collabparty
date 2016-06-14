@@ -19,6 +19,7 @@ $('#ytsearch').each(function() {
 
     		request.execute(function(response) {
     			var results = response.result
+          console.log(result)
           $('.results').empty()
     			$.each(results.items, function(index, item) {
     				autocomplete(item.snippet.title, item.id.videoId, item.snippet.thumbnails.high.url)

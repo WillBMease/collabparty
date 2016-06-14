@@ -1,234 +1,12 @@
 <head>
-<style>
-
-html, body {
-height: 100%;
-margin: 0;
-padding: 0;
-}
-
-body {
-    background: -webkit-linear-gradient(right top, #1BCBFF , #1F51AC);
-    background: -o-linear-gradient(bottom left, #1BCBFF, #1F51AC);
-    background: -moz-linear-gradient(bottom left, #1BCBFF, #1F51AC);
-    background: linear-gradient(to bottom left, #1BCBFF , #1F51AC);
-    background-repeat: none;
-    /*background: #1F51AC;*/
-    /*padding-bottom: 150px;*/
-    overflow: hidden;
-}
-
-#username {
-	position: relative;
-	float: right;
-}
-
-#invite {
-	position: fixed;
-	border-radius: 500px;
-	width: 65px;
-	height: 65px;
-	background: red;
-	color: white;
-	font-size: 35px;
-	bottom: 35px;
-	right: 35px;
-	text-align: center;
-	line-height: 65px;
-}
-
-.sidebar {
-	height: 100%;
-	width: 200px;
-	position: fixed;
-	left: -200px;
-	background: gray;
-	-webkit-transition: all .5s ease;
-  	transition: all .5s ease;
-}
-
-.sidetop {
-	position: relative;
-	width: 100%;
-	height: 30px;
-	background: red;
-}
-
-.sidebar.active {
-	left: 0px;
-}
-
-#songList {
-	position: relative;
-	width: 300px;
-	float: right;
-	top: 100px;
-}
-
-.song {
-	position: relative;
-	width: 300px;
-	height: 50px;
-	border: 1px solid black;
-	background: gray;
-}
-
-.uuid {
-	position: fixed;
-	top: 10px;
-	left: 10px;
-	color: white;
-}
-.menubar {
-	/*position: fixed;*/
-}
-#ytsearch {
-	position: fixed;
-  width: 80%;
-  height: 50px;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
-  top: 0;
-  font-size: 24px;
-}
-#add {
-	position: relative;
-	display: inline-block;
-	float: left;
-}
-#enable {
-  position: absolute;
-  width: 300px;
-  height: 100px;
-  background: black;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  color: white;
-  font-size: 20px;
-  text-align: center;
-  line-height: 100px;
-}
-
-#freq {
-  position: absolute;
-  width: 450px;
-  height: 100px;
-  left: 50px;
-  top: 100px;
-}
-.results {
-  position: relative;
-  display: none;
-  width: 100%;
-  height: 90%;
-  top: 50px;
-  background: gray;
-  float: left;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-.resultItem {
-  position: relative;
-  display: inline-block;
-  margin: 10px;
-  width: 125px;
-  height: 175px;
-  font-size: 12px;
-  background: white;
-}
-.resultImage {
-  position: relative;
-  width: 100%;
-  height: 50%;
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-.resultTitle {
-  position: relative;
-  width: 100%;
-  height: 50%;
-  text-align: center;
-}
-.adding {
-  height: 50px;
-}
-.bottomControlsContainer {
-  position: fixed;
-  width: 100%;
-  height: 50px;
-  left: 0;
-  bottom: 0;
-  background: white;
-}
-.albumArt {
-  position: relative;
-  display: inline-block;
-  width: 10%;
-  height: 100%;
-  float: left;
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-.songTitle {
-  width: 30%;
-  height: 100%;
-  position: relative;
-  display: inline-block;
-  float: left;
-}
-.lastSong {
-  position: relative;
-  display: inline-block;
-  float: left;
-  width: 10%;
-  height: 100%;
-}
-#play {
-  position: relative;
-  display: inline-block;
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-image: url(/images/play.jpg);
-  float: left;
-  width: 10%;
-  height: 100%;
-}
-.nextSong {
-  position: relative;
-  display: inline-block;
-  float: left;
-  width: 10%;
-  height: 100%;
-}
-#enableContainer {
-  position: fixed;
-  display: none;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: rgba(0,0,0,0.2);
-  z-index: 1000;
-}
-
-</style>
-
+  <link rel="stylesheet" href="/styles/style.css">
+  <script src="/js/dependencies/sails.io.js"></script>
+  <script src="/js/dependencies/jquery.min.js"></script>
 </head>
-
-<script src="/js/dependencies/sails.io.js"></script>
-<script src="/js/dependencies/jquery.min.js"></script>
+<body>
 
 <div class="uuid" style="display:none;">none</div>
 <div id="username" style="display:none;">will</div>
-
-<!-- <div id="invite">+</div> -->
 
 <input id="ytsearch" type="text">
 <div class="results"></div>
@@ -239,11 +17,6 @@ body {
     <source src="/audio/enable.wav" type="audio/wav">
   </audio>
 </div>
-
-<br />
-<br />
-<br />
-<center>
 
 <audio id="song" style="display:none;" controls>
   <source src="" type="audio/mp3">
@@ -257,12 +30,9 @@ body {
   <div class="nextSong"></div>
 </div>
 
-
-</center>
-
 <!-- <script src="/js/visualizer.js"></script> -->
-
 <script src="/js/main.js"></script>
-
 <script src="/js/youtube.js"></script>
 <script src="//apis.google.com/js/client.js?onload=ytinit"></script>
+
+</body>
