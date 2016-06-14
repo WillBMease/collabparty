@@ -85,7 +85,7 @@ module.exports = {
 
       video.on('end', function(info){
         console.log('end')
-        sails.sockets.broadcast(req.body.code, 'addSong', {url: '/audio/' + videoid + '.mp3'})
+        sails.sockets.broadcast(req.body.code, 'addSong', {url: '/audio/' + videoid + '.mp3', image: req.body.image, title: req.body.title})
       })
 
       video.pipe(fs.createWriteStream('assets/audio/' + videoid + '.mp3'));
