@@ -401,12 +401,12 @@ io.socket.on('updateTime', function (data){
     console.log('delay: ' + delay)
     console.log('time: ' + time)
 
-    if (player.currentTime - time < -0.013){
+    if (player.currentTime - time < -0.015){
       console.log(parseFloat( time ) + parseFloat(learn.adjust('below')))
       player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('below'))
       console.log('below')
     }
-    else if (player.currentTime - time > 0.013){
+    else if (player.currentTime - time > 0.015){
       console.log(parseFloat( time ) + parseFloat(learn.adjust('above')))
       player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('above'))
       console.log('above')
@@ -439,3 +439,5 @@ io.socket.on('pause', function (data){
 
 
 </script>
+
+<script src="//apis.google.com/js/client.js?onload=ytinit"></script>
