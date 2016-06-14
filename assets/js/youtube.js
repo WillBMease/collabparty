@@ -19,10 +19,7 @@ $('#ytsearch').each(function() {
 
     		request.execute(function(response) {
     			var results = response.result
-          console.log(results)
-    			$('.results').show()
-    			$('.results').empty()
-    			// $('#sortable').hide()
+          $('.results').empty()
     			$.each(results.items, function(index, item) {
     				autocomplete(item.snippet.title, item.id.videoId, item.snippet.thumbnails.high.url)
     			})
@@ -43,13 +40,16 @@ function autocomplete(title, id, image){
     $('#ytsearch').val('')
     $('.albumArt').css('background-image', 'url('+image+')')
     $('.songTitle').text(title)
+    $('.results').hide().empty()
   })
 }
 
-$('#ytsearch').focus(function(){
-  console.log('focus on')
-}, function(){
-  console.log('focus off')
+$('#ytsearch').on('focus', function(){
+  $('.results').show()
+})
+
+$('#ytsearch').off('focus', function(){
+  $('.results').hide().empty()
 })
 
 function ytinit() {
