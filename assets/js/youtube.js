@@ -35,7 +35,7 @@ $('#ytsearch').each(function() {
 
 function autocomplete(title, id, image){
   $('.results').append('<div id="'+id+'" class="resultItem">'+
-    '<div class="resultImage" style="background-image:url('+image+')"></div>'
+    '<div class="resultImage" style="background-image:url('+image+');"></div>'+
     '<div class="resultTitle">'+title+'</div>'+
   '</div>')
   $('#'+id).click(function(){
