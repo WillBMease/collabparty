@@ -41,6 +41,7 @@ function autocomplete(title, id, image){
     io.socket.post('/Room/addSong', {url: url, code: code})
     $('#ytsearch').val('')
     $('.albumArt').css('background-image', 'url('+image+')')
+    $('.songTitle').text(title)
   })
 	// $('#sr').append('<div id="'+id+'" class="rs">'+title+"</div>")
 	// $('#'+id).click(function(){

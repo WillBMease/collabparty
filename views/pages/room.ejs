@@ -136,11 +136,37 @@ body {
 }
 .albumArt {
   position: relative;
-  width: 400px;
-  height: 400px;
+  display: inline-block;
+  width: 50px;
+  height: 100%;
+  float: left;
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
+}
+.songTitle {
+  position: relative;
+  display: inline-block;
+  float: left;
+}
+.lastSong {
+  position: relative;
+  display: inline-block;
+  float: left;
+}
+#play {
+  position: relative;
+  display: inline-block;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url(/images/play.jpg);
+  float: left;
+}
+.nextSong {
+  position: relative;
+  display: inline-block;
+  float: left;
 }
 #enableContainer {
   position: fixed;
@@ -184,19 +210,7 @@ body {
 <br />
 <br />
 <br />
-<button id="play">play</button>
-
-<!-- <ul id="songs"></ul> -->
-
-<!-- <div class="addSongPopupContainer">
-  <div class="addSongPopupBox">
-    <input id="ytsearch" type="text">
-  </div>
-</div> -->
-
 <center>
-
-<div class="albumArt"></div>
 
 <div id="songList">
   <div class="song">
@@ -204,6 +218,14 @@ body {
       <source src="" type="audio/mp3">
     </audio>
   </div>
+</div>
+
+<div class="bottomControlsContainer">
+  <div class="albumArt"></div>
+  <div class="songTitle"></div>
+  <div class="lastSong"></div>
+  <div id="play"></div>
+  <div class="nextSong"></div>
 </div>
 
 <!-- <canvas id="freq"></canvas> -->
@@ -316,7 +338,7 @@ var updateTimeInt, player, myAudio, playing = false
 
 $('#play').click(function(){
   if (!playing){
-    $(this).text('pause')
+    $(this).css('background-image', 'url(/images/pause.png)')
     playing = true
     var obj = {
       code: code,
@@ -331,7 +353,7 @@ $('#play').click(function(){
     updateTimeInt = setInterval(updateTime, 400)
   }
   else {
-    $(this).text('play')
+    $(this).css('background-image', 'url(/images/play.jpg)')
     var obj = {
       code: code,
       time: +new Date(),
