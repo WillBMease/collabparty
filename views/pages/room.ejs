@@ -94,12 +94,16 @@ body {
 	float: left;
 }
 #enable {
-  position: relative;
-  width: 100px;
+  position: absolute;
+  width: 300px;
   height: 100px;
-  background: green;
+  background: black;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
   color: white;
-  float: right;
+  font-size: 20px;
 }
 
 #freq {
@@ -135,6 +139,14 @@ body {
   background-size: contain;
   background-repeat: no-repeat;
 }
+#enableContainer {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.2);
+}
 
 </style>
 
@@ -157,10 +169,12 @@ body {
   <ul class="results"></ul>
 </div>
 
-<div id="enable">ENABLE</div>
-<audio id="enableAudio" style="display:none;">
-  <source src="/audio/enable.wav" type="audio/wav">
-</audio>
+<div id="enableContainer">
+  <div id="enable">Join Room</div>
+  <audio id="enableAudio" style="display:none;">
+    <source src="/audio/enable.wav" type="audio/wav">
+  </audio>
+</div>
 
 <br />
 <br />
@@ -192,14 +206,15 @@ body {
 
 </center>
 
-<script src="/js/visualizer.js"></script>
+<!-- <script src="/js/visualizer.js"></script> -->
 <script src="/js/youtube.js"></script>
 
 <script>
 
-$('#enable').click(function(){
+$('#enableContainer').click(function(){
   $('#enableAudio').get(0).play()
   $('#enableAudio').get(0).pause()
+  $('#enableContainer').remove()
 })
 
 function detectmob() {
@@ -221,16 +236,9 @@ function detectmob() {
 
 var isMobile = detectmob()
 
-
-setTimeout(function(){
-	if (isMobile){
-		// $('#titleName').text('mobile')
-		// $('#freq').hide()
-		$('#audios').css('margin-top', '200px')
-	}
-	// else
-		// $('#titleName').text('laptop')
-}, 2000)
+if (isMobile){
+		$('#enableContainer').show()
+}
 
 var code = null, myid = Math.floor(Math.random() * 99999)
 
@@ -283,8 +291,8 @@ var checkLoadedInt
 
 player = document.getElementById('song')
 audio = context.createMediaElementSource(player);
-audio.connect(visualizer)
-// audio.connect(context.destination)
+// audio.connect(visualizer)
+audio.connect(context.destination)
 
 io.socket.on('addSong', function(data){
   console.log('got add song message')
