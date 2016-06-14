@@ -63,7 +63,7 @@ module.exports = {
   addSong: function(req, res){
     console.log('add song')
     var url = req.body.url
-    var video = youtubedl(url, ['-x', '--extract-audio', '--audio-format', 'mp3', '--audio-quality 0'])
+    var video = youtubedl(url, ['-x', '--extract-audio', '--audio-format=mp3', 'mp3', '--audio-quality', '0'])
 
     console.log(video)
     // Will be called when the download starts.
@@ -73,8 +73,12 @@ module.exports = {
       console.log('size: ' + info.size);
     })
 
-    video.on('done', function(info){
-      console.log('done')
+    video.on('complete', function(info){
+      console.log('complete')
+    })
+
+    video.on('end', function(info){
+      console.log('end')
     })
 
     var split = url.split('watch?v=')
