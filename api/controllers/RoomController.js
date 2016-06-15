@@ -93,7 +93,7 @@ module.exports = {
       if (!songs[req.body.code]){
         songs[req.body.code] = []
       }
-      songs[req.body.code].push{url: '/audio/' + videoid + '.mp3', image: req.body.image, title: req.body.title, videoid: videoid}
+      songs[req.body.code].push{url: '/audio/' + videoid + '.mp3', image: req.body.image, title: req.body.title, videoid: videoid})
     }
 
   },
