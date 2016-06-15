@@ -83,9 +83,9 @@ $('#invite').click(function(){
 player = document.getElementById('song')
 
 io.socket.on('addSong', function (data){
-  addSongToBottom(data)
   addSongToList(data)
   if (!currentSong){
+    addSongToBottom(data)
     setTimeout(function(){
       loadSong(data.url)
     }, 1000)
@@ -120,6 +120,7 @@ io.socket.on('changeSong', function (data){
     }
   })
   loadSong(currentSong.url)
+  addSongToBottom(data)
   if (data.id == myid){
     setTimeout(function(){
       play()

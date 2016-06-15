@@ -68,7 +68,7 @@ module.exports = {
 
     if (fs.existsSync('assets/audio/' + videoid + '.mp3')) {
       console.log(videoid)
-      sails.sockets.broadcast(req.body.code, 'addSong', {url: '/audio/' + videoid + '.mp3', image: req.body.image, title: req.body.title})
+      sails.sockets.broadcast(req.body.code, 'addSong', {url: '/audio/' + videoid + '.mp3', image: req.body.image, title: req.body.title, videoid: videoid})
     }
     else {
       var video = youtubedl(url, ['-x', '--extract-audio', '--audio-format=mp3', '--audio-quality=0'])
