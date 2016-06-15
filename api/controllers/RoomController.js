@@ -100,11 +100,12 @@ module.exports = {
 
   join: function(req, res){
     sails.sockets.join(req, req.body.code)
-    var songs = []
+    var s = []
     if (songs[req.body.code]){
-      songs = songs[req.body.code]
+      s = songs[req.body.code]
     }
-    res.send({songs: songs})
+    console.log(songs)
+    res.send({songs: s})
     if (!users[req.body.code]){
       users[req.body.code] = 0
     }
