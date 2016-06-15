@@ -120,7 +120,7 @@ io.socket.on('changeSong', function (data){
   changeSong(data)
 })
 
-function changeSong(){
+function changeSong(data){
   player.pause()
   playing = false
   clearInterval(updateTimeInt)
