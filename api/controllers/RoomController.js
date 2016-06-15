@@ -22,7 +22,7 @@ var chosen = [alphabet, digits]
     callback(uuid);
 }
 
-var offsets = [], users = [], songs = []
+var offsets = [], users = [], songs = [], currentSong = []
 
 module.exports = {
 
