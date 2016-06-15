@@ -180,11 +180,11 @@ io.socket.on('updateTime', function (data){
     console.log('delay: ' + delay)
     console.log('time: ' + time)
 
-    if (player.currentTime - time < -0.025){
+    if (player.currentTime - time < -0.015){
       player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('below'))
       console.log('below')
     }
-    else if (player.currentTime - time > 0.025){
+    else if (player.currentTime - time > 0.015){
       player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('above'))
       console.log('above')
     }
