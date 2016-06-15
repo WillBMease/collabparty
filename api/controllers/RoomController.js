@@ -95,7 +95,13 @@ module.exports = {
       songs[req.body.code] = []
     }
     songs[req.body.code].push({url: '/audio/' + videoid + '.mp3', image: req.body.image, title: req.body.title, videoid: videoid})
+    if (!currentSong[req.body.code])
+      currentSong[req.body.code] = videoid
+  },
 
+  changeSong: function(req, res){
+    currentSong[req.body.code] = req.body.videoid
+    sails.sockets.broadcast(req.body.code, 'changeSong', req.body)
   },
 
   join: function(req, res){
@@ -104,8 +110,10 @@ module.exports = {
     if (songs[req.body.code]){
       s = songs[req.body.code]
     }
-    console.log(songs)
-    res.send({songs: s})
+    var c = false
+    if (currentSong[req.body.code])
+      c = currentSong[req.body.code]
+    res.send({songs: s, currentSong: c})
     if (!users[req.body.code]){
       users[req.body.code] = 0
     }

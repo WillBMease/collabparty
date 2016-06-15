@@ -39,6 +39,12 @@ io.socket.on('connect', function(){
     songs.forEach(function (s, i){
       addSongToList(s)
     })
+    if (data.currentSong){
+      songs.forEach(function (s, i){
+        if (s.videoid == data.currentSong)
+          changeSong(s)
+      })
+    }
   })
 })
 
@@ -106,11 +112,15 @@ function addSongToList(data){
 
   $('#song'+data.videoid).click(function(){
     if (currentSong.videoid != data.videoid)
-      io.socket.post('changeSong', {videoid: data.videoid, id: myid})
+      io.socket.post('changeSong', {videoid: data.videoid, id: myid, code: code})
   })
 }
 
 io.socket.on('changeSong', function (data){
+  changeSong(data)
+})
+
+function changeSong(){
   player.pause()
   playing = false
   clearInterval(updateTimeInt)
@@ -126,7 +136,7 @@ io.socket.on('changeSong', function (data){
       play()
     }, 1500)
   }
-})
+}
 
 function loadSong(url){
   player.src = url
