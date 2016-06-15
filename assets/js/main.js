@@ -77,13 +77,9 @@ $('#invite').click(function(){
 })
 
 player = document.getElementById('song')
-// audio = context.createMediaElementSource(player);
-// audio.connect(visualizer)
-// audio.connect(context.destination)
 
 io.socket.on('addSong', function (data){
   console.log('got add song message')
-  console.log(data)
   $('#songList').empty()
   $('.albumArt').css('background-image', 'url(' + data.image + ')')
   $('.songTitle').text(data.title)
@@ -166,6 +162,7 @@ var learn = new Learn()
 
 io.socket.on('updateTime', function (data){
   console.log('updating time')
+  var timer = +new Date()
   if (myid != data.id){
     if (isNaN(low.offset)){
       low.offset = data.offset
@@ -181,8 +178,8 @@ io.socket.on('updateTime', function (data){
       synced = false
     }
     if (synced){
-      bottomCheck = -0.045
-      aboveCheck = 0.045
+      bottomCheck = -0.065
+      aboveCheck = 0.065
     }
 
     if (player.currentTime - time < bottomCheck){
@@ -196,11 +193,13 @@ io.socket.on('updateTime', function (data){
     else {
       synced = true
     }
+    var timed = +new Date() - timer
+    console.log('timing: ' + timed)
   }
 })
 
 io.socket.on('play', function (data){
-  console.log('play')
+  $(this).css('background-image', 'url(/images/pause.jpg)')
   if (myid != data.id){
     console.log('inside')
     var offset = parseFloat(low.offset) - parseFloat(data.offset)
@@ -217,7 +216,7 @@ io.socket.on('play', function (data){
 })
 
 io.socket.on('pause', function (data){
-  console.log('pause')
+  $(this).css('background-image', 'url(/images/play.jpg)')
   if (myid != data.id){
     player.pause()
     synced = false
