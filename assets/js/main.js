@@ -179,7 +179,7 @@ io.socket.on('updateTime', function (data){
     var offset = parseFloat(low.offset) - parseFloat(data.offset)
     var delay = parseFloat(((+new Date() - data.time + offset) / 1000).toFixed(6))
     var time = data.currentTime + delay
-    var bottomCheck = -0.015, aboveCheck = 0.015
+    var bottomCheck = -0.02, aboveCheck = 0.02
     if (Math.abs(player.currentTime - time) > 0.08){
       synced = false
     }
