@@ -166,9 +166,6 @@ var learn = new Learn()
 
 io.socket.on('updateTime', function (data){
   console.log('updating time')
-  if (player.currentTime < 5){
-    synced = false
-  }
   if (myid != data.id){
     if (isNaN(low.offset)){
       low.offset = data.offset
