@@ -216,3 +216,39 @@ body {
   background: rgba(0,0,0,0.2);
   z-index: 1000;
 }
+.song-list {
+  position: relative;
+  width: 80%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  top: 75px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.song-item {
+  position: relative;
+  width: 100%;
+  float: left;
+  top: 0;
+  height: 50px;
+  background: white;
+}
+.song-image {
+  position: relative;
+  display: inline-block;
+  float: left;
+  width: 15%;
+  height: 100%;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.song-title {
+  position: relative;
+  display: inline-block;
+  float: left;
+  text-align: center;
+  width: 85%;
+  height: 50px;
+}

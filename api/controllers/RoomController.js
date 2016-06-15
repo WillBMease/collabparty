@@ -22,7 +22,7 @@ var chosen = [alphabet, digits]
     callback(uuid);
 }
 
-var offsets = []
+var offsets = [], users = [], songs = []
 
 module.exports = {
 
@@ -85,16 +85,30 @@ module.exports = {
 
       video.on('end', function(info){
         console.log('end')
-        sails.sockets.broadcast(req.body.code, 'addSong', {url: '/audio/' + videoid + '.mp3', image: req.body.image, title: req.body.title})
+        sails.sockets.broadcast(req.body.code, 'addSong', {url: '/audio/' + videoid + '.mp3', image: req.body.image, title: req.body.title, videoid: videoid})
       })
 
       video.pipe(fs.createWriteStream('assets/audio/' + videoid + '.mp3'));
+
+      if (!songs[req.body.code]){
+        songs[req.body.code] = []
+      }
+      songs[req.body.code].push{url: '/audio/' + videoid + '.mp3', image: req.body.image, title: req.body.title, videoid: videoid}
     }
 
   },
 
   join: function(req, res){
     sails.sockets.join(req, req.body.code)
+    var songs = []
+    if (songs[uuid]){
+      songs = songs[uuid]
+    }
+    res.send({songs: songs})
+    if (!users[uuid]){
+      users[uuid] = 0
+    }
+    users[uuid]++
   }
 
 };

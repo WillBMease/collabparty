@@ -1,4 +1,5 @@
-var checkLoadedInt, currentSong = null
+var checkLoadedInt, currentSong = null, songs = null
+var code = null, myid = Math.floor(Math.random() * 99999)
 
 $('#enableContainer').click(function(){
   $('#song').get(0).play()
@@ -29,13 +30,16 @@ if (isMobile){
 	$('#enableContainer').show()
 }
 
-var code = null, myid = Math.floor(Math.random() * 99999)
-
 io.socket.on('connect', function(){
 	console.log((window.location.hash).replace('#', ''))
   code = (window.location.hash).replace('#', '')
 	$('.uuid').text(code)
-  io.socket.post('/Room/join', {code: code})
+  io.socket.post('/Room/join', {code: code}, function(data){
+    songs = data.songs
+    songs.forEach(function (s, i){
+      addSongToList(s)
+    })
+  })
 })
 
 var low = {latency: 999999}
@@ -79,15 +83,48 @@ $('#invite').click(function(){
 player = document.getElementById('song')
 
 io.socket.on('addSong', function (data){
-  console.log('got add song message')
-  $('#songList').empty()
+  addSongToBottom(data)
+  addSongToList(data)
+  if (!currentSong){
+    setTimeout(function(){
+      loadSong(data.url)
+    }, 1000)
+  }
+  currentSong = data
+})
+
+function addSongToBottom(data){
   $('.albumArt').css('background-image', 'url(' + data.image + ')')
   $('.songTitle').text(data.title)
-  $('.results').hide().empty()
-  currentSong = data
-  setTimeout(function(){
-    loadSong(data.url)
-  }, 1000)
+}
+
+function addSongToList(data){
+  $('.song-list').append('<div id="song'+data.videoid+'" class="song-item">'+
+    '<div class="song-image" style="background-image: url('+data.image+')"></div>'+
+    '<div class="song-title">'+data.title+'</div>'+
+  '</div>')
+
+  $('#song'+data.videoid).click(function(){
+    if (currentSong.videoid != data.videoid)
+      io.socket.post('changeSong', {videoid: data.videoid, id: myid})
+  })
+}
+
+io.socket.on('changeSong', function (data){
+  player.pause()
+  playing = false
+  clearInterval(updateTimeInt)
+  songs.forEach(function(s, i){
+    if (s.videoid == data.videoid){
+      currentSong = s
+    }
+  })
+  loadSong(currentSong.url)
+  if (data.id == myid){
+    setTimeout(function(){
+      play()
+    }, 1500)
+  }
 })
 
 function loadSong(url){
@@ -98,6 +135,10 @@ function loadSong(url){
 var updateTimeInt, player, myAudio, playing = false
 
 $('#play').click(function(){
+  play()
+})
+
+function play(){
   if (!playing){
     $(this).css('background-image', 'url(/images/pause.png)')
     playing = true
@@ -127,7 +168,7 @@ $('#play').click(function(){
     io.socket.post('/Room/pause', obj)
     clearInterval(updateTimeInt)
   }
-})
+}
 
 function updateTime(){
   var obj = {
@@ -161,8 +202,6 @@ var Learn = function(){
 var learn = new Learn()
 
 io.socket.on('updateTime', function (data){
-  console.log('updating time')
-  var timer = +new Date()
   if (myid != data.id){
     if (isNaN(low.offset)){
       low.offset = data.offset
@@ -193,25 +232,21 @@ io.socket.on('updateTime', function (data){
     else {
       synced = true
     }
-    var timed = +new Date() - timer
-    console.log('timing: ' + timed)
   }
 })
 
 io.socket.on('play', function (data){
   $(this).css('background-image', 'url(/images/pause.jpg)')
   if (myid != data.id){
-    console.log('inside')
     var offset = parseFloat(low.offset) - parseFloat(data.offset)
     var delay = ((+new Date() - data.time + offset) / 1000).toFixed(6)
-    console.log(delay)
     if (delay < 0)
       delay = 0
 
     player.currentTime = parseFloat( (player.currentTime).toFixed(6) + parseFloat(delay) )
     player.play()
     synced = false
-    // player.start()
+    playing = true
   }
 })
 
@@ -220,5 +255,6 @@ io.socket.on('pause', function (data){
   if (myid != data.id){
     player.pause()
     synced = false
+    playing = false
   }
 })
