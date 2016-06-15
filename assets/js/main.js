@@ -83,6 +83,7 @@ player = document.getElementById('song')
 
 io.socket.on('addSong', function (data){
   console.log('got add song message')
+  console.log(data)
   $('#songList').empty()
   $('.albumArt').css('background-image', 'url(' + data.image + ')')
   $('.songTitle').text(data.title)

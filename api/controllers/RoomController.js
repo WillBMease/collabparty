@@ -52,7 +52,6 @@ module.exports = {
   },
 
   updateTime: function(req, res){
-    console.log('updateTime')
     sails.sockets.broadcast(req.body.code, 'updateTime', req.body)
   },
 
@@ -68,7 +67,8 @@ module.exports = {
     var exists = false
 
     if (fs.existsSync('assets/audio/' + videoid + '.mp3')) {
-      sails.sockets.broadcast(req.body.code, 'addSong', {url: '/audio/' + videoid + '.mp3'})
+      console.log(videoid)
+      sails.sockets.broadcast(req.body.code, 'addSong', {url: '/audio/' + videoid + '.mp3', image: req.body.image, title: req.body.title})
     }
     else {
       var video = youtubedl(url, ['-x', '--extract-audio', '--audio-format=mp3', '--audio-quality=0'])
