@@ -55,7 +55,7 @@ function ping(){
     }
   })
 	pingct++
-	if (pingct > 20){
+	if (pingct > 50){
 		clearInterval(pingInt)
 		low.offset = low.server - low.start - low.latency
     low.id = myid
@@ -169,25 +169,30 @@ io.socket.on('updateTime', function (data){
   if (player.currentTime < 5){
     synced = false
   }
-  if (myid != data.id && !synced ){
+  if (myid != data.id){
     if (isNaN(low.offset)){
       low.offset = data.offset
+    }
+    else if (isNaN(data.offset)){
+      data.offset = low.offset
     }
     var offset = parseFloat(low.offset) - parseFloat(data.offset)
     var delay = parseFloat(((+new Date() - data.time + offset) / 1000).toFixed(6))
     var time = data.currentTime + delay
-    console.log('low.offset: ' + low.offset)
-    console.log('data.offset: ' + data.offset)
-    console.log('offset: ' + offset)
-    console.log('data.time: ' + data.time)
-    console.log('delay: ' + delay)
-    console.log('time: ' + time)
+    var bottomCheck = -0.015, aboveCheck = 0.015
+    if (Math.abs(player.currentTime - time) > 0.08){
+      synced = false
+    }
+    if (synced){
+      bottomCheck = -0.035
+      aboveCheck = 0.035
+    }
 
-    if (player.currentTime - time < -0.015){
+    if (player.currentTime - time < bottomCheck){
       player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('below'))
       console.log('below')
     }
-    else if (player.currentTime - time > 0.015){
+    else if (player.currentTime - time > aboveCheck){
       player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('above'))
       console.log('above')
     }
