@@ -89,12 +89,12 @@ module.exports = {
       })
 
       video.pipe(fs.createWriteStream('assets/audio/' + videoid + '.mp3'));
-
-      if (!songs[req.body.code]){
-        songs[req.body.code] = []
-      }
-      songs[req.body.code].push({url: '/audio/' + videoid + '.mp3', image: req.body.image, title: req.body.title, videoid: videoid})
     }
+
+    if (!songs[req.body.code]){
+      songs[req.body.code] = []
+    }
+    songs[req.body.code].push({url: '/audio/' + videoid + '.mp3', image: req.body.image, title: req.body.title, videoid: videoid})
 
   },
 
