@@ -48,7 +48,7 @@ $('#ytsearch').focus(function(){
 })
 
 $('#ytsearch').focusout(function(){
-  // $('.results').hide()
+  $('.results').hide()
 })
 
 function ytinit() {
