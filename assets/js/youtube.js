@@ -48,7 +48,9 @@ $('#ytsearch').focus(function(){
 })
 
 $('#ytsearch').focusout(function(){
-  $('.results').hide()
+  setTimeout(function(){
+    $('.results').hide()
+  }, 200)
 })
 
 function ytinit() {
