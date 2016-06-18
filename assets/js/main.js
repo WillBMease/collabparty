@@ -110,7 +110,7 @@ io.socket.on('addSong', function (data){
       loadSong(data.url)
     }, 1000)
   }
-  currentSong = data
+  // currentSong = data
 })
 
 function addSongToBottom(data){
@@ -130,7 +130,10 @@ function addSongToList(data){
     console.log(data.videoid)
     if (currentSong.videoid != data.videoid){
       console.log('sending for change song')
-      io.socket.post('changeSong', {videoid: data.videoid, id: myid, code: code})
+      io.socket.post('Room/changeSong', {videoid: data.videoid, id: myid, code: code})
+    }
+    else {
+      console.log('not sending')
     }
   })
   // $('#song-image'+data.videoid).click(function(){
