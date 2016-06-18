@@ -130,22 +130,12 @@ function addSongToList(data){
     console.log(data.videoid)
     if (currentSong.videoid != data.videoid){
       console.log('sending for change song')
-      io.socket.post('Room/changeSong', {videoid: data.videoid, id: myid, code: code})
+      io.socket.post('/Room/changeSong', {videoid: data.videoid, id: myid, code: code})
     }
     else {
       console.log('not sending')
     }
   })
-  // $('#song-image'+data.videoid).click(function(){
-  //   console.log('song-image click')
-  //   if (currentSong.videoid != data.videoid)
-  //     io.socket.post('changeSong', {videoid: data.videoid, id: myid, code: code})
-  // })
-  // $('#song-title'+data.videoid).click(function(){
-  //   console.log('song-title click')
-  //   if (currentSong.videoid != data.videoid)
-  //     io.socket.post('changeSong', {videoid: data.videoid, id: myid, code: code})
-  // })
 }
 
 io.socket.on('changeSong', function (data){
@@ -267,21 +257,25 @@ io.socket.on('updateTime', function (data){
     }
     else {
       volume.gain.value = 0
+      $('.syncingContainer').show()
     }
 
     if (player.currentTime - time < bottomCheck){
       player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('below'))
       console.log('below')
       volume.gain.value = 0
+      $('.syncingContainer').show()
     }
     else if (player.currentTime - time > aboveCheck){
       player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('above'))
       console.log('above')
       volume.gain.value = 0
+      $('.syncingContainer').show()
     }
     else {
       synced = true
       volume.gain.value = 1
+      $('.syncingContainer').hide()
     }
   }
 })
