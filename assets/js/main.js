@@ -237,13 +237,13 @@ io.socket.on('updateTime', function (data){
     var offset = parseFloat(low.offset) - parseFloat(data.offset)
     var delay = parseFloat(((+new Date() - data.time + offset) / 1000).toFixed(6))
     var time = data.currentTime + delay
-    var bottomCheck = -0.025, aboveCheck = 0.025
-    if (Math.abs(player.currentTime - time) > 0.08){
+    var bottomCheck = -0.022, aboveCheck = 0.022
+    if (Math.abs(player.currentTime - time) > 0.06){
       synced = false
     }
     if (synced){
-      bottomCheck = -0.065
-      aboveCheck = 0.065
+      bottomCheck = -0.045
+      aboveCheck = 0.045
     }
     else {
       volume.gain.value = 0
