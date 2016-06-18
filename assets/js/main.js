@@ -110,12 +110,12 @@ io.socket.on('addSong', function (data){
       loadSong(data.url)
     }, 1000)
   }
-  // currentSong = data
 })
 
 function addSongToBottom(data){
   $('.albumArt').css('background-image', 'url(' + data.image + ')')
   $('.songTitle').text(data.title)
+  currentSong = data
 }
 
 function addSongToList(data){
@@ -281,7 +281,7 @@ io.socket.on('updateTime', function (data){
 })
 
 io.socket.on('play', function (data){
-  $('#play').css('background-image', 'url(/images/pause.jpg)')
+  $('#play').css('background-image', 'url(/images/pause.png)')
   if (myid != data.id){
     var offset = parseFloat(low.offset) - parseFloat(data.offset)
     var delay = ((+new Date() - data.time + offset) / 1000).toFixed(6)
