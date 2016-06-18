@@ -128,8 +128,10 @@ function addSongToList(data){
     console.log('song click')
     console.log(currentSong.videoid)
     console.log(data.videoid)
-    if (currentSong.videoid != data.videoid)
+    if (currentSong.videoid != data.videoid){
+      console.log('sending for change song')
       io.socket.post('changeSong', {videoid: data.videoid, id: myid, code: code})
+    }
   })
   // $('#song-image'+data.videoid).click(function(){
   //   console.log('song-image click')

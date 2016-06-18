@@ -100,6 +100,7 @@ module.exports = {
   },
 
   changeSong: function(req, res){
+    console.log('change song')
     currentSong[req.body.code] = req.body.videoid
     sails.sockets.broadcast(req.body.code, 'changeSong', req.body)
   },
