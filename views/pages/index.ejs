@@ -118,7 +118,7 @@ var id
 io.socket.post('/Room/generateCode', '')
 
 io.socket.on('receiveCode', function (data){
-	$('#uuid').text('https://collab.party/room?#'+data.uuid)
+	$('#uuid').text('collab.party/room?#'+data.uuid)
 	id = data.uuid
 })
 
