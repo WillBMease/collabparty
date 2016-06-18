@@ -147,6 +147,7 @@ function changeSong(data){
   player.pause()
   playing = false
   clearInterval(updateTimeInt)
+  console.log(songs)
   songs.forEach(function(s, i){
     if (s.videoid == data.videoid){
       currentSong = s
