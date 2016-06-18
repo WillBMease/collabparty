@@ -126,19 +126,21 @@ function addSongToList(data){
 
   $('#song'+data.videoid).click(function(){
     console.log('song click')
+    console.log(currentSong.videoid)
+    console.log(data.videoid)
     if (currentSong.videoid != data.videoid)
       io.socket.post('changeSong', {videoid: data.videoid, id: myid, code: code})
   })
-  $('#song-image'+data.videoid).click(function(){
-    console.log('song-image click')
-    if (currentSong.videoid != data.videoid)
-      io.socket.post('changeSong', {videoid: data.videoid, id: myid, code: code})
-  })
-  $('#song-title'+data.videoid).click(function(){
-    console.log('song-title click')
-    if (currentSong.videoid != data.videoid)
-      io.socket.post('changeSong', {videoid: data.videoid, id: myid, code: code})
-  })
+  // $('#song-image'+data.videoid).click(function(){
+  //   console.log('song-image click')
+  //   if (currentSong.videoid != data.videoid)
+  //     io.socket.post('changeSong', {videoid: data.videoid, id: myid, code: code})
+  // })
+  // $('#song-title'+data.videoid).click(function(){
+  //   console.log('song-title click')
+  //   if (currentSong.videoid != data.videoid)
+  //     io.socket.post('changeSong', {videoid: data.videoid, id: myid, code: code})
+  // })
 }
 
 io.socket.on('changeSong', function (data){
