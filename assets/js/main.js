@@ -1,3 +1,13 @@
+var context = new (window.AudioContext || window.webkitAudioContext ||
+  window.mozAudioContext ||
+    window.oAudioContext ||
+    window.msAudioContext)();
+if (context) {
+  // Web Audio API is available.
+} else {
+  alert('browser not supported') ;
+}
+
 var checkLoadedInt, currentSong = null, songs = null
 var code = null, myid = Math.floor(Math.random() * 99999)
 
@@ -87,6 +97,10 @@ $('#invite').click(function(){
 })
 
 player = document.getElementById('song')
+var audioControl = context.createMediaElementSource(player)
+var volume = context.createGain()
+audioControl.connect(volume)
+volume.connect(context.destination)
 
 io.socket.on('addSong', function (data){
   addSongToList(data)
@@ -231,6 +245,9 @@ io.socket.on('updateTime', function (data){
       bottomCheck = -0.065
       aboveCheck = 0.065
     }
+    else {
+      volume.gain = 0
+    }
 
     if (player.currentTime - time < bottomCheck){
       player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('below'))
@@ -242,6 +259,7 @@ io.socket.on('updateTime', function (data){
     }
     else {
       synced = true
+      volume.gain = 1
     }
   }
 })
