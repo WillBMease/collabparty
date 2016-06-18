@@ -120,11 +120,22 @@ function addSongToBottom(data){
 
 function addSongToList(data){
   $('.song-list').append('<div id="song'+data.videoid+'" class="song-item">'+
-    '<div class="song-image" style="background-image: url('+data.image+')"></div>'+
-    '<div class="song-title">'+data.title+'</div>'+
+    '<div id="song-image'+data.videoid+'" class="song-image" style="background-image: url('+data.image+')"></div>'+
+    '<div id="song-title'+data.videoid+'" class="song-title">'+data.title+'</div>'+
   '</div>')
 
   $('#song'+data.videoid).click(function(){
+    console.log('song click')
+    if (currentSong.videoid != data.videoid)
+      io.socket.post('changeSong', {videoid: data.videoid, id: myid, code: code})
+  })
+  $('#song-image'+data.videoid).click(function(){
+    console.log('song-image click')
+    if (currentSong.videoid != data.videoid)
+      io.socket.post('changeSong', {videoid: data.videoid, id: myid, code: code})
+  })
+  $('#song-title'+data.videoid).click(function(){
+    console.log('song-title click')
     if (currentSong.videoid != data.videoid)
       io.socket.post('changeSong', {videoid: data.videoid, id: myid, code: code})
   })
