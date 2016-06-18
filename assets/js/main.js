@@ -131,6 +131,7 @@ function addSongToList(data){
 }
 
 io.socket.on('changeSong', function (data){
+  console.log('change song')
   changeSong(data)
 })
 
@@ -147,6 +148,7 @@ function changeSong(data){
   addSongToBottom(data)
   if (data.id == myid){
     setTimeout(function(){
+      console.log('should play new')
       play()
     }, 1500)
   }
