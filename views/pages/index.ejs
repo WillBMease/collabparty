@@ -47,14 +47,14 @@ body {
 }
 
 .buttons {
-	border: 2px dotted white;
+	border: 1px solid white;
 	position: relative;
 	background: none;
 	color: white;
 	font-size: 20px;
 	border-radius: 10px;
 	-webkit-transition: all .4s ease;
-  	transition: all .4s ease;
+  transition: all .4s ease;
 }
 
 .buttons:hover {
@@ -93,8 +93,8 @@ body {
 </head>
 
 <div class="menubar">
-	<button id="login" class="buttons" onclick="window.location.href='/login'">Login</button>
-	<button id="signup" class="buttons" onclick="window.location.href='/register'">Sign up </button>
+	<button id="login" class="buttons" onclick="window.location.href='/login'" style="display:none;">Login</button>
+	<button id="signup" class="buttons" onclick="window.location.href='/register'" style="display:none;">Sign up </button>
 </div>
 
 <center>
@@ -103,8 +103,8 @@ body {
 		<h3 class="description">Sync phone speakers with friends</h3>
 		<button id="generate" class="buttons">Create Room</button>
 		<p id="uuid"></p>
-		<input type="text" placeholder="join room...">
-		<button class="buttons">Join</button>
+		<input id="join-text" type="text" placeholder="join room...">
+		<button id="join" class="buttons">Join</button>
 	</div>
 </center>
 
@@ -118,7 +118,7 @@ var id
 io.socket.post('/Room/generateCode', '')
 
 io.socket.on('receiveCode', function (data){
-	$('#uuid').text('https://collab.party/'+data.uuid)
+	$('#uuid').text('https://collab.party/room?#'+data.uuid)
 	id = data.uuid
 })
 
@@ -165,8 +165,10 @@ function ping(){
 
 $('#generate').click(function(){
 	window.location.href += 'room?#' + id
-	// window.location.hash = id
-	// window.reload()
+})
+
+$('#join').click(function(){
+  window.location.href +='room?#' + $('#join-text').val()
 })
 
 

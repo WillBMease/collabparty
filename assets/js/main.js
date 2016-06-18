@@ -237,13 +237,13 @@ io.socket.on('updateTime', function (data){
     var offset = parseFloat(low.offset) - parseFloat(data.offset)
     var delay = parseFloat(((+new Date() - data.time + offset) / 1000).toFixed(6))
     var time = data.currentTime + delay
-    var bottomCheck = -0.022, aboveCheck = 0.022
-    if (Math.abs(player.currentTime - time) > 0.06){
+    var bottomCheck = -0.020, aboveCheck = 0.020
+    if (Math.abs(player.currentTime - time) > 0.045){
       synced = false
     }
     if (synced){
-      bottomCheck = -0.045
-      aboveCheck = 0.045
+      bottomCheck = -0.035
+      aboveCheck = 0.035
     }
     else {
       volume.gain.value = 0
@@ -252,10 +252,12 @@ io.socket.on('updateTime', function (data){
     if (player.currentTime - time < bottomCheck){
       player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('below'))
       console.log('below')
+      volume.gain.value = 0
     }
     else if (player.currentTime - time > aboveCheck){
       player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('above'))
       console.log('above')
+      volume.gain.value = 0
     }
     else {
       synced = true
@@ -265,7 +267,7 @@ io.socket.on('updateTime', function (data){
 })
 
 io.socket.on('play', function (data){
-  $(this).css('background-image', 'url(/images/pause.jpg)')
+  $('#play').css('background-image', 'url(/images/pause.jpg)')
   if (myid != data.id){
     var offset = parseFloat(low.offset) - parseFloat(data.offset)
     var delay = ((+new Date() - data.time + offset) / 1000).toFixed(6)
@@ -280,7 +282,7 @@ io.socket.on('play', function (data){
 })
 
 io.socket.on('pause', function (data){
-  $(this).css('background-image', 'url(/images/play.jpg)')
+  $('#play').css('background-image', 'url(/images/play.jpg)')
   if (myid != data.id){
     player.pause()
     synced = false

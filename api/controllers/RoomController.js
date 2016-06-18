@@ -15,7 +15,7 @@ var chosen = [alphabet, digits]
 // Randomly generate pairing code for TV
  function generateUUID(callback) {
     var uuid = ''
-    for (var i = 0 ; i < 5 ; i++){
+    for (var i = 0 ; i < 3 ; i++){
       var which = Math.round(Math.random())
       uuid += chosen[which][Math.floor(Math.random()*chosen[which].length)]
     }
