@@ -246,7 +246,7 @@ io.socket.on('updateTime', function (data){
       aboveCheck = 0.065
     }
     else {
-      volume.gain = 0
+      volume.gain.value = 0
     }
 
     if (player.currentTime - time < bottomCheck){
@@ -259,7 +259,7 @@ io.socket.on('updateTime', function (data){
     }
     else {
       synced = true
-      volume.gain = 1
+      volume.gain.value = 1
     }
   }
 })
