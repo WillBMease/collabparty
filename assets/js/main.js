@@ -189,7 +189,7 @@ function play(){
 
     player.play()
     io.socket.post('/Room/play', obj)
-    updateTimeInt = setInterval(updateTime, 400)
+    updateTimeInt = setInterval(updateTime, 150)
   }
   else {
     $(this).css('background-image', 'url(/images/play.jpg)')
