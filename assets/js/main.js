@@ -16,6 +16,7 @@ $('#enableContainer').click(function(){
   $('#song').get(0).play()
   $('#song').get(0).pause()
   $('#enableContainer').remove()
+  mobileReady = true
 })
 
 function detectmob() {
@@ -244,48 +245,50 @@ var Learn = function(){
 var learn = new Learn()
 
 io.socket.on('updateTime', function (data){
-  if (myid != data.id){
-    if (isNaN(low.offset)){
-      low.offset = data.offset
-    }
-    else if (isNaN(data.offset)){
-      data.offset = low.offset
-    }
-    if (player.paused && mobileReady){
-      player.play()
-    }
-    var offset = parseFloat(low.offset) - parseFloat(data.offset)
-    var delay = parseFloat(((+new Date() - data.time + offset) / 1000).toFixed(6))
-    var time = data.currentTime + delay
-    var bottomCheck = -0.018, aboveCheck = 0.018
-    if (Math.abs(player.currentTime - time) > 0.040){
-      synced = false
-    }
-    if (synced){
-      bottomCheck = -0.032
-      aboveCheck = 0.032
-    }
-    else {
-      volume.gain.value = 0
-      $('.syncingContainer').show()
-    }
+  if (mobileReady){
+    if (myid != data.id){
+      if (isNaN(low.offset)){
+        low.offset = data.offset
+      }
+      else if (isNaN(data.offset)){
+        data.offset = low.offset
+      }
+      if (player.paused){
+        player.play()
+      }
+      var offset = parseFloat(low.offset) - parseFloat(data.offset)
+      var delay = parseFloat(((+new Date() - data.time + offset) / 1000).toFixed(6))
+      var time = data.currentTime + delay
+      var bottomCheck = -0.018, aboveCheck = 0.018
+      if (Math.abs(player.currentTime - time) > 0.040){
+        synced = false
+      }
+      if (synced){
+        bottomCheck = -0.032
+        aboveCheck = 0.032
+      }
+      else {
+        volume.gain.value = 0
+        $('.syncingContainer').show()
+      }
 
-    if (player.currentTime - time < bottomCheck){
-      player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('below'))
-      console.log('below')
-      volume.gain.value = 0
-      $('.syncingContainer').show()
-    }
-    else if (player.currentTime - time > aboveCheck){
-      player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('above'))
-      console.log('above')
-      volume.gain.value = 0
-      $('.syncingContainer').show()
-    }
-    else {
-      synced = true
-      volume.gain.value = 1
-      $('.syncingContainer').hide()
+      if (player.currentTime - time < bottomCheck){
+        player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('below'))
+        console.log('below')
+        volume.gain.value = 0
+        $('.syncingContainer').show()
+      }
+      else if (player.currentTime - time > aboveCheck){
+        player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('above'))
+        console.log('above')
+        volume.gain.value = 0
+        $('.syncingContainer').show()
+      }
+      else {
+        synced = true
+        volume.gain.value = 1
+        $('.syncingContainer').hide()
+      }
     }
   }
 })
