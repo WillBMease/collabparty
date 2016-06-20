@@ -60,7 +60,7 @@ io.socket.on('connect', function(){
 
 var low = {latency: 999999}
 
-var pingInt = setInterval(ping, 50)
+var pingInt = setInterval(ping, 35)
 
 var pingct = 0
 
@@ -189,7 +189,7 @@ function play(){
 
     player.play()
     io.socket.post('/Room/play', obj)
-    updateTimeInt = setInterval(updateTime, 150)
+    updateTimeInt = setInterval(updateTime, 100)
   }
   else {
     $(this).css('background-image', 'url(/images/play.jpg)')
@@ -245,6 +245,9 @@ io.socket.on('updateTime', function (data){
     }
     else if (isNaN(data.offset)){
       data.offset = low.offset
+    }
+    if (player.paused){
+      player.play()
     }
     var offset = parseFloat(low.offset) - parseFloat(data.offset)
     var delay = parseFloat(((+new Date() - data.time + offset) / 1000).toFixed(6))
