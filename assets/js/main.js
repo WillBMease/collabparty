@@ -10,6 +10,7 @@ if (context) {
 
 var checkLoadedInt, currentSong = null, songs = null
 var code = null, myid = Math.floor(Math.random() * 99999)
+var mobileReady = true
 
 $('#enableContainer').click(function(){
   $('#song').get(0).play()
@@ -38,6 +39,10 @@ var isMobile = detectmob()
 
 if (isMobile){
 	$('#enableContainer').show()
+  mobileReady = false
+}
+else {
+  mobileReady = true
 }
 
 io.socket.on('connect', function(){
@@ -246,7 +251,7 @@ io.socket.on('updateTime', function (data){
     else if (isNaN(data.offset)){
       data.offset = low.offset
     }
-    if (player.paused){
+    if (player.paused && mobileReady){
       player.play()
     }
     var offset = parseFloat(low.offset) - parseFloat(data.offset)
