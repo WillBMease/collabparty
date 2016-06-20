@@ -294,7 +294,6 @@ io.socket.on('updateTime', function (data){
 })
 
 io.socket.on('play', function (data){
-  $('#play').css('background-image', 'url(/images/pause.png)')
   if (myid != data.id){
     var offset = parseFloat(low.offset) - parseFloat(data.offset)
     var delay = ((+new Date() - data.time + offset) / 1000).toFixed(6)
@@ -302,9 +301,6 @@ io.socket.on('play', function (data){
       delay = 0
 
     player.currentTime = parseFloat( (player.currentTime).toFixed(6) + parseFloat(delay) )
-    player.play()
-    synced = false
-    playing = true
   }
 })
 
@@ -316,3 +312,10 @@ io.socket.on('pause', function (data){
     playing = false
   }
 })
+
+function play(){
+  player.play()
+  synced = false
+  playing = true
+  $('#play').css('background-image', 'url(/images/pause.png)')
+}
