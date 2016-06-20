@@ -225,12 +225,12 @@ var Learn = function(){
     if (status == 'above'){
       if (this.increment > 0)
         this.increment = 0
-      this.increment -= 0.003
+      this.increment -= 0.0015
     }
     else if (status == 'below'){
       if (this.increment < 0)
         this.increment = 0
-      this.increment += 0.003
+      this.increment += 0.0015
     }
     return this.increment
   }
@@ -254,8 +254,8 @@ io.socket.on('updateTime', function (data){
       synced = false
     }
     if (synced){
-      bottomCheck = -0.030
-      aboveCheck = 0.030
+      bottomCheck = -0.032
+      aboveCheck = 0.032
     }
     else {
       volume.gain.value = 0
