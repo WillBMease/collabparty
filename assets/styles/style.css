@@ -232,8 +232,10 @@ body {
   float: left;
   top: 0;
   height: 50px;
-  background: white;
+  line-height: 50px;
+  background: rgba(255, 255, 255, 0.5);
   margin-bottom: 8px;
+  border-radius: 4px;
 }
 .song-image {
   position: relative;
