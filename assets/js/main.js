@@ -47,7 +47,6 @@ else {
 }
 
 io.socket.on('connect', function(){
-	console.log((window.location.hash).replace('#', ''))
   code = (window.location.hash).replace('#', '')
 	$('.uuid').text(code)
   io.socket.post('/Room/join', {code: code}, function(data){
@@ -178,10 +177,10 @@ function loadSong(url){
 var updateTimeInt, player, myAudio, playing = false
 
 $('#play').click(function(){
-  play()
+  clickPlay()
 })
 
-function play(){
+function clickPlay(){
   if (!playing){
     $(this).css('background-image', 'url(/images/pause.png)')
     playing = true
@@ -260,12 +259,12 @@ io.socket.on('updateTime', function (data){
       var delay = parseFloat(((+new Date() - data.time + offset) / 1000).toFixed(6))
       var time = data.currentTime + delay
       var bottomCheck = -0.018, aboveCheck = 0.018
-      if (Math.abs(player.currentTime - time) > 0.040){
+      if (Math.abs(player.currentTime - time) > 0.042){
         synced = false
       }
       if (synced){
-        bottomCheck = -0.032
-        aboveCheck = 0.032
+        bottomCheck = -0.035
+        aboveCheck = 0.035
       }
       else {
         volume.gain.value = 0
@@ -301,6 +300,7 @@ io.socket.on('play', function (data){
       delay = 0
 
     player.currentTime = parseFloat( (player.currentTime).toFixed(6) + parseFloat(delay) )
+    play()
   }
 })
 
