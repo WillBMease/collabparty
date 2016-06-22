@@ -184,7 +184,7 @@ $('#play').click(function(){
 
 function clickPlay(){
   if (!playing){
-    $(this).css('background-image', 'url(/images/pause.png)')
+    $('#play').css('background-image', 'url(/images/pause.png)')
     playing = true
     var obj = {
       code: code,
@@ -199,7 +199,7 @@ function clickPlay(){
     updateTimeInt = setInterval(updateTime, 100)
   }
   else {
-    $(this).css('background-image', 'url(/images/play.jpg)')
+    $('#play').css('background-image', 'url(/images/play.jpg)')
     var obj = {
       code: code,
       time: +new Date(),
