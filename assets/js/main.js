@@ -355,5 +355,5 @@ function updateScrubber(){
   var secs = time_left % 60
   if (secs < 10)
     secs = '0' + secs
-  $('.playerTime').text('-' + mins + ':' + secs)
+  $('.playerTime').text('- ' + mins + ':' + secs)
 }
