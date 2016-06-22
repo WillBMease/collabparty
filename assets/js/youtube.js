@@ -13,7 +13,9 @@ $('#ytsearch').each(function() {
           // type: "search",
     			q: encodeURIComponent(elem.val()).replace(/%20/g, '+'),
     			maxResults: 25,
-    			order: "viewCount"
+    			// order: "viewCount"
+          order: "relevance"
+          // order: "rating"
     			// publishedAfter: "2015-01-01T00:00:00Z"
     		})
 
