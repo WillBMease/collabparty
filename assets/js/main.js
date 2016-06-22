@@ -107,6 +107,28 @@ var volume = context.createGain()
 audioControl.connect(volume)
 volume.connect(context.destination)
 
+player.onended(function(){
+  nextSong()
+})
+
+function nextSong(){
+  if (songs){
+    for (var i = 0 ; i < songs.length ; i++){
+      if (songs[i].videoid == currentSong.videoid){
+        if (!(i >= songs.length - 1)){
+          currentSong = songs[i+1]
+          i = songs.length
+        }
+        else {
+          currentSong = songs[0]
+          i = songs.length
+        }
+        io.socket.post('/Room/changeSong', {videoid: currentSong.videoid, id: myid, code: code})
+      }
+    }
+  }
+}
+
 io.socket.on('addSong', function (data){
   addSongToList(data)
   if (!currentSong){
