@@ -10,7 +10,7 @@ if (context) {
 
 var checkLoadedInt, currentSong = null, songs = null
 var code = null, myid = Math.floor(Math.random() * 99999)
-var mobileReady = true
+var mobileReady = true, scrubber = false
 
 $('#enableContainer').click(function(){
   $('#song').get(0).play()
@@ -51,6 +51,7 @@ io.socket.on('connect', function(){
 	$('.uuid').text(code)
   io.socket.post('/Room/join', {code: code}, function(data){
     songs = data.songs
+    $('.song-list').empty()
     songs.forEach(function (s, i){
       addSongToList(s)
     })
@@ -326,6 +327,7 @@ io.socket.on('play', function (data){
     player.currentTime = parseFloat( (player.currentTime).toFixed(6) + parseFloat(delay) )
     play()
   }
+  scrubber = setInterval(updateScrubber, 50)
 })
 
 io.socket.on('pause', function (data){
@@ -335,6 +337,7 @@ io.socket.on('pause', function (data){
     synced = false
     playing = false
   }
+  clearInterval(scrubber)
 })
 
 function play(){
@@ -342,4 +345,11 @@ function play(){
   synced = false
   playing = true
   $('#play').css('background-image', 'url(/images/pause.png)')
+}
+
+function updateScrubber(){
+  var curr = (player.currentTime).toFixed(6)
+  var duration = player.duration
+  var progress = (curr / duration).toFixed(3)
+  $('.scrubber').css('left', progress+'%')
 }
