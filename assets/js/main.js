@@ -108,7 +108,7 @@ var volume = context.createGain()
 audioControl.connect(volume)
 volume.connect(context.destination)
 
-player.onended(function(){
+player.addEventListener('ended', function(){
   nextSong()
 })
 
