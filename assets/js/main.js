@@ -129,6 +129,8 @@ function addSongToList(data){
     '<div id="song-title'+data.videoid+'" class="song-title">'+data.title+'</div>'+
   '</div>')
 
+  songs.push(data)
+
   $('#song'+data.videoid).click(function(){
     console.log('song click')
     console.log(currentSong.videoid)
