@@ -290,25 +290,25 @@ io.socket.on('updateTime', function (data){
         aboveCheck = 0.035
       }
       else {
-        volume.gain.value = 0
+        player.volume = 0
         $('.syncingContainer').show()
       }
 
       if (player.currentTime - time < bottomCheck){
         player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('below'))
         console.log('below')
-        volume.gain.value = 0
+        player.volume = 0
         $('.syncingContainer').show()
       }
       else if (player.currentTime - time > aboveCheck){
         player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('above'))
         console.log('above')
-        volume.gain.value = 0
+        player.volume = 0
         $('.syncingContainer').show()
       }
       else {
         synced = true
-        volume.gain.value = 1
+        player.volume = 1
         $('.syncingContainer').hide()
       }
     }
