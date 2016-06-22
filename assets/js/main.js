@@ -161,11 +161,11 @@ function changeSong(data){
     }
   })
   loadSong(currentSong.url)
-  addSongToBottom(data)
+  addSongToBottom(currentSong)
   if (data.id == myid){
     setTimeout(function(){
       console.log('should play new')
-      play()
+      clickPlay()
     }, 1500)
   }
 }
