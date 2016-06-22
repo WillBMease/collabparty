@@ -350,6 +350,7 @@ function play(){
 function updateScrubber(){
   var curr = (player.currentTime).toFixed(6)
   var duration = player.duration
-  var progress = (curr / duration).toFixed(3)
+  var progress = ((curr / duration).toFixed(6))*100
+  console.log(progress)
   $('.scrubber').css('left', progress+'%')
 }
