@@ -207,8 +207,6 @@ $('#play').click(function(){
 
 function clickPlay(){
   if (!playing){
-    $('#play').css('background-image', 'url(/images/pause.png)')
-    playing = true
     var obj = {
       code: code,
       time: +new Date(),
@@ -217,7 +215,7 @@ function clickPlay(){
       id: myid
     }
 
-    player.play()
+    play()
     io.socket.post('/Room/play', obj)
     updateTimeInt = setInterval(updateTime, 100)
   }
@@ -278,7 +276,7 @@ io.socket.on('updateTime', function (data){
         data.offset = low.offset
       }
       if (player.paused){
-        player.play()
+        play()
       }
       var offset = parseFloat(low.offset) - parseFloat(data.offset)
       var delay = parseFloat(((+new Date() - data.time + offset) / 1000).toFixed(6))
@@ -327,7 +325,6 @@ io.socket.on('play', function (data){
     player.currentTime = parseFloat( (player.currentTime).toFixed(6) + parseFloat(delay) )
     play()
   }
-  scrubber = setInterval(updateScrubber, 50)
 })
 
 io.socket.on('pause', function (data){
@@ -345,6 +342,7 @@ function play(){
   synced = false
   playing = true
   $('#play').css('background-image', 'url(/images/pause.png)')
+  scrubber = setInterval(updateScrubber, 50)
 }
 
 function updateScrubber(){
@@ -353,4 +351,5 @@ function updateScrubber(){
   var progress = ((curr / duration).toFixed(6))*100
   console.log(progress)
   $('.scrubber').css('left', progress+'%')
+  $('.playerTime').text('-' + (Math.round(duration) - Math.round(curr)))
 }

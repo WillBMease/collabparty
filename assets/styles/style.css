@@ -163,7 +163,7 @@ body {
   width: 100%;
   height: 50px;
   left: 0;
-  bottom: 5px;
+  bottom: 10px;
   background: #333;
   color: white;
 }
@@ -208,6 +208,14 @@ body {
   float: left;
   width: 10%;
   height: 100%;
+}
+.playerTime {
+  position: relative;
+  display: inline-block;
+  float: left;
+  width: 30%;
+  height: 100%;
+  text-align: right;
 }
 #enableContainer {
   position: fixed;
@@ -284,14 +292,14 @@ body {
 .scrubberContainer {
   position: fixed;
   width: 100%;
-  height: 5px;
+  height: 10px;
   bottom: 0;
   left: 0;
   background: green;
 }
 .scrubber {
   position: absolute;
-  width: 2px;
+  width: 3px;
   height: 100%;
   background: white;
   left: 0;
