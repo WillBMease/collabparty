@@ -348,8 +348,12 @@ function play(){
 function updateScrubber(){
   var curr = (player.currentTime).toFixed(6)
   var duration = player.duration
+  var time_left = Math.round(duration) - Math.round(curr)
   var progress = ((curr / duration).toFixed(6))*100
-  console.log(progress)
   $('.scrubber').css('left', progress+'%')
-  $('.playerTime').text('-' + (Math.round(duration) - Math.round(curr)))
+  var mins = Math.floor(time_left / 60)
+  var secs = time_left % 60
+  if (secs < 10)
+    secs = '0' + secs
+  $('.playerTime').text('-' + mins + ':' + secs)
 }
