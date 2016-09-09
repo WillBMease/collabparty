@@ -224,12 +224,12 @@ var Learn = function(){
     if (status == 'above'){
       if (this.increment > 0)
         this.increment = 0
-      this.increment -= 0.0014
+      this.increment -= 0.0012
     }
     else if (status == 'below'){
       if (this.increment < 0)
         this.increment = 0
-      this.increment += 0.0014
+      this.increment += 0.0012
     }
     return this.increment
   }
@@ -341,12 +341,12 @@ io.socket.on('updateTime', function (data){
       var delay = parseFloat(((+new Date() - data.time + offset) / 1000).toFixed(6))
       var time = data.currentTime + delay
       var bottomCheck = -0.018, aboveCheck = 0.018
-      if (Math.abs(player.currentTime - time) > 0.038){
+      if (Math.abs(player.currentTime - time) > 0.035){
         synced = false
       }
       if (synced){
-        bottomCheck = -0.032
-        aboveCheck = 0.032
+        bottomCheck = -0.030
+        aboveCheck = 0.030
       }
       else {
         player.volume = 0
