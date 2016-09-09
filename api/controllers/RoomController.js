@@ -13,13 +13,13 @@ var digits = [2,3,4,5,6,7,8,9]
 var chosen = [alphabet, digits]
 
 // Randomly generate pairing code for TV
- function generateUUID(callback) {
-    var uuid = ''
-    for (var i = 0 ; i < 3 ; i++){
-      var which = Math.round(Math.random())
-      uuid += chosen[which][Math.floor(Math.random()*chosen[which].length)]
-    }
-    callback(uuid);
+function generateUUID(callback) {
+  var uuid = ''
+  for (var i = 0 ; i < 3 ; i++){
+    var which = Math.round(Math.random())
+    uuid += chosen[which][Math.floor(Math.random()*chosen[which].length)]
+  }
+  callback(uuid);
 }
 
 var offsets = [], users = [], songs = [], currentSong = []

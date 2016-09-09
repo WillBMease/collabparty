@@ -46,24 +46,6 @@ else {
   mobileReady = true
 }
 
-io.socket.on('connect', function(){
-  code = (window.location.hash).replace('#', '')
-	$('.uuid').text(code)
-  io.socket.post('/Room/join', {code: code}, function(data){
-    songs = data.songs
-    $('.song-list').empty()
-    songs.forEach(function (s, i){
-      addSongToList(s)
-    })
-    if (data.currentSong){
-      songs.forEach(function (s, i){
-        if (s.videoid == data.currentSong)
-          changeSong(s)
-      })
-    }
-  })
-})
-
 var low = {latency: 999999}
 
 var pingInt = setInterval(ping, 35)
@@ -130,16 +112,6 @@ function nextSong(){
   }
 }
 
-io.socket.on('addSong', function (data){
-  addSongToList(data)
-  if (!currentSong){
-    addSongToBottom(data)
-    setTimeout(function(){
-      loadSong(data.url)
-    }, 1000)
-  }
-})
-
 function addSongToBottom(data){
   $('.albumArt').css('background-image', 'url(' + data.image + ')')
   $('.songTitle').text(data.title)
@@ -167,11 +139,6 @@ function addSongToList(data){
     }
   })
 }
-
-io.socket.on('changeSong', function (data){
-  console.log('change song')
-  changeSong(data)
-})
 
 function changeSong(data){
   player.pause()
@@ -266,6 +233,94 @@ var Learn = function(){
 
 var learn = new Learn()
 
+
+
+function play(){
+  player.play()
+  synced = false
+  playing = true
+  $('#play').css('background-image', 'url(/images/pause.png)')
+  scrubber = setInterval(updateScrubber, 50)
+}
+
+function updateScrubber(){
+  var curr = (player.currentTime).toFixed(6)
+  var duration = player.duration
+  var time_left = Math.round(duration) - Math.round(curr)
+  var progress = ((curr / duration).toFixed(6))*100
+  $('.scrubber').css('left', progress+'%')
+  var mins = Math.floor(time_left / 60)
+  var secs = time_left % 60
+  if (secs < 10)
+    secs = '0' + secs
+  $('.playerTime').text('- ' + mins + ':' + secs)
+}
+
+// var App = function() {
+//   connect: function(){
+//     code = (window.location.hash).replace('#', '')
+//   	$('.uuid').text(code)
+//     io.socket.post('/Room/join', {code: code}, function(data){
+//       songs = data.songs
+//       $('.song-list').empty()
+//       songs.forEach(function (s, i){
+//         addSongToList(s)
+//       })
+//       if (data.currentSong){
+//         songs.forEach(function (s, i){
+//           if (s.videoid == data.currentSong)
+//             changeSong(s)
+//         })
+//       }
+//     })
+//   }
+// }
+//
+// var app = new App()
+
+
+io.socket.on('connect', function(){
+  code = (window.location.hash).replace('#', '')
+	$('.uuid').text(code)
+  io.socket.post('/Room/join', {code: code}, function(data){
+    songs = data.songs
+    $('.song-list').empty()
+    songs.forEach(function (s, i){
+      addSongToList(s)
+    })
+    if (data.currentSong){
+      songs.forEach(function (s, i){
+        if (s.videoid == data.currentSong)
+          changeSong(s)
+      })
+    }
+  })
+  // app.connect()
+})
+
+
+io.socket.on('play', function (data){
+  if (myid != data.id){
+    var offset = parseFloat(low.offset) - parseFloat(data.offset)
+    var delay = ((+new Date() - data.time + offset) / 1000).toFixed(6)
+    if (delay < 0)
+      delay = 0
+
+    player.currentTime = parseFloat( (player.currentTime).toFixed(6) + parseFloat(delay) )
+    play()
+  }
+})
+
+io.socket.on('pause', function (data){
+  $('#play').css('background-image', 'url(/images/play.jpg)')
+  if (myid != data.id){
+    player.pause()
+    synced = false
+    playing = false
+  }
+  clearInterval(scrubber)
+})
+
 io.socket.on('updateTime', function (data){
   if (mobileReady){
     if (myid != data.id){
@@ -315,45 +370,17 @@ io.socket.on('updateTime', function (data){
   }
 })
 
-io.socket.on('play', function (data){
-  if (myid != data.id){
-    var offset = parseFloat(low.offset) - parseFloat(data.offset)
-    var delay = ((+new Date() - data.time + offset) / 1000).toFixed(6)
-    if (delay < 0)
-      delay = 0
-
-    player.currentTime = parseFloat( (player.currentTime).toFixed(6) + parseFloat(delay) )
-    play()
+io.socket.on('addSong', function (data){
+  addSongToList(data)
+  if (!currentSong){
+    addSongToBottom(data)
+    setTimeout(function(){
+      loadSong(data.url)
+    }, 1000)
   }
 })
 
-io.socket.on('pause', function (data){
-  $('#play').css('background-image', 'url(/images/play.jpg)')
-  if (myid != data.id){
-    player.pause()
-    synced = false
-    playing = false
-  }
-  clearInterval(scrubber)
+io.socket.on('changeSong', function (data){
+  console.log('change song')
+  changeSong(data)
 })
-
-function play(){
-  player.play()
-  synced = false
-  playing = true
-  $('#play').css('background-image', 'url(/images/pause.png)')
-  scrubber = setInterval(updateScrubber, 50)
-}
-
-function updateScrubber(){
-  var curr = (player.currentTime).toFixed(6)
-  var duration = player.duration
-  var time_left = Math.round(duration) - Math.round(curr)
-  var progress = ((curr / duration).toFixed(6))*100
-  $('.scrubber').css('left', progress+'%')
-  var mins = Math.floor(time_left / 60)
-  var secs = time_left % 60
-  if (secs < 10)
-    secs = '0' + secs
-  $('.playerTime').text('- ' + mins + ':' + secs)
-}
