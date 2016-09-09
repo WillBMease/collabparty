@@ -12,6 +12,10 @@ var checkLoadedInt, currentSong = null, songs = null
 var code = null, myid = Math.floor(Math.random() * 99999)
 var mobileReady = true, scrubber = false
 
+// var playlist = function(){
+//
+// }
+
 $('#enableContainer').click(function(){
   $('#song').get(0).play()
   $('#song').get(0).pause()
@@ -220,12 +224,12 @@ var Learn = function(){
     if (status == 'above'){
       if (this.increment > 0)
         this.increment = 0
-      this.increment -= 0.0015
+      this.increment -= 0.0014
     }
     else if (status == 'below'){
       if (this.increment < 0)
         this.increment = 0
-      this.increment += 0.0015
+      this.increment += 0.0014
     }
     return this.increment
   }
@@ -337,12 +341,12 @@ io.socket.on('updateTime', function (data){
       var delay = parseFloat(((+new Date() - data.time + offset) / 1000).toFixed(6))
       var time = data.currentTime + delay
       var bottomCheck = -0.018, aboveCheck = 0.018
-      if (Math.abs(player.currentTime - time) > 0.042){
+      if (Math.abs(player.currentTime - time) > 0.038){
         synced = false
       }
       if (synced){
-        bottomCheck = -0.035
-        aboveCheck = 0.035
+        bottomCheck = -0.032
+        aboveCheck = 0.032
       }
       else {
         player.volume = 0
