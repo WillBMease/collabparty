@@ -8,18 +8,14 @@
 var fs = require('fs');
 var youtubedl = require('youtube-dl');
 
-var alphabet = ['A','B','C','D','E','F','G','H','J','K','M','N','P','Q','R','S','T','U','V','W','X','Y','Z']
-var digits = [2,3,4,5,6,7,8,9]
-var chosen = [alphabet, digits]
-
-// Randomly generate pairing code for TV
-function generateUUID(callback) {
-  var uuid = ''
-  for (var i = 0 ; i < 3 ; i++){
-    var which = Math.round(Math.random())
-    uuid += chosen[which][Math.floor(Math.random()*chosen[which].length)]
-  }
-  callback(uuid);
+function generateRandomToken(cb) {
+    var randomPool = new Uint8Array(32);
+    crypto.getRandomValues(randomPool);
+    var hex = '';
+    for (var i = 0; i < randomPool.length; ++i) {
+        hex += randomPool[i].toString(16);
+    }
+    cb(hex)
 }
 
 var offsets = [], users = [], songs = [], currentSong = []
@@ -27,7 +23,7 @@ var offsets = [], users = [], songs = [], currentSong = []
 module.exports = {
 
 	generateCode: function(req, res){
-		generateUUID(function (uuid){
+		generateRandomToken(function (uuid){
 			req.socket.emit('receiveCode', {uuid: uuid})
 		})
 	},
@@ -42,12 +38,10 @@ module.exports = {
   },
 
   play: function(req, res){
-    console.log('play')
     sails.sockets.broadcast(req.body.code, 'play', req.body)
   },
 
   pause: function(req, res){
-    console.log('pause')
     sails.sockets.broadcast(req.body.code, 'pause', req.body)
   },
 
