@@ -1,21 +1,21 @@
 /*
 Error: Undefined variable: "$background".
-        on line 15 of assets/scss/play.scss
+        on line 14 of assets/scss/play.scss
 
-10: $ratio:1.2;
-11: 
-12: $transition-time:0.3s;
-13: 
-14: body {
-15:   background: $background;
-16:   font-family: 'Open Sans', sans-serif;
-17:   text-align:center;
-18: }
-19: 
-20: .play {
+9: $ratio:1.2;
+10: 
+11: $transition-time:0.3s;
+12: 
+13: body {
+14:   background: $background;
+15:   font-family: 'Open Sans', sans-serif;
+16:   text-align:center;
+17: }
+18: 
+19: .play {
 
 Backtrace:
-assets/scss/play.scss:15
+assets/scss/play.scss:14
 /Users/willmease/.rvm/gems/ruby-2.3.0/gems/sass-3.4.22/lib/sass/script/tree/variable.rb:49:in `_perform'
 /Users/willmease/.rvm/gems/ruby-2.3.0/gems/sass-3.4.22/lib/sass/script/tree/node.rb:58:in `perform'
 /Users/willmease/.rvm/gems/ruby-2.3.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:397:in `visit_prop'
@@ -66,4 +66,4 @@ assets/scss/play.scss:15
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$background\".\A         on line 15 of assets/scss/play.scss\A \A 10: $ratio:1.2;\A 11: \A 12: $transition-time:0.3s;\A 13: \A 14: body {\A 15:   background: $background;\A 16:   font-family: 'Open Sans', sans-serif;\A 17:   text-align:center;\A 18: }\A 19: \A 20: .play {"; }
+  content: "Error: Undefined variable: \"$background\".\A         on line 14 of assets/scss/play.scss\A \A 9: $ratio:1.2;\A 10: \A 11: $transition-time:0.3s;\A 12: \A 13: body {\A 14:   background: $background;\A 15:   font-family: 'Open Sans', sans-serif;\A 16:   text-align:center;\A 17: }\A 18: \A 19: .play {"; }
