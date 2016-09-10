@@ -258,8 +258,7 @@ var Test = {
   }
 }
 
-var test = new Test()
-test.test()
+Test.test()
 
 
 // io.socket.on('connect', function(){
