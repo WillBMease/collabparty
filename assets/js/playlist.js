@@ -50,7 +50,6 @@ function changeSong(data){
 }
 
 function loadSong(url){
-  console.log(url)
   player.src = url
   player.load()
 }
