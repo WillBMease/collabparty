@@ -102,3 +102,9 @@ h1 {
     color:$foreground;
   }
 }
+
+.playContainer {
+  position: relative;
+  display: inline-block;
+  width: 10%;
+}

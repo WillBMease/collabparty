@@ -76,4 +76,9 @@ h1 {
   .social:hover, .social:focus {
     color: #c3defa; }
 
+.playContainer {
+  position: relative;
+  display: inline-block;
+  width: 10%; }
+
 /*# sourceMappingURL=play.css.map */
