@@ -21,7 +21,7 @@ function ping(){
 	}
 }
 
-player = document.getElementById('song')
+player = document.getElementsById('song')
 var audioControl = context.createMediaElementSource(player)
 var volume = context.createGain()
 audioControl.connect(volume)

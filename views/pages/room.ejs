@@ -1,5 +1,6 @@
 <head>
-  <link rel="stylesheet" href="/styles/style.css">
+  <link rel="stylesheet" href="/styles/style.css" />
+  <link rel="stylesheet" href="/styles/play.css" />
   <script src="/js/dependencies/sails.io.js"></script>
   <script src="/js/dependencies/jquery.min.js"></script>
 </head>
@@ -25,7 +26,7 @@
   <div class="albumArt"></div>
   <div class="songTitle"></div>
   <div class="lastSong"></div>
-  <div id="play"></div>
+  <a href="#" title="Play video" class="play"></a>
   <div class="nextSong"></div>
   <div class="playerTime">--:--</div>
 </div>
@@ -45,5 +46,17 @@
 <script src="/js/handleClicks.js"></script>
 <script src="/js/youtube.js"></script>
 <script src="//apis.google.com/js/client.js?onload=ytinit"></script>
+
+<script>
+
+$(document).ready(function() {
+  var icon = $('.play')
+  icon.click(function() {
+     icon.toggleClass('active')
+     return false
+  });
+});
+
+</script>
 
 </body>
