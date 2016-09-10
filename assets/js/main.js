@@ -81,6 +81,10 @@ player.onloadedmetadata = function(){
     alert('song not supported!')
 }
 
+player.addEventListener('error', function(){
+  alert('there was an error')
+})
+
 function changeSong(data){
   player.pause()
   playing = false
