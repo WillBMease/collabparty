@@ -73,6 +73,7 @@ body {
       right: ($size*0.1);
       top: ($size*-0.8);
       border-left:($size*0.4) solid $foreground;
+      box-shadow:inset ($size*0.6) 0 0 0 #22313F;
     }
   }
 }
