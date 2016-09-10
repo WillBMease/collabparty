@@ -14,7 +14,6 @@ io.socket.on('connect', function(){
       })
     }
   })
-  // app.connect()
 })
 
 
