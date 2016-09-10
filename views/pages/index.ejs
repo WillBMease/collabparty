@@ -9,10 +9,10 @@ padding: 0;
 }
 
 body {
-    background: -webkit-linear-gradient(right top, ##f9f9f9 , #1F51AC);
-    background: -o-linear-gradient(bottom left, ##f9f9f9, #1F51AC);
-    background: -moz-linear-gradient(bottom left, ##f9f9f9, #1F51AC);
-    background: linear-gradient(to bottom left, ##f9f9f9 , #1F51AC);
+    background: -webkit-linear-gradient(right top, #f9f9f9 , #1F51AC);
+    background: -o-linear-gradient(bottom left, #f9f9f9, #1F51AC);
+    background: -moz-linear-gradient(bottom left, #f9f9f9, #1F51AC);
+    background: linear-gradient(to bottom left, #f9f9f9 , #1F51AC);
     background-repeat: none;
     /*background: #1F51AC;*/
     /*padding-bottom: 150px;*/
@@ -22,7 +22,6 @@ body {
 
 .menubar {
 	position: fixed;
-	/*background: white;*/
 	width: 100%;
 	height: 50px;
 	top: 0;
@@ -36,22 +35,19 @@ body {
 
 .title {
 	position: relative;
-	color: white;
 	font-size: 72px;
 }
 
 .description {
-	color: white;
 	position: relative;
 	font-size: 32px;
 	top: -40px;
 }
 
 .buttons {
-	border: 1px solid white;
+	border: 1px solid color: #22313F;
 	position: relative;
 	background: none;
-	color: white;
 	font-size: 20px;
 	border-radius: 10px;
 	-webkit-transition: all .4s ease;
@@ -60,8 +56,10 @@ body {
 
 .buttons:hover {
 	-webkit-transition: all .4s ease;
-  	transition: all .4s ease;
-  	border: 3px solid white;
+  transition: all .4s ease;
+  border: 1px solid #22313F;
+  background: #22313F;
+  color: #f9f9f9;
 }
 
 #login {
@@ -84,6 +82,9 @@ body {
 #uuid {
 	color: white;
 	font-size: 30px;
+}
+#join-text {
+  color: #22313F;
 }
 
 </style>
