@@ -17,6 +17,5 @@ $('#invite').click(function(){
 })
 
 $('.play').click(function(){
-  alert(player.duration)
-  // clickPlay()
+  clickPlay()
 })

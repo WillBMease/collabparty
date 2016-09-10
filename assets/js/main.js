@@ -74,6 +74,10 @@ function addSongToList(data){
   })
 }
 
+player.onloadedmetadata = function(){
+  alert('song loaded')
+}
+
 function changeSong(data){
   player.pause()
   playing = false
