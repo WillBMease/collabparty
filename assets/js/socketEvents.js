@@ -68,12 +68,17 @@ io.socket.on('updateTime', function (data){
       }
 
       if (player.currentTime - time < bottomCheck){
+        console.log('time: ' + time)
+        console.log('learn: ' + learn.adjust('below'))
         console.log(parseFloat( time ) + parseFloat(learn.adjust('below')))
         player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('below'))
         player.volume = 0
         $('.syncingContainer').show()
       }
       else if (player.currentTime - time > aboveCheck){
+        console.log('time: ' + time)
+        console.log('learn: ' + learn.adjust('above'))
+        console.log(parseFloat( time ) + parseFloat(learn.adjust('above')))
         player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('above'))
         player.volume = 0
         $('.syncingContainer').show()
