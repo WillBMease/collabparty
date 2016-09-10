@@ -260,8 +260,9 @@ body {
   height: 50px;
   line-height: 50px;
   background: rgba(255, 255, 255, 0.5);
+  color: #34495e;
+  border-bottom: 1px solid #34495e;
   margin-bottom: 8px;
-  border-radius: 4px;
 }
 .song-image {
   position: relative;
