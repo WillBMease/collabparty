@@ -10,7 +10,7 @@ body {
   height: 0;
   border-top: 12px solid transparent;
   border-bottom: 12px solid transparent;
-  border-left: 14.4px solid #2c3e50;
+  border-left: 14.4px solid #c3defa;
   margin: 24px auto 12px auto;
   position: relative;
   z-index: 1;
@@ -26,7 +26,7 @@ body {
     bottom: -18px;
     right: -8.4px;
     border-radius: 50%;
-    border: 2.4px solid #2c3e50;
+    border: 2.4px solid #c3defa;
     z-index: 2;
     transition: all 0.3s;
     -webkit-transition: all 0.3s;
@@ -48,11 +48,11 @@ body {
       opacity: 1;
       width: 12px;
       height: 19.2px;
-      background: #2c3e50;
+      background: #c3defa;
       position: absolute;
       right: 1.2px;
       top: -9.6px;
-      border-left: 4.8px solid #2c3e50;
+      border-left: 4.8px solid #c3defa;
       box-shadow: inset 7.2px 0 0 0 #f9f9f9; }
 
 h1 {
@@ -64,7 +64,7 @@ h1 {
 
 .headline {
   display: block;
-  color: #2c3e50;
+  color: #c3defa;
   font-size: 1.5em;
   margin-bottom: 1.5em; }
 
@@ -74,6 +74,6 @@ h1 {
   margin: 0.5em 1.5em;
   display: inline-block; }
   .social:hover, .social:focus {
-    color: #2c3e50; }
+    color: #c3defa; }
 
 /*# sourceMappingURL=play.css.map */
