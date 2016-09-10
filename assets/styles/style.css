@@ -184,6 +184,12 @@ body {
   display: inline-block;
   float: left;
   color: #C5EFF7;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1; /* number of lines to show */
+  line-height: 50px;        /* fallback */
+  max-height: 50px;
 }
 .lastSong {
   position: relative;
@@ -216,8 +222,15 @@ body {
   float: left;
   width: 30%;
   height: 100%;
+  line-height: 50px;
   text-align: right;
   color: #C5EFF7;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1; /* number of lines to show */
+  line-height: 50px;        /* fallback */
+  max-height: 50px;
 }
 #enableContainer {
   position: fixed;
