@@ -1,18 +1,18 @@
 html, body {
-height: 100%;
-margin: 0;
-padding: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background: -webkit-linear-gradient(right top, ##f9f9f9 , #1F51AC);
-    background: -o-linear-gradient(bottom left, ##f9f9f9, #1F51AC);
-    background: -moz-linear-gradient(bottom left, ##f9f9f9, #1F51AC);
-    background: linear-gradient(to bottom left, ##f9f9f9 , #1F51AC);
-    background-repeat: none;
-    /*background: #1F51AC;*/
-    /*padding-bottom: 150px;*/
-    overflow: hidden;
+  background: -webkit-linear-gradient(right top, ##f9f9f9 , #1F51AC);
+  background: -o-linear-gradient(bottom left, ##f9f9f9, #1F51AC);
+  background: -moz-linear-gradient(bottom left, ##f9f9f9, #1F51AC);
+  background: linear-gradient(to bottom left, ##f9f9f9 , #1F51AC);
+  background-repeat: none;
+  /*background: #1F51AC;*/
+  /*padding-bottom: 150px;*/
+  overflow: hidden;
 }
 
 #username {
@@ -125,7 +125,7 @@ body {
   width: 100%;
   height: 90%;
   top: 50px;
-  background: gray;
+  background: #67809F;
   float: left;
   overflow-y: auto;
   overflow-x: hidden;
