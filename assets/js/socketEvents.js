@@ -68,6 +68,7 @@ io.socket.on('updateTime', function (data){
       }
 
       if (player.currentTime - time < bottomCheck){
+        console.log(parseFloat( time ) + parseFloat(learn.adjust('below')))
         player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('below'))
         player.volume = 0
         $('.syncingContainer').show()
