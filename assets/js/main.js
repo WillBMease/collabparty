@@ -75,7 +75,10 @@ function addSongToList(data){
 }
 
 player.onloadedmetadata = function(){
-  alert('song loaded')
+  if (!isNaN(player.duration))
+    alert('song loaded')
+  else
+    alert('song not supported!')
 }
 
 function changeSong(data){
