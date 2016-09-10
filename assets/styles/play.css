@@ -8,25 +8,25 @@ body {
   display: block;
   width: 0;
   height: 0;
-  border-top: 50px solid transparent;
-  border-bottom: 50px solid transparent;
-  border-left: 60px solid #2c3e50;
-  margin: 100px auto 50px auto;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-left: 14.4px solid #2c3e50;
+  margin: 24px auto 12px auto;
   position: relative;
   z-index: 1;
   transition: all 0.3s;
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
-  left: 10px; }
+  left: 2.4px; }
   .play:before {
     content: '';
     position: absolute;
-    top: -75px;
-    left: -115px;
-    bottom: -75px;
-    right: -35px;
+    top: -18px;
+    left: -27.6px;
+    bottom: -18px;
+    right: -8.4px;
     border-radius: 50%;
-    border: 10px solid #2c3e50;
+    border: 2.4px solid #2c3e50;
     z-index: 2;
     transition: all 0.3s;
     -webkit-transition: all 0.3s;
@@ -46,14 +46,14 @@ body {
     .play.active:after {
       content: '';
       opacity: 1;
-      width: 50px;
-      height: 80px;
+      width: 12px;
+      height: 19.2px;
       background: #2c3e50;
       position: absolute;
-      right: 5px;
-      top: -40px;
-      border-left: 20px solid #2c3e50;
-      box-shadow: inset 30px 0 0 0 #f9f9f9; }
+      right: 1.2px;
+      top: -9.6px;
+      border-left: 4.8px solid #2c3e50;
+      box-shadow: inset 7.2px 0 0 0 #f9f9f9; }
 
 h1 {
   text-transform: uppercase;
