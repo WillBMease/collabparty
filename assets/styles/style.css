@@ -310,7 +310,7 @@ body {
   height: 10px;
   bottom: 0;
   left: 0;
-  background: green;
+  background: #3498DB;
 }
 .scrubber {
   position: absolute;
