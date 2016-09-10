@@ -148,16 +148,16 @@ var Learn = function(){
 
   this.adjust = function(status){
     if (status == 'above'){
-      if (this.increment > 0)
-        this.increment = 0
-      this.increment -= 0.0010
+      if (increment > 0)
+        increment = 0
+      increment -= 0.0010
     }
     else if (status == 'below'){
-      if (this.increment < 0)
-        this.increment = 0
-      this.increment += 0.0010
+      if (increment < 0)
+        increment = 0
+      increment += 0.0010
     }
-    return this.increment
+    return increment
   }
 }
 
