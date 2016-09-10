@@ -21,6 +21,7 @@ body {
   display:block;
   width: 0;
 	height: 0;
+  top: -12px;
 	border-top: $size solid transparent;
 	border-bottom: $size solid transparent;
 	border-left: ($size*$ratio) solid $foreground;

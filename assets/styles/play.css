@@ -8,6 +8,7 @@ body {
   display: block;
   width: 0;
   height: 0;
+  top: -12px;
   border-top: 12px solid transparent;
   border-bottom: 12px solid transparent;
   border-left: 14.4px solid #c3defa;
