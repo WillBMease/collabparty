@@ -15,6 +15,16 @@ body {
   overflow: hidden;
 }
 
+input:active {
+  outline: none;
+  border: none;
+}
+
+button:active {
+  outline: none;
+  border: none;
+}
+
 #username {
 	position: relative;
 	float: right;
