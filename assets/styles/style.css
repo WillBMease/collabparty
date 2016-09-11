@@ -15,7 +15,7 @@ body {
   overflow: hidden;
 }
 
-input:active {
+input:focus {
   outline: none;
   border: none;
 }
