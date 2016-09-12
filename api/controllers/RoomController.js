@@ -154,29 +154,34 @@ module.exports = {
 
   join: function(req, res){
     sails.sockets.join(req, req.body.roomid)
-    User.findOne({userid: req.body.userid}).exec(function(err, user){
+
+    Room.findOne({roomid: req.body.roomid}).exec(function(err, room){
       if (err) return
-      if (user){
-        Room.findOne({roomid: req.body.roomid}).exec(function(err, room){
+      if (room){
+        User.findOne({userid: req.body.userid}).exec(function(err, user){
           if (err) return
-          if (room){
+          if (user){
             user.room = room.id
-            res.send({songs: room.songs, currentSong: room.currentSong})
+            res.send(room
             user.save()
+          }
+          else {
+            var obj = {
+              userid: req.body.userid,
+              offset: req.body.offset
+              room: room.id
+            }
+            User.create(obj).exec(function(err, created){
+              if (err) return
+              res.send(room)
+            })
           }
         })
       }
-      else {
-        var obj = {
-          userid: req.body.id,
-          offset: req.body.offset
-        }
-        User.create(obj).exec(function(err, created){
-          if (err) return
-          res.send(true)
-        })
-      }
     })
+
+
+
     // var s = []
     // if (songs[req.body.roomid]){
     //   s = songs[req.body.roomid]
