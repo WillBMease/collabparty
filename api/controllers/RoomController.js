@@ -34,14 +34,46 @@ module.exports = {
 	},
 
   storeOffset: function(req, res){
+    User.findOne({userid: }).exec(function(err, user){
+      if (err) return
+      if (user){
+        user.offset = req.body.offset
+        user.save()
+      }
+      else {
+        var obj = {
+          userid: req.body.id,
+          offset: req.body.offset
+        }
+        User.create(obj).exec(function(err, created){
+          if (err) return
+          res.send(true)
+        })
+      }
+    })
     offsets[req.body.id] = req.body.offset
   },
 
   play: function(req, res){
+    Room.findOne({roomid: req.body.roomid}).exec(function(err, room){
+      if (err) return
+      if (room){
+        room.status = 'playing'
+        room.save()
+      }
+    })
     sails.sockets.broadcast(req.body.code, 'play', req.body)
   },
 
   pause: function(req, res){
+    Room.findOne({roomid: req.body.roomid}).exec(function(err, room){
+      if (err) return
+
+      if (room){
+        room.status = 'paused'
+        room.save()
+      }
+    })
     sails.sockets.broadcast(req.body.code, 'pause', req.body)
   },
 
@@ -84,6 +116,15 @@ module.exports = {
 
       video.pipe(fs.createWriteStream('assets/audio/' + videoid + '.mp3'));
     }
+
+    Room.findOne({roomid: req.body.roomid}).exec(function(err, room){
+      if (err) return
+      if (room){
+        room.song.push({url: '/audio/' + videoid + '.mp3', image: req.body.image, title: req.body.title, videoid: videoid})
+        room.currentSong = videoid
+        room.save()
+      }
+    })
 
     if (!songs[req.body.code]){
       songs[req.body.code] = []

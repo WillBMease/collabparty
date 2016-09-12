@@ -7,8 +7,9 @@
 
 module.exports = {
 
+  connection: 'room',
+
   attributes: {
 
   }
 };
-

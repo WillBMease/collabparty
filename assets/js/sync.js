@@ -4,7 +4,7 @@ var Sync = function(){
   var pingct = 0
 
   function startPing(){
-    pingInterval = setInterval(ping, 35)
+    this.pingInterval = setInterval(ping, 35)
   }
 
   function ping(){
@@ -19,11 +19,11 @@ Sync.prototype.ping = function(){
       this.low = data
     }
   })
-  pingct++
-  if (pingct > 50){
-    clearInterval(pingInt)
-    low.offset = low.server - low.start - low.latency
-    low.id = myid
+  this.pingct++
+  if (this.pingct > 50){
+    clearInterval(this.pingInterval)
+    this.low.offset = this.low.server - this.low.start - this.low.latency
+    this.low.id = myid
     io.socket.post('/Room/storeOffset', low)
   }
 }
