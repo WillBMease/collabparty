@@ -14,12 +14,12 @@ var chosen = [alphabet, digits]
 
 // Randomly generate pairing code for TV
 function generateRandomToken(callback) {
-  var uuid = ''
+  var roomid = ''
   for (var i = 0 ; i < 3 ; i++){
     var which = Math.round(Math.random())
-    uuid += chosen[which][Math.floor(Math.random()*chosen[which].length)]
+    roomid += chosen[which][Math.floor(Math.random()*chosen[which].length)]
   }
-  callback(uuid);
+  callback(roomid);
 }
 
 var offsets = [], users = [], songs = [], currentSong = []
@@ -27,8 +27,17 @@ var offsets = [], users = [], songs = [], currentSong = []
 module.exports = {
 
 	generateCode: function(req, res){
-		generateRandomToken(function (uuid){
-			req.socket.emit('receiveCode', {uuid: uuid})
+		generateRandomToken(function (roomid){
+      Room.findOne({roomid: roomid}).exec(function(err, room){
+        if (err) return
+        if (!room){
+          Room.create({roomid: roomid}).exec(function(err, created){
+            if (err) return
+
+          })
+        }
+      })
+			req.socket.emit('receiveCode', {roomid: roomid})
 		})
 	},
 

@@ -10,7 +10,9 @@ module.exports = {
   connection: 'room',
 
   attributes: {
-
+    roomid: { type: 'string', defaultsTo: '' },
+    songs: { type: 'array', defaultsTo: [] },
+    currentSong: { type: 'string', defaultsTo: '' },
     users: {
       collection: 'user',
       via: 'room'
