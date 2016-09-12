@@ -7,6 +7,7 @@
 
 var fs = require('fs');
 var youtubedl = require('youtube-dl');
+var cryptojs = require("crypto-js");
 
 function generateRandomToken(cb) {
     var randomPool = new Uint8Array(32);
