@@ -23,9 +23,11 @@ $('#ytsearch').each(function() {
     			var results = response.result
           console.log(results)
           $('.results').empty()
-    			$.each(results.items, function(index, item) {
-    				autocomplete(item.snippet.title, item.id.videoId, item.snippet.thumbnails.high.url)
-    			})
+          if (results){
+      			$.each(results.items, function(index, item) {
+      				autocomplete(item.snippet.title, item.id.videoId, item.snippet.thumbnails.high.url)
+      			})
+          }
     		})
      }
   });
