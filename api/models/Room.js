@@ -7,6 +7,7 @@
 
 module.exports = {
 
+  schema: true,
   connection: 'room',
 
   attributes: {
