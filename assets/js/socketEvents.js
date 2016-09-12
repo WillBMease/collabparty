@@ -1,7 +1,7 @@
 io.socket.on('connect', function(){
-  code = (window.location.hash).replace('#', '')
-	$('.uuid').text(code)
-  io.socket.post('/Room/join', {code: code}, function(data){
+  roomid = (window.location.hash).replace('#', '')
+	$('.uuid').text(roomid)
+  io.socket.post('/Room/join', {userid: document.cookie, roomid: roomid}, function(data){
     songs = data.songs
     $('.song-list').empty()
     songs.forEach(function (s, i){
@@ -68,17 +68,11 @@ io.socket.on('updateTime', function (data){
       }
 
       if (player.currentTime - time < bottomCheck){
-        console.log('time: ' + time)
-        console.log('learn: ' + learn.adjust('below'))
-        console.log(parseFloat( time ) + parseFloat(learn.adjust('below')))
         player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('below'))
         player.volume = 0
         $('.syncingContainer').show()
       }
       else if (player.currentTime - time > aboveCheck){
-        console.log('time: ' + time)
-        console.log('learn: ' + learn.adjust('above'))
-        console.log(parseFloat( time ) + parseFloat(learn.adjust('above')))
         player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('above'))
         player.volume = 0
         $('.syncingContainer').show()

@@ -34,44 +34,46 @@ module.exports = {
 	},
 
   storeOffset: function(req, res){
-    // User.findOne({userid: }).exec(function(err, user){
-    //   if (err) return
-    //   if (user){
-    //     user.offset = req.body.offset
-    //     user.save()
-    //   }
-    // })
-    offsets[req.body.id] = req.body.offset
+    User.findOne({userid: }).exec(function(err, user){
+      if (err) return
+      if (user){
+        user.offset = req.body.offset
+        user.save()
+      }
+    })
+    // offsets[req.body.id] = req.body.offset
   },
 
   play: function(req, res){
-    // Room.findOne({roomid: req.body.roomid}).exec(function(err, room){
-    //   if (err) return
-    //   if (room){
-    //     room.status = 'playing'
-    //     room.save()
-    //   }
-    // })
-    sails.sockets.broadcast(req.body.code, 'play', req.body)
+    Room.findOne({roomid: req.body.roomid}).exec(function(err, room){
+      if (err) return
+      if (room){
+        room.status = 'playing'
+        sails.sockets.broadcast(req.body.roomid, 'play', req.body)
+        room.save()
+      }
+    })
+    // sails.sockets.broadcast(req.body.roomid, 'play', req.body)
   },
 
   pause: function(req, res){
-    // Room.findOne({roomid: req.body.roomid}).exec(function(err, room){
-    //   if (err) return
-    //   if (room){
-    //     room.status = 'paused'
-    //     room.save()
-    //   }
-    // })
-    sails.sockets.broadcast(req.body.code, 'pause', req.body)
+    Room.findOne({roomid: req.body.roomid}).exec(function(err, room){
+      if (err) return
+      if (room){
+        room.status = 'paused'
+        sails.sockets.broadcast(req.body.roomid, 'pause', req.body)
+        room.save()
+      }
+    })
+    // sails.sockets.broadcast(req.body.roomid, 'pause', req.body)
   },
 
   updateTime: function(req, res){
-    sails.sockets.broadcast(req.body.code, 'updateTime', req.body)
+    sails.sockets.broadcast(req.body.roomid, 'updateTime', req.body)
   },
 
   currentTime: function(req, res){
-    sails.sockets.broadcast(req.body.code, 'currentTime', req.body)
+    sails.sockets.broadcast(req.body.roomid, 'currentTime', req.body)
   },
 
   addSong: function(req, res){
@@ -83,7 +85,7 @@ module.exports = {
 
     if (fs.existsSync('assets/audio/' + videoid + '.mp3')) {
       console.log(videoid)
-      sails.sockets.broadcast(req.body.code, 'addSong', {url: '/audio/' + videoid + '.mp3', image: req.body.image, title: req.body.title, videoid: videoid})
+      sails.sockets.broadcast(req.body.roomid, 'addSong', {url: '/audio/' + videoid + '.mp3', image: req.body.image, title: req.body.title, videoid: videoid})
     }
     else {
       var video = youtubedl(url, ['-x', '--extract-audio', '--audio-format=mp3', '--audio-quality=0'])
@@ -100,78 +102,80 @@ module.exports = {
 
       video.on('end', function(info){
         console.log('end')
-        sails.sockets.broadcast(req.body.code, 'addSong', {url: '/audio/' + videoid + '.mp3', image: req.body.image, title: req.body.title, videoid: videoid})
+        sails.sockets.broadcast(req.body.roomid, 'addSong', {url: '/audio/' + videoid + '.mp3', image: req.body.image, title: req.body.title, videoid: videoid})
       })
 
       video.pipe(fs.createWriteStream('assets/audio/' + videoid + '.mp3'));
     }
 
-    // Room.findOne({roomid: req.body.roomid}).exec(function(err, room){
-    //   if (err) return
-    //   if (room){
-    //     room.song.push({url: '/audio/' + videoid + '.mp3', image: req.body.image, title: req.body.title, videoid: videoid})
-    //     room.currentSong = videoid
-    //     room.save()
-    //   }
-    // })
+    Room.findOne({roomid: req.body.roomid}).exec(function(err, room){
+      if (err) return
+      if (room){
+        room.song.push({url: '/audio/' + videoid + '.mp3', image: req.body.image, title: req.body.title, videoid: videoid})
+        room.currentSong = videoid
+        room.save()
+      }
+    })
 
-    if (!songs[req.body.code]){
-      songs[req.body.code] = []
-    }
-    songs[req.body.code].push({url: '/audio/' + videoid + '.mp3', image: req.body.image, title: req.body.title, videoid: videoid})
-    if (!currentSong[req.body.code])
-      currentSong[req.body.code] = videoid
+    // if (!songs[req.body.roomid]){
+    //   songs[req.body.roomid] = []
+    // }
+    // songs[req.body.roomid].push({url: '/audio/' + videoid + '.mp3', image: req.body.image, title: req.body.title, videoid: videoid})
+    // if (!currentSong[req.body.roomid])
+    //   currentSong[req.body.roomid] = videoid
   },
 
   changeSong: function(req, res){
     console.log('change song')
-    // Room.findOne({roomid: req.body.roomid}).exec(function(err, room){
-    //   if (err) return
-    //   if (room){
-    //     room.currentSong = req.body.videoid
-    //     room.save()
-    //   }
-    // })
-    currentSong[req.body.code] = req.body.videoid
-    sails.sockets.broadcast(req.body.code, 'changeSong', req.body)
+    Room.findOne({roomid: req.body.roomid}).exec(function(err, room){
+      if (err) return
+      if (room){
+        room.currentSong = req.body.videoid
+        sails.sockets.broadcast(req.body.roomid, 'changeSong', req.body)
+        room.save()
+      }
+    })
+    // currentSong[req.body.roomid] = req.body.videoid
+    // sails.sockets.broadcast(req.body.roomid, 'changeSong', req.body)
   },
 
   join: function(req, res){
-    sails.sockets.join(req, req.body.code)
-    // User.findOne({userid: req.body.userid}).exec(function(err, user){
-    //   if (err) return
-    //   if (user){
-    //     Room.findOne({roomid: req.body.roomid}).exec(function(err, room){
-    //       if (err) return
-    //       if (room){
-    //         user.room = room.id
-    //         user.save()
-    //       }
-    //     })
-    //   }
-    //   else {
-    //     var obj = {
-    //       userid: req.body.id,
-    //       offset: req.body.offset
-    //     }
-    //     User.create(obj).exec(function(err, created){
-    //       if (err) return
-    //       res.send(true)
-    //     })
-    //   }
-    // })
-    var s = []
-    if (songs[req.body.code]){
-      s = songs[req.body.code]
-    }
-    var c = false
-    if (currentSong[req.body.code])
-      c = currentSong[req.body.code]
-    res.send({songs: s, currentSong: c})
-    if (!users[req.body.code]){
-      users[req.body.code] = 0
-    }
-    users[req.body.code]++
+    sails.sockets.join(req, req.body.roomid)
+    User.findOne({userid: req.body.userid}).exec(function(err, user){
+      if (err) return
+      if (user){
+        Room.findOne({roomid: req.body.roomid}).exec(function(err, room){
+          if (err) return
+          if (room){
+            user.room = room.id
+            res.send({songs: room.songs, currentSong: room.currentSong})
+            user.save()
+          }
+        })
+      }
+      else {
+        var obj = {
+          userid: req.body.id,
+          offset: req.body.offset
+        }
+        User.create(obj).exec(function(err, created){
+          if (err) return
+          res.send(true)
+        })
+      }
+    })
+    // var s = []
+    // if (songs[req.body.roomid]){
+    //   s = songs[req.body.roomid]
+    // }
+    // var c = false
+    // if (currentSong[req.body.roomid])
+    //   c = currentSong[req.body.roomid]
+    // res.send({songs: s, currentSong: c})
+    // if (!users[req.body.roomid]){
+    //   users[req.body.roomid] = 0
+    // }
+    // users[req.body.roomid]++
   }
 
 };

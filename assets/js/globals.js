@@ -19,7 +19,7 @@ function getRandomToken() {
 }
 
 var checkLoadedInt, currentSong = null, songs = null
-var code = null
+var roomid = null
 var mobileReady = true, scrubber = false
 
 if (!document.cookie){
