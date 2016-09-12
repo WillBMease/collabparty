@@ -8,9 +8,24 @@ if (context) {
   alert('browser not supported') ;
 }
 
+function getRandomToken() {
+    var randomPool = new Uint8Array(32);
+    crypto.getRandomValues(randomPool);
+    var hex = '';
+    for (var i = 0; i < randomPool.length; ++i) {
+        hex += randomPool[i].toString(16);
+    }
+    return hex;
+}
+
 var checkLoadedInt, currentSong = null, songs = null
-var code = null, myid = Math.floor(Math.random() * 99999)
+var code = null
 var mobileReady = true, scrubber = false
+
+if (!document.cookie){
+  document.cookie = 'username='+getRandomToken()+'; expires=Thu, 18 Dec 2020 12:00:00 UTC'
+}
+var myid = document.cookie
 
 function detectmob() {
  if( navigator.userAgent.match(/Android/i)

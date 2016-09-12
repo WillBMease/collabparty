@@ -11,5 +11,10 @@ module.exports = {
 
   attributes: {
 
+    users: {
+      collection: 'user',
+      via: 'room'
+    }
+
   }
 };
