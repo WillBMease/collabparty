@@ -18,7 +18,7 @@ io.socket.on('connect', function(){
 
 
 io.socket.on('play', function (data){
-  if (myid != data.id){
+  if (userid != data.userid){
     var offset = parseFloat(low.offset) - parseFloat(data.offset)
     var delay = ((+new Date() - data.time + offset) / 1000).toFixed(6)
     if (delay < 0)
@@ -31,7 +31,7 @@ io.socket.on('play', function (data){
 
 io.socket.on('pause', function (data){
   $('#play').css('background-image', 'url(/images/play.jpg)')
-  if (myid != data.id){
+  if (userid != data.userid){
     player.pause()
     synced = false
     playing = false
@@ -41,7 +41,7 @@ io.socket.on('pause', function (data){
 
 io.socket.on('updateTime', function (data){
   if (mobileReady){
-    if (myid != data.id){
+    if (userid != data.userid){
       if (isNaN(low.offset)){
         low.offset = data.offset
       }

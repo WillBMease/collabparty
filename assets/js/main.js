@@ -16,7 +16,7 @@ function ping(){
 	if (pingct > 50){
 		clearInterval(pingInt)
 		low.offset = low.server - low.start - low.latency
-    low.id = myid
+    low.userid = userid
     io.socket.post('/Room/storeOffset', low)
 	}
 }
@@ -43,7 +43,7 @@ function nextSong(){
           currentSong = songs[0]
           i = songs.length
         }
-        io.socket.post('/Room/changeSong', {videoid: currentSong.videoid, id: myid, roomid: roomid})
+        io.socket.post('/Room/changeSong', {videouserid: currentSong.videoid, userid: userid, roomuserid: roomid})
       }
     }
   }
@@ -66,7 +66,7 @@ function addSongToList(data){
 
   $('#song'+data.videoid).click(function(){
     if (currentSong.videoid != data.videoid){
-      io.socket.post('/Room/changeSong', {videoid: data.videoid, id: myid, roomid: roomid})
+      io.socket.post('/Room/changeSong', {videouserid: data.videoid, userid: userid, roomuserid: roomid})
     }
     else {
       console.log('not sending')
@@ -97,7 +97,7 @@ function changeSong(data){
   })
   loadSong(currentSong.url)
   addSongToBottom(currentSong)
-  if (data.id == myid){
+  if (data.id == userid){
     setTimeout(function(){
       console.log('should play new')
       clickPlay()
@@ -116,11 +116,11 @@ var updateTimeInt, player, myAudio, playing = false
 function clickPlay(){
   if (!playing){
     var obj = {
-      roomid: roomid,
+      roomuserid: roomid,
       time: +new Date(),
       offset: low.offset,
       currentTime: player.currentTime,
-      id: myid
+      userid: userid
     }
 
     play()
@@ -130,11 +130,11 @@ function clickPlay(){
   else {
     $('#play').css('background-image', 'url(/images/play.jpg)')
     var obj = {
-      roomid: roomid,
+      roomuserid: roomid,
       time: +new Date(),
       offset: low.offset,
       currentTime: player.currentTime,
-      id: myid
+      userid: userid
     }
     playing = false
     player.pause()
@@ -145,11 +145,11 @@ function clickPlay(){
 
 function updateTime(){
   var obj = {
-    roomid: roomid,
+    roomuserid: roomid,
     time: +new Date(),
     offset: low.offset,
     currentTime: player.currentTime,
-    id: myid
+    userid: userid
   }
   io.socket.post('/Room/updateTime', obj)
 }

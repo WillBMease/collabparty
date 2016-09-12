@@ -34,7 +34,7 @@ module.exports = {
 	},
 
   storeOffset: function(req, res){
-    User.findOne({userid: }).exec(function(err, user){
+    User.findOne({userid: req.body.userid}).exec(function(err, user){
       if (err) return
       if (user){
         user.offset = req.body.offset
