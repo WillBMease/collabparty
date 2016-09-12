@@ -162,7 +162,7 @@ module.exports = {
           if (err) return
           if (user){
             user.room = room.id
-            res.send(room
+            res.send(room)
             user.save()
           }
           else {
