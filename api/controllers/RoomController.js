@@ -7,16 +7,19 @@
 
 var fs = require('fs');
 var youtubedl = require('youtube-dl');
-var crypto = require("crypto-js");
 
-function generateRandomToken(cb) {
-    var randomPool = new Uint8Array(32);
-    crypto.getRandomValues(randomPool);
-    var hex = '';
-    for (var i = 0; i < randomPool.length; ++i) {
-        hex += randomPool[i].toString(16);
-    }
-    cb(hex)
+var alphabet = ['A','B','C','D','E','F','G','H','J','K','M','N','P','Q','R','S','T','U','V','W','X','Y','Z']
+var digits = [2,3,4,5,6,7,8,9]
+var chosen = [alphabet, digits]
+
+// Randomly generate pairing code for TV
+function generateRandomToken(callback) {
+  var uuid = ''
+  for (var i = 0 ; i < 3 ; i++){
+    var which = Math.round(Math.random())
+    uuid += chosen[which][Math.floor(Math.random()*chosen[which].length)]
+  }
+  callback(uuid);
 }
 
 var offsets = [], users = [], songs = [], currentSong = []
