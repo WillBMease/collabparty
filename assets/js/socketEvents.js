@@ -31,7 +31,7 @@ io.socket.on('play', function (data){
       delay = 0
 
     $('.play').addClass('active')
-    player.currentTime = parseFloat( (player.currentTime).toFixed(6) + parseFloat(delay) )
+    player.setCurrentTime(parseFloat( (player.getCurrentTime()).toFixed(6) + parseFloat(delay) ))
     play()
   }
 })
@@ -44,6 +44,7 @@ io.socket.on('pause', function (data){
     playing = false
   }
   clearInterval(scrubber)
+  clearInterval(updateTimeInt)
 })
 
 io.socket.on('updateTime', function (data){
@@ -55,14 +56,14 @@ io.socket.on('updateTime', function (data){
       else if (isNaN(data.offset)){
         data.offset = sync.low.offset
       }
-      if (player.paused){
+      if (!player.playing){
         play()
       }
       var offset = parseFloat(sync.low.offset) - parseFloat(data.offset)
       var delay = parseFloat(((+new Date() - data.time + offset) / 1000).toFixed(6))
       var time = data.currentTime + delay
       var bottomCheck = -0.018, aboveCheck = 0.018
-      if (Math.abs(player.currentTime - time) > 0.030){
+      if (Math.abs(player.getCurrentTime() - time) > 0.030){
         synced = false
       }
       if (synced){
@@ -70,23 +71,23 @@ io.socket.on('updateTime', function (data){
         aboveCheck = 0.030
       }
       else {
-        player.volume = 0
+        player.setVolume(0)
         $('.syncingContainer').show()
       }
 
-      if (player.currentTime - time < bottomCheck){
-        player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('below'))
-        player.volume = 0
+      if (player.getCurrentTime() - time < bottomCheck){
+        player.setCurrentTime(parseFloat( time ) + parseFloat(learn.adjust('below')))
+        player.setVolume(0)
         $('.syncingContainer').show()
       }
-      else if (player.currentTime - time > aboveCheck){
-        player.currentTime = parseFloat( time ) + parseFloat(learn.adjust('above'))
-        player.volume = 0
+      else if (player.getCurrentTime() - time > aboveCheck){
+        player.setCurrentTime(parseFloat( time ) + parseFloat(learn.adjust('above')))
+        player.setVolume(0)
         $('.syncingContainer').show()
       }
       else {
         synced = true
-        player.volume = 1
+        player.setVolume(1)
         $('.syncingContainer').hide()
       }
     }
@@ -98,7 +99,7 @@ io.socket.on('addSong', function (data){
   if (!currentSong){
     addSongToBottom(data)
     setTimeout(function(){
-      loadSong(data.url)
+      player.loadSong(data.url)
     }, 1000)
   }
 })

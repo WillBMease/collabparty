@@ -22,8 +22,26 @@ var Player = function() {
     t.playing = false
   }
 
+  t.loadSong = function(){
+    console.log(url)
+    t.player.src = url
+    t.player.load()
+  }
+
   t.getCurrentTime = function(){
     return (t.player.currentTime).toFixed(6)
+  }
+
+  t.setCurrentTime = function(time){
+    t.player.currentTime = time
+  }
+
+  t.getVolume = function(){
+    return t.player.volume
+  }
+
+  t.setVolume = function(value){
+    t.player.volume = value
   }
 
   t.getDuration = function(){

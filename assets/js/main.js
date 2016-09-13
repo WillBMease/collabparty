@@ -1,12 +1,12 @@
-player = document.getElementById('song')
-var audioControl = context.createMediaElementSource(player)
-var volume = context.createGain()
-audioControl.connect(volume)
-volume.connect(context.destination)
-
-player.addEventListener('ended', function(){
-  nextSong()
-})
+// player = document.getElementById('song')
+// var audioControl = context.createMediaElementSource(player)
+// var volume = context.createGain()
+// audioControl.connect(volume)
+// volume.connect(context.destination)
+//
+// player.addEventListener('ended', function(){
+//   nextSong()
+// })
 
 function nextSong(){
   if (songs){
@@ -51,16 +51,16 @@ function addSongToList(data){
   })
 }
 
-player.onloadedmetadata = function(){
-  // if (!isNaN(player.duration))
-  //   alert('song loaded')
-  // else
-  //   alert('song not supported!')
-}
-
-player.addEventListener('error', function(){
-  // alert('there was an error')
-})
+// player.onloadedmetadata = function(){
+//   // if (!isNaN(player.duration))
+//   //   alert('song loaded')
+//   // else
+//   //   alert('song not supported!')
+// }
+//
+// player.addEventListener('error', function(){
+//   // alert('there was an error')
+// })
 
 function changeSong(data){
   player.pause()
@@ -72,7 +72,7 @@ function changeSong(data){
       currentSong = s
     }
   })
-  loadSong(currentSong.url)
+  player.loadSong(currentSong.url)
   addSongToBottom(currentSong)
   if (data.userid == userid){
     setTimeout(function(){
@@ -82,13 +82,13 @@ function changeSong(data){
   }
 }
 
-function loadSong(url){
-  console.log(url)
-  player.src = url
-  player.load()
-}
+// function loadSong(url){
+//   console.log(url)
+//   player.src = url
+//   player.load()
+// }
 
-var updateTimeInt, player, myAudio, playing = false
+var updateTimeInt, myAudio, playing = false
 
 function clickPlay(){
   if (!playing){
@@ -96,7 +96,7 @@ function clickPlay(){
       roomid: roomid,
       time: +new Date(),
       offset: sync.low.offset,
-      currentTime: player.currentTime,
+      currentTime: player.getCurrentTime(),
       userid: userid
     }
 
@@ -110,7 +110,7 @@ function clickPlay(){
       roomid: roomid,
       time: +new Date(),
       offset: sync.low.offset,
-      currentTime: player.currentTime,
+      currentTime: player.getCurrentTime(),
       userid: userid
     }
     playing = false
@@ -125,7 +125,7 @@ function updateTime(){
     roomid: roomid,
     time: +new Date(),
     offset: sync.low.offset,
-    currentTime: player.currentTime,
+    currentTime: player.getCurrentTime(),
     userid: userid
   }
   io.socket.post('/Room/updateTime', obj)
@@ -163,8 +163,8 @@ function play(){
 }
 
 function updateScrubber(){
-  var curr = (player.currentTime).toFixed(6)
-  var duration = player.duration
+  var curr = (player.getCurrentTime()).toFixed(6)
+  var duration = player.getDuration()
   var time_left = Math.round(duration) - Math.round(curr)
   var progress = ((curr / duration).toFixed(6))*100
   $('.scrubber').css('left', progress+'%')
