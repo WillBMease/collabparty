@@ -13,7 +13,7 @@ function ping(){
     }
   })
 	pingct++
-	if (pingct > 100){
+	if (pingct > 125){
 		clearInterval(pingInterval)
 		low.offset = low.server - low.start - low.latency
     low.userid = userid
