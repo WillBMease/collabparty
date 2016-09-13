@@ -15,11 +15,13 @@ var Player = function() {
   t.play = function(){
     t.player.play()
     t.playing = true
+    $('.play').addClass('active')
   }
 
   t.pause = function(){
     t.player.pause()
     t.playing = false
+    $('.play').removeClass('active')
   }
 
   t.loadSong = function(url){

@@ -18,7 +18,6 @@ var App = function(){
       t.updateTimeInt = setInterval(t.updateTime, 90)
     }
     else {
-      $('#play').css('background-image', 'url(/images/play.jpg)')
       var obj = {
         roomid: roomid,
         time: +new Date(),
@@ -104,14 +103,12 @@ var App = function(){
       if (delay < 0)
         delay = 0
 
-      $('.play').addClass('active')
       player.setCurrentTime(parseFloat( player.getCurrentTime() + parseFloat(delay) ))
       play()
     }
   }
 
   t.socketPause = function(data){
-    $('.play').removeClass('active')
     if (userid != data.userid){
       player.pause()
       synced = false
