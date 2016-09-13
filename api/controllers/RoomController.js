@@ -168,8 +168,8 @@ module.exports = {
           else {
             var obj = {
               userid: req.body.userid,
-              offset: req.body.offset
-              room: room.id
+              offset: req.body.offset,
+              room: room.roomid
             }
             User.create(obj).exec(function(err, created){
               if (err) return
