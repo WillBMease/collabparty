@@ -15,7 +15,7 @@ var App = function(){
 
       this.play()
       io.socket.post('/Room/play', obj)
-      t.updateTimeInt = setInterval(t.updateTime, 90)
+      t.updateTimeInt = setInterval(t.updateTime, 100)
     }
     else {
       var obj = {
@@ -27,7 +27,6 @@ var App = function(){
       }
       player.pause()
       io.socket.post('/Room/pause', obj)
-      clearInterval(t.updateTimeInt)
     }
   }
 
@@ -113,8 +112,6 @@ var App = function(){
       player.pause()
       synced = false
     }
-    clearInterval(t.scrubber)
-    clearInterval(t.updateTimeInt)
   }
 
   t.socketUpdateTime = function(data){

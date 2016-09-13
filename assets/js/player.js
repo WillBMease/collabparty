@@ -22,6 +22,8 @@ var Player = function() {
     t.player.pause()
     t.playing = false
     $('.play').removeClass('active')
+    clearInterval(app.updateTimeInt)
+    clearInterval(app.scrubber)
   }
 
   t.loadSong = function(url){
