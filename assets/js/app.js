@@ -12,8 +12,6 @@ var App = function(){
         currentTime: player.getCurrentTime(),
         userid: userid
       }
-
-      this.play()
       io.socket.post('/Room/play', obj)
       t.updateTimeInt = setInterval(t.updateTime, 100)
     }
@@ -103,8 +101,8 @@ var App = function(){
         delay = 0
 
       player.setCurrentTime(parseFloat( player.getCurrentTime() + parseFloat(delay) ))
-      this.play()
     }
+    this.play()
   }
 
   t.socketPause = function(data){
