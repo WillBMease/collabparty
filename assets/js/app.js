@@ -1,7 +1,7 @@
 var App = function(){
   var t = this
 
-  t.clickPlay(){
+  t.clickPlay = function(){
 
   }
 
