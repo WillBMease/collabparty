@@ -27,7 +27,7 @@ var Playlist = function(){
 
     $('#song'+data.videoid).click(function(){
       if (t.currentSong.videoid != data.videoid){
-        io.socket.post('/Room/changeSong', {videoid: data.videoid, userid: userid, code: code})
+        io.socket.post('/Room/changeSong', {videoid: data.videoid, userid: userid, roomid: roomid})
       }
       else {
         console.log('not sending')
