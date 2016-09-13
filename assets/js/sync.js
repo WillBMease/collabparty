@@ -5,7 +5,7 @@ var Sync = function(){
 }
 
 Sync.prototype.startPing = function(){
-  this.pingInterval = setInterval(ping, 45)
+  this.pingInterval = setInterval(this.ping, 45)
 }
 
 Sync.prototype.ping = function(){
@@ -19,8 +19,8 @@ Sync.prototype.ping = function(){
   if (this.pingct > 100){
     clearInterval(this.pingInterval)
     this.low.offset = this.low.server - this.low.start - this.low.latency
-    this.low.id = userid
-    io.socket.post('/Room/storeOffset', low)
+    this.low.userid = userid
+    io.socket.post('/Room/storeOffset', this.low)
   }
 }
 
