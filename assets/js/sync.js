@@ -9,18 +9,25 @@ var Sync = function(){
 
   this.ping = function(){
     io.socket.post('/Room/ping/', {start: +new Date()}, function (data){
-      data.latency = (+new Date() - data.start) / 2
-      if (data.latency < this.low.latency){
-        this.low = data
-      }
-      this.pingct++
-      if (this.pingct > 125){
-        clearInterval(pingInterval)
-        this.low.offset = this.low.server - this.low.start - this.low.latency
-        this.low.userid = userid
-        io.socket.post('/Room/storeOffset', this.low)
-      }
+      calculatePing(data)
     })
+  }
+
+  this.calculatePing = function(data){
+    console.log(data)
+    console.log(this.low)
+    data.latency = (+new Date() - data.start) / 2
+
+    if (data.latency < this.low.latency)
+      this.low = data
+
+    this.pingct++
+    if (this.pingct > 125){
+      clearInterval(pingInterval)
+      this.low.offset = this.low.server - this.low.start - this.low.latency
+      this.low.userid = userid
+      io.socket.post('/Room/storeOffset', this.low)
+    }
   }
 }
 
