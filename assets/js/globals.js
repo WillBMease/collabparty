@@ -25,7 +25,7 @@ var mobileReady = true, scrubber = false
 if (!document.cookie){
   document.cookie = 'username='+getRandomToken()+'; expires=Thu, 18 Dec 2020 12:00:00 UTC'
 }
-var myid = document.cookie
+var userid = document.cookie
 
 function detectmob() {
  if( navigator.userAgent.match(/Android/i)
