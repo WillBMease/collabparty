@@ -11,7 +11,7 @@ Sync.prototype.startPing = function(){
 Sync.prototype.ping = function(){
   io.socket.post('/Room/ping/', {start: +new Date()}, function (data){
     data.latency = (+new Date() - data.start) / 2
-    if (data.latency < low.latency){
+    if (data.latency < this.low.latency){
       this.low = data
     }
   })
