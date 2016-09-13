@@ -7,6 +7,10 @@ var Playlist = function(){
     return t.currentSong
   }
 
+  t.setSongs = function(data){
+    t.songs = data
+  }
+
   t.addSongToBottom = function(data){
     $('.albumArt').css('background-image', 'url(' + data.image + ')')
     $('.songTitle').text(data.title)

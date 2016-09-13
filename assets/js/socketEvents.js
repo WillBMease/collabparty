@@ -4,15 +4,15 @@ io.socket.on('connect', function(){
   sync.startPing()
 	$('.uuid').text(roomid)
   io.socket.post('/Room/join', {userid: document.cookie, roomid: roomid}, function(data){
-    songs = data.songs
+    // playlist.setSongs(data.songs)
     $('.song-list').empty()
-    songs.forEach(function (s, i){
-      addSongToList(s)
+    data.songs.forEach(function (s, i){
+      playlist.addSongToList(s)
     })
     if (data.currentSong){
-      songs.forEach(function (s, i){
+      playlist.songs.forEach(function (s, i){
         if (s.videoid == data.currentSong)
-          changeSong(s)
+          playlist.changeSong(s)
       })
     }
     if (data.playing){
