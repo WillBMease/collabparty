@@ -1,6 +1,7 @@
 io.socket.on('connect', function(){
   roomid = (window.location.hash).replace('#', '')
-  setInterval(ping, 45)
+  // setInterval(ping, 45)
+  sync.startPing()
 	$('.uuid').text(roomid)
   io.socket.post('/Room/join', {userid: document.cookie, roomid: roomid}, function(data){
     songs = data.songs
@@ -20,7 +21,7 @@ io.socket.on('connect', function(){
 
 io.socket.on('play', function (data){
   if (userid != data.userid){
-    var offset = parseFloat(low.offset) - parseFloat(data.offset)
+    var offset = parseFloat(sync.low.offset) - parseFloat(data.offset)
     var delay = ((+new Date() - data.time + offset) / 1000).toFixed(6)
     if (delay < 0)
       delay = 0
@@ -43,16 +44,16 @@ io.socket.on('pause', function (data){
 io.socket.on('updateTime', function (data){
   if (mobileReady){
     if (userid != data.userid){
-      if (isNaN(low.offset)){
-        low.offset = data.offset
+      if (isNaN(sync.low.offset)){
+        sync.low.offset = data.offset
       }
       else if (isNaN(data.offset)){
-        data.offset = low.offset
+        data.offset = sync.low.offset
       }
       if (player.paused){
         play()
       }
-      var offset = parseFloat(low.offset) - parseFloat(data.offset)
+      var offset = parseFloat(sync.low.offset) - parseFloat(data.offset)
       var delay = parseFloat(((+new Date() - data.time + offset) / 1000).toFixed(6))
       var time = data.currentTime + delay
       var bottomCheck = -0.018, aboveCheck = 0.018

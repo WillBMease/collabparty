@@ -1,25 +1,25 @@
-var low = {latency: 999999}
-var pingInterval
-var pingct = 0
+// var low = {latency: 999999}
+// var pingInterval
+// var pingct = 0
 
-function ping(){
-	var obj = {}
-	obj.start = +new Date()
-	io.socket.post('/Room/ping/', obj, function (data){
-    var end = +new Date()
-    data.latency = (end - data.start) / 2
-    if (data.latency < low.latency){
-    	low = data
-    }
-  })
-	pingct++
-	if (pingct > 125){
-		clearInterval(pingInterval)
-		low.offset = low.server - low.start - low.latency
-    low.userid = userid
-    io.socket.post('/Room/storeOffset', low)
-	}
-}
+// function ping(){
+// 	var obj = {}
+// 	obj.start = +new Date()
+// 	io.socket.post('/Room/ping/', obj, function (data){
+//     var end = +new Date()
+//     data.latency = (end - data.start) / 2
+//     if (data.latency < low.latency){
+//     	low = data
+//     }
+//   })
+// 	pingct++
+// 	if (pingct > 125){
+// 		clearInterval(pingInterval)
+// 		low.offset = low.server - low.start - low.latency
+//     low.userid = userid
+//     io.socket.post('/Room/storeOffset', low)
+// 	}
+// }
 
 player = document.getElementById('song')
 var audioControl = context.createMediaElementSource(player)
@@ -118,7 +118,7 @@ function clickPlay(){
     var obj = {
       roomid: roomid,
       time: +new Date(),
-      offset: low.offset,
+      offset: sync.low.offset,
       currentTime: player.currentTime,
       userid: userid
     }
@@ -132,7 +132,7 @@ function clickPlay(){
     var obj = {
       roomid: roomid,
       time: +new Date(),
-      offset: low.offset,
+      offset: sync.low.offset,
       currentTime: player.currentTime,
       userid: userid
     }
@@ -147,7 +147,7 @@ function updateTime(){
   var obj = {
     roomid: roomid,
     time: +new Date(),
-    offset: low.offset,
+    offset: sync.low.offset,
     currentTime: player.currentTime,
     userid: userid
   }
