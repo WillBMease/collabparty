@@ -25,7 +25,7 @@ var App = function(){
         currentTime: player.getCurrentTime(),
         userid: userid
       }
-      player.pause()
+      // player.pause()
       io.socket.post('/Room/pause', obj)
     }
   }
@@ -108,10 +108,12 @@ var App = function(){
   }
 
   t.socketPause = function(data){
-    if (userid != data.userid){
-      player.pause()
-      synced = false
-    }
+    player.pause()
+    synced = false
+    // if (userid != data.userid){
+    //   player.pause()
+    //   synced = false
+    // }
   }
 
   t.socketUpdateTime = function(data){
