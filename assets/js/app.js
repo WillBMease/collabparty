@@ -27,13 +27,6 @@ var App = function(){
     }
   }
 
-  // t.play = function(){
-  //   console.log('the play function is called')
-  //   player.play()
-  //   synced = false
-  //   t.scrubber = setInterval(t.updateScrubber, 50)
-  // }
-
   t.updateTime = function(){
     var obj = {
       roomid: roomid,
@@ -107,6 +100,7 @@ var App = function(){
   }
 
   t.socketPause = function(data){
+    console.log('got pause back')
     player.pause()
     synced = false
     // if (userid != data.userid){
@@ -116,6 +110,7 @@ var App = function(){
   }
 
   t.socketUpdateTime = function(data){
+    console.log('got update time', +new Date())
     if (mobileReady){
       if (userid != data.userid){
         if (isNaN(sync.low.offset)){

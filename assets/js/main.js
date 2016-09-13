@@ -21,6 +21,7 @@ function getRandomToken() {
 var checkLoadedInt, currentSong = null, songs = null
 var roomid = null
 var mobileReady = true, scrubber = false
+var updateTimeInt, myAudio
 // Object variables
 var app, sync, player, playlist, learn
 
@@ -55,8 +56,6 @@ if (isMobile){
 else {
   mobileReady = true
 }
-
-var updateTimeInt, myAudio
 
 $('#enableContainer').click(function(){
   $('#song').get(0).play()
