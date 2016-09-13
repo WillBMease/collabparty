@@ -163,7 +163,7 @@ function play(){
 }
 
 function updateScrubber(){
-  var curr = (player.getCurrentTime()).toFixed(6)
+  var curr = player.getCurrentTime()
   var duration = player.getDuration()
   var time_left = Math.round(duration) - Math.round(curr)
   var progress = ((curr / duration).toFixed(6))*100
