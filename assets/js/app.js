@@ -1,8 +1,42 @@
 var App = function(){
   var t = this
+  t.updateTimeInt = false
+  t.scrubber = false
 
   t.clickPlay = function(){
+    if (!player.playing){
+      var obj = {
+        roomid: roomid,
+        time: +new Date(),
+        offset: sync.low.offset,
+        currentTime: player.getCurrentTime(),
+        userid: userid
+      }
 
+      this.play()
+      io.socket.post('/Room/play', obj)
+      t.updateTimeInt = setInterval(t.updateTime, 90)
+    }
+    else {
+      $('#play').css('background-image', 'url(/images/play.jpg)')
+      var obj = {
+        roomid: roomid,
+        time: +new Date(),
+        offset: sync.low.offset,
+        currentTime: player.getCurrentTime(),
+        userid: userid
+      }
+      player.pause()
+      io.socket.post('/Room/pause', obj)
+      clearInterval(t.updateTimeInt)
+    }
+  }
+
+  t.play = function(){
+    console.log('the play function is called')
+    player.play()
+    synced = false
+    t.scrubber = setInterval(t.updateScrubber, 50)
   }
 
   t.updateTime = function(){
@@ -82,8 +116,8 @@ var App = function(){
       player.pause()
       synced = false
     }
-    clearInterval(scrubber)
-    clearInterval(updateTimeInt)
+    clearInterval(t.scrubber)
+    clearInterval(t.updateTimeInt)
   }
 
   t.socketUpdateTime = function(data){
