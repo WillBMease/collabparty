@@ -17,5 +17,5 @@ $('#invite').click(function(){
 })
 
 $('.play').click(function(){
-  clickPlay()
+  app.clickPlay()
 })
