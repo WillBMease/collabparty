@@ -22,7 +22,7 @@ var checkLoadedInt, currentSong = null, songs = null
 var roomid = null
 var mobileReady = true, scrubber = false
 // Object variables
-var sync, player, playlist, learn
+var app, sync, player, playlist, learn
 
 if (!document.cookie){
   document.cookie = 'username='+getRandomToken()+'; expires=Thu, 18 Dec 2020 12:00:00 UTC'
