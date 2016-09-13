@@ -1,7 +1,7 @@
 var Sync = function(){
-  var = low = {latency: 999999}
-  var = pingInterval
-  var = pingct = 0
+  var low = {latency: 999999}
+  var pingInterval
+  var pingct = 0
 
   this.startPing = function(){
     this.pingInterval = setInterval(this.ping, 1005)
