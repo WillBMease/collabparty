@@ -31,7 +31,7 @@ io.socket.on('play', function (data){
       delay = 0
 
     $('.play').addClass('active')
-    player.setCurrentTime(parseFloat( (player.getCurrentTime()).toFixed(6) + parseFloat(delay) ))
+    player.setCurrentTime(parseFloat( player.getCurrentTime() + parseFloat(delay) ))
     play()
   }
 })

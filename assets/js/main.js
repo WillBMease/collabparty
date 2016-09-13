@@ -1,13 +1,3 @@
-// player = document.getElementById('song')
-// var audioControl = context.createMediaElementSource(player)
-// var volume = context.createGain()
-// audioControl.connect(volume)
-// volume.connect(context.destination)
-//
-// player.addEventListener('ended', function(){
-//   nextSong()
-// })
-
 function nextSong(){
   if (songs){
     for (var i = 0 ; i < songs.length ; i++){
