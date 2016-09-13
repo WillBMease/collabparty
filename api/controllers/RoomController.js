@@ -31,7 +31,7 @@ module.exports = {
       Room.findOne({roomid: roomid}).exec(function(err, room){
         if (err) return
         if (!room){
-          Room.create({roomid: roomid}).exec(function(err, created){
+          Room.create({roomid: roomid, songs: [], currentSong: ''}).exec(function(err, created){
             if (err) return
 
           })
