@@ -143,6 +143,7 @@ module.exports = {
     Room.findOne({roomid: req.body.roomid}).exec(function(err, room){
       if (err) return
       if (room){
+        console.log('found room for changing song')
         room.currentSong = req.body.videoid
         sails.sockets.broadcast(req.body.roomid, 'changeSong', req.body)
         room.save()

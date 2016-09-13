@@ -43,7 +43,7 @@ function nextSong(){
           currentSong = songs[0]
           i = songs.length
         }
-        io.socket.post('/Room/changeSong', {videouserid: currentSong.videoid, userid: userid, roomuserid: roomid})
+        io.socket.post('/Room/changeSong', {videoid: currentSong.videoid, userid: userid, roomuserid: roomid})
       }
     }
   }
@@ -66,7 +66,7 @@ function addSongToList(data){
 
   $('#song'+data.videoid).click(function(){
     if (currentSong.videoid != data.videoid){
-      io.socket.post('/Room/changeSong', {videouserid: data.videoid, userid: userid, roomuserid: roomid})
+      io.socket.post('/Room/changeSong', {videoid: data.videoid, userid: userid, roomuserid: roomid})
     }
     else {
       console.log('not sending')
