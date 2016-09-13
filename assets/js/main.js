@@ -125,7 +125,7 @@ function clickPlay(){
 
     play()
     io.socket.post('/Room/play', obj)
-    updateTimeInt = setInterval(updateTime, 65)
+    updateTimeInt = setInterval(updateTime, 90)
   }
   else {
     $('#play').css('background-image', 'url(/images/play.jpg)')
@@ -161,12 +161,12 @@ var Learn = function(){
     if (status == 'above'){
       if (increment > 0)
         increment = 0
-      increment -= 0.0010
+      increment -= 0.0012
     }
     else if (status == 'below'){
       if (increment < 0)
         increment = 0
-      increment += 0.0010
+      increment += 0.0012
     }
     return increment
   }
