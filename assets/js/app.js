@@ -91,7 +91,7 @@ var App = function(){
       }
       if (data.playing){
         $('.play').addClass('active')
-        play()
+        this.play()
       }
     })
   }
@@ -104,7 +104,7 @@ var App = function(){
         delay = 0
 
       player.setCurrentTime(parseFloat( player.getCurrentTime() + parseFloat(delay) ))
-      play()
+      this.play()
     }
   }
 
@@ -127,7 +127,7 @@ var App = function(){
           data.offset = sync.low.offset
         }
         if (!player.playing){
-          play()
+          this.play()
         }
         var offset = parseFloat(sync.low.offset) - parseFloat(data.offset)
         var delay = parseFloat(((+new Date() - data.time + offset) / 1000).toFixed(6))
