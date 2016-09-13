@@ -12,6 +12,7 @@ var Sync = function(){
       data.latency = (+new Date() - data.start) / 2
       console.log(data)
       console.log(this.low)
+      console.log(this.pingct)
       if (data.latency < this.low.latency){
         this.low = data
       }
