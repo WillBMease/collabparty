@@ -1,55 +1,77 @@
-var Playlist = {
-  var currentSong = null
-}
+var Playlist = function(){
+  var t = this
+  t.currentSong = null
+  t.songs = []
 
-Playlist.prototype.nextSong = function(){
+  t.nextSong = function(){
 
-}
+  }
 
-Playlist.prototype.addSongToBottom (data){
-  $('.albumArt').css('background-image', 'url(' + data.image + ')')
-  $('.songTitle').text(data.title)
-  this.currentSong = data
-}
+  t.addSongToBottom = function(data){
+    $('.albumArt').css('background-image', 'url(' + data.image + ')')
+    $('.songTitle').text(data.title)
+    t.currentSong = data
+  }
 
-function addSongToList(data){
-  $('.song-list').append('<div id="song'+data.videoid+'" class="song-item">'+
-    '<div id="song-image'+data.videoid+'" class="song-image" style="background-image: url('+data.image+')"></div>'+
-    '<div id="song-title'+data.videoid+'" class="song-title">'+data.title+'</div>'+
-  '</div>')
+  t.addSongToList = function(data){
+    $('.song-list').append('<div id="song'+data.videoid+'" class="song-item">'+
+      '<div id="song-image'+data.videoid+'" class="song-image" style="background-image: url('+data.image+')"></div>'+
+      '<div id="song-title'+data.videoid+'" class="song-title">'+data.title+'</div>'+
+    '</div>')
 
-  songs.push(data)
+    t.songs.push(data)
 
-  $('#song'+data.videoid).click(function(){
-    if (currentSong.videoid != data.videoid){
-      io.socket.post('/Room/changeSong', {videoid: data.videoid, id: myid, code: code})
+    $('#song'+data.videoid).click(function(){
+      if (currentSong.videoid != data.videoid){
+        io.socket.post('/Room/changeSong', {videoid: data.videoid, userid: userid, code: code})
+      }
+      else {
+        console.log('not sending')
+      }
+    })
+  }
+
+  t.changeSong = function(data){
+    player.pause()
+    playing = false
+    clearInterval(updateTimeInt)
+    t.songs.forEach(function(s, i){
+      if (s.videoid == data.videoid){
+        t.currentSong = s
+      }
+    })
+    t.loadSong(t.currentSong.url)
+    t.addSongToBottom(t.currentSong)
+    if (data.userid == userid){
+      setTimeout(function(){
+        console.log('should play new')
+        player.clickPlay()
+      }, 1500)
     }
-    else {
-      console.log('not sending')
-    }
-  })
-}
+  }
 
-function changeSong(data){
-  player.pause()
-  playing = false
-  clearInterval(updateTimeInt)
-  songs.forEach(function(s, i){
-    if (s.videoid == data.videoid){
-      currentSong = s
+  t.nextSong = function(){
+    if (t.songs){
+      for (var i = 0 ; i < t.songs.length ; i++){
+        if (t.songs[i].videoid == t.currentSong.videoid){
+          if (!(i >= t.songs.length - 1)){
+            t.currentSong = t.songs[i+1]
+            i = t.songs.length
+          }
+          else {
+            t.currentSong = t.songs[0]
+            i = t.songs.length
+          }
+          io.socket.post('/Room/changeSong', {videoid: t.currentSong.videoid, userid: userid, roomid: roomid})
+        }
+      }
     }
-  })
-  loadSong(currentSong.url)
-  addSongToBottom(currentSong)
-  if (data.id == myid){
-    setTimeout(function(){
-      console.log('should play new')
-      clickPlay()
-    }, 1500)
+  }
+
+  t.loadSong = function(url){
+    t.player.src = url
+    t.player.load()
   }
 }
 
-function loadSong(url){
-  player.src = url
-  player.load()
-}
+playlist = new Playlist()

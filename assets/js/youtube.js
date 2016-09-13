@@ -1,5 +1,3 @@
-var player;
-
 $('#ytsearch').each(function() {
    var elem = $(this);
    elem.data('oldVal', elem.val());
@@ -39,7 +37,6 @@ function autocomplete(title, id, image){
     '<div class="resultTitle">'+title+'</div>'+
   '</div>')
   $('#'+id).click(function(){
-    console.log('click')
     var url = 'https://www.youtube.com/watch?v=' + id
     io.socket.post('/Room/addSong', {url: url, roomid: roomid, image: image, title: title})
     $('#ytsearch').val('')
