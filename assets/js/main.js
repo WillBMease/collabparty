@@ -97,7 +97,7 @@ function changeSong(data){
   })
   loadSong(currentSong.url)
   addSongToBottom(currentSong)
-  if (data.id == userid){
+  if (data.userid == userid){
     setTimeout(function(){
       console.log('should play new')
       clickPlay()
