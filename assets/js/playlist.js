@@ -48,7 +48,7 @@ var Playlist = function(){
     if (data.userid == userid){
       setTimeout(function(){
         console.log('should play new')
-        clickPlay()
+        app.clickPlay()
       }, 1500)
     }
   }
