@@ -1,5 +1,6 @@
 io.socket.on('connect', function(){
   roomid = (window.location.hash).replace('#', '')
+  setInterval(ping, 45)
 	$('.uuid').text(roomid)
   io.socket.post('/Room/join', {userid: document.cookie, roomid: roomid}, function(data){
     songs = data.songs

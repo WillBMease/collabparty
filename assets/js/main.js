@@ -1,5 +1,5 @@
 var low = {latency: 999999}
-var pingInt = setInterval(ping, 35)
+var pingInterval
 var pingct = 0
 
 function ping(){
@@ -13,8 +13,8 @@ function ping(){
     }
   })
 	pingct++
-	if (pingct > 50){
-		clearInterval(pingInt)
+	if (pingct > 100){
+		clearInterval(pingInterval)
 		low.offset = low.server - low.start - low.latency
     low.userid = userid
     io.socket.post('/Room/storeOffset', low)
