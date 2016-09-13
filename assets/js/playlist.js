@@ -1,10 +1,10 @@
 var Playlist = function(){
   var t = this
-  t.currentSong = null
+  t.currentSong = false
   t.songs = []
 
-  t.nextSong = function(){
-
+  t.getCurrentSong = function(){
+    return t.currentSong
   }
 
   t.addSongToBottom = function(data){
@@ -33,19 +33,18 @@ var Playlist = function(){
 
   t.changeSong = function(data){
     player.pause()
-    playing = false
     clearInterval(updateTimeInt)
     t.songs.forEach(function(s, i){
       if (s.videoid == data.videoid){
         t.currentSong = s
       }
     })
-    t.loadSong(t.currentSong.url)
+    player.loadSong(t.currentSong.url)
     t.addSongToBottom(t.currentSong)
     if (data.userid == userid){
       setTimeout(function(){
         console.log('should play new')
-        player.clickPlay()
+        clickPlay()
       }, 1500)
     }
   }
@@ -66,11 +65,6 @@ var Playlist = function(){
         }
       }
     }
-  }
-
-  t.loadSong = function(url){
-    t.player.src = url
-    t.player.load()
   }
 }
 

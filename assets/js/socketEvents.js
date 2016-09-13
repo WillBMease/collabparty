@@ -41,7 +41,6 @@ io.socket.on('pause', function (data){
   if (userid != data.userid){
     player.pause()
     synced = false
-    playing = false
   }
   clearInterval(scrubber)
   clearInterval(updateTimeInt)
@@ -95,9 +94,9 @@ io.socket.on('updateTime', function (data){
 })
 
 io.socket.on('addSong', function (data){
-  addSongToList(data)
-  if (!currentSong){
-    addSongToBottom(data)
+  playlist.addSongToList(data)
+  if (!playlist.getCurrentSong()){
+    playlist.addSongToBottom(data)
     setTimeout(function(){
       player.loadSong(data.url)
     }, 1000)
@@ -105,5 +104,5 @@ io.socket.on('addSong', function (data){
 })
 
 io.socket.on('changeSong', function (data){
-  changeSong(data)
+  playlist.changeSong(data)
 })
