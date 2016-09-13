@@ -1,7 +1,7 @@
 var Sync = function(){
-  var low = {latency: 999999}
-  var pingInterval
-  var pingct = 0
+  this.low = {latency: 999999}
+  this.pingInterval
+  this.pingct = 0
 }
 
 Sync.prototype.startPing = function(){
