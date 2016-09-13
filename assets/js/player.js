@@ -15,6 +15,8 @@ var Player = function() {
   t.play = function(){
     t.player.play()
     t.playing = true
+    synced = false
+    app.scrubber = setInterval(app.updateScrubber, 50)
     $('.play').addClass('active')
   }
 

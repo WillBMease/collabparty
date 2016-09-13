@@ -23,17 +23,16 @@ var App = function(){
         currentTime: player.getCurrentTime(),
         userid: userid
       }
-      // player.pause()
       io.socket.post('/Room/pause', obj)
     }
   }
 
-  t.play = function(){
-    console.log('the play function is called')
-    player.play()
-    synced = false
-    t.scrubber = setInterval(t.updateScrubber, 50)
-  }
+  // t.play = function(){
+  //   console.log('the play function is called')
+  //   player.play()
+  //   synced = false
+  //   t.scrubber = setInterval(t.updateScrubber, 50)
+  // }
 
   t.updateTime = function(){
     var obj = {
@@ -88,7 +87,8 @@ var App = function(){
       }
       if (data.playing){
         $('.play').addClass('active')
-        this.play()
+        // this.play()
+        player.play()
       }
     })
   }
@@ -102,7 +102,8 @@ var App = function(){
 
       player.setCurrentTime(parseFloat( player.getCurrentTime() + parseFloat(delay) ))
     }
-    this.play()
+    // this.play()
+    player.play()
   }
 
   t.socketPause = function(data){
@@ -124,7 +125,8 @@ var App = function(){
           data.offset = sync.low.offset
         }
         if (!player.playing){
-          this.play()
+          // this.play()
+          player.play()
         }
         var offset = parseFloat(sync.low.offset) - parseFloat(data.offset)
         var delay = parseFloat(((+new Date() - data.time + offset) / 1000).toFixed(6))

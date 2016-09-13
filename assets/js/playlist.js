@@ -29,9 +29,6 @@ var Playlist = function(){
       if (t.currentSong.videoid != data.videoid){
         io.socket.post('/Room/changeSong', {videoid: data.videoid, userid: userid, roomid: roomid})
       }
-      else {
-        console.log('not sending')
-      }
     })
   }
 
@@ -47,7 +44,6 @@ var Playlist = function(){
     t.addSongToBottom(t.currentSong)
     if (data.userid == userid){
       setTimeout(function(){
-        console.log('should play new')
         app.clickPlay()
       }, 1500)
     }
