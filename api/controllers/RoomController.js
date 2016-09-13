@@ -90,7 +90,7 @@ module.exports = {
   },
 
   addSong: function(req, res){
-    console.log('add song')
+    console.log('add songs')
     var url = req.body.url
     var split = url.split('watch?v=')
     var videoid = split[1]
@@ -124,7 +124,7 @@ module.exports = {
     Room.findOne({roomid: req.body.roomid}).exec(function(err, room){
       if (err) return
       if (room){
-        room.song.push({url: '/audio/' + videoid + '.mp3', image: req.body.image, title: req.body.title, videoid: videoid})
+        room.songs.push({url: '/audio/' + videoid + '.mp3', image: req.body.image, title: req.body.title, videoid: videoid})
         room.currentSong = videoid
         room.save()
       }
@@ -139,7 +139,7 @@ module.exports = {
   },
 
   changeSong: function(req, res){
-    console.log('change song')
+    console.log('change songs')
     Room.findOne({roomid: req.body.roomid}).exec(function(err, room){
       if (err) return
       if (room){
