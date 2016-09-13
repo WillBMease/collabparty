@@ -9,7 +9,7 @@ var Sync = function(){
 
   this.ping = function(){
     io.socket.post('/Room/ping/', {start: +new Date()}, function (data){
-      calculatePing(data)
+      this.calculatePing(data)
     })
   }
 
