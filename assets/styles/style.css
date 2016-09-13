@@ -278,7 +278,7 @@ button:active {
   transition: all 0.4s ease;
 }
 .song-item:hover {
-  background: teal;
+  background: #C5EFF7;
 }
 .song-image {
   position: relative;
