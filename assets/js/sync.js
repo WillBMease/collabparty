@@ -1,7 +1,7 @@
 var Sync = function(){
-  var low = {latency: 999999}
-  var pingInterval
-  var pingct = 0
+  this.low = {latency: 999999}
+  this.pingInterval
+  this.pingct = 0
 
   this.startPing = function(){
     this.pingInterval = setInterval(this.ping, 45)
@@ -10,15 +10,15 @@ var Sync = function(){
   this.ping = function(){
     io.socket.post('/Room/ping/', {start: +new Date()}, function (data){
       data.latency = (+new Date() - data.start) / 2
-      if (data.latency < low.latency){
-        low = data
+      if (data.latency < this.low.latency){
+        this.low = data
       }
-      pingct++
-      if (pingct > 125){
+      this.pingct++
+      if (this.pingct > 125){
         clearInterval(pingInterval)
-        low.offset = low.server - low.start - low.latency
-        low.userid = userid
-        io.socket.post('/Room/storeOffset', low)
+        this.low.offset = this.low.server - this.low.start - this.low.latency
+        this.low.userid = userid
+        io.socket.post('/Room/storeOffset', this.low)
       }
     })
   }
