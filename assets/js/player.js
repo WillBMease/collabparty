@@ -22,7 +22,7 @@ var Player = function() {
     t.playing = false
   }
 
-  t.loadSong = function(){
+  t.loadSong = function(url){
     console.log(url)
     t.player.src = url
     t.player.load()
