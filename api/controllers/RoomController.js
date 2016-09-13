@@ -61,7 +61,7 @@ module.exports = {
     Room.findOne({roomid: req.body.roomid}).exec(function(err, room){
       if (err) return
       if (room){
-        room.status = 'playing'
+        room.playing = true
         sails.sockets.broadcast(req.body.roomid, 'play', req.body)
         room.save()
       }
@@ -73,7 +73,7 @@ module.exports = {
     Room.findOne({roomid: req.body.roomid}).exec(function(err, room){
       if (err) return
       if (room){
-        room.status = 'paused'
+        room.playing = false
         sails.sockets.broadcast(req.body.roomid, 'pause', req.body)
         room.save()
       }

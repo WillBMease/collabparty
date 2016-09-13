@@ -15,6 +15,9 @@ io.socket.on('connect', function(){
           changeSong(s)
       })
     }
+    if (data.playing){
+      play()
+    }
   })
 })
 

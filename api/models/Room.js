@@ -14,6 +14,7 @@ module.exports = {
     roomid: { type: 'string', defaultsTo: '' },
     songs: { type: 'array', defaultsTo: [] },
     currentSong: { type: 'string', defaultsTo: '' },
+    playing: { type: 'boolean', defaultsTo: false },
     users: {
       collection: 'user',
       via: 'room'
