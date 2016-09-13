@@ -16,6 +16,7 @@ io.socket.on('connect', function(){
       })
     }
     if (data.playing){
+      $('.play').addClass('active')
       play()
     }
   })
