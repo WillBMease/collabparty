@@ -140,6 +140,7 @@ module.exports = {
 
   changeSong: function(req, res){
     console.log('change songs')
+    console.log(req.body)
     Room.findOne({roomid: req.body.roomid}).exec(function(err, room){
       if (err) return
       if (room){
