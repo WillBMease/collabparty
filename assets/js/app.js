@@ -51,8 +51,8 @@ var App = function(){
   }
 
   t.updateScrubber = function(){
-    var curr = t.player.getCurrentTime()
-    var duration = t.player.getDuration()
+    var curr = player.getCurrentTime()
+    var duration = player.getDuration()
     var time_left = Math.round(duration) - Math.round(curr)
     var progress = ((curr / duration).toFixed(6))*100
     $('.scrubber').css('left', progress+'%')
