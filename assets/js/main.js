@@ -43,7 +43,7 @@ function nextSong(){
           currentSong = songs[0]
           i = songs.length
         }
-        io.socket.post('/Room/changeSong', {videoid: currentSong.videoid, userid: userid, roomuserid: roomid})
+        io.socket.post('/Room/changeSong', {videoid: currentSong.videoid, userid: userid, roomid: roomid})
       }
     }
   }
@@ -66,7 +66,7 @@ function addSongToList(data){
 
   $('#song'+data.videoid).click(function(){
     if (currentSong.videoid != data.videoid){
-      io.socket.post('/Room/changeSong', {videoid: data.videoid, userid: userid, roomuserid: roomid})
+      io.socket.post('/Room/changeSong', {videoid: data.videoid, userid: userid, roomid: roomid})
     }
     else {
       console.log('not sending')
@@ -116,7 +116,7 @@ var updateTimeInt, player, myAudio, playing = false
 function clickPlay(){
   if (!playing){
     var obj = {
-      roomuserid: roomid,
+      roomid: roomid,
       time: +new Date(),
       offset: low.offset,
       currentTime: player.currentTime,
@@ -130,7 +130,7 @@ function clickPlay(){
   else {
     $('#play').css('background-image', 'url(/images/play.jpg)')
     var obj = {
-      roomuserid: roomid,
+      roomid: roomid,
       time: +new Date(),
       offset: low.offset,
       currentTime: player.currentTime,
@@ -145,7 +145,7 @@ function clickPlay(){
 
 function updateTime(){
   var obj = {
-    roomuserid: roomid,
+    roomid: roomid,
     time: +new Date(),
     offset: low.offset,
     currentTime: player.currentTime,
