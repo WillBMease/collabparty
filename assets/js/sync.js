@@ -12,16 +12,16 @@ Sync.prototype.ping = function(){
   io.socket.post('/Room/ping/', {start: +new Date()}, function (data){
     data.latency = (+new Date() - data.start) / 2
     console.log(data)
-    console.log(this.low)
-    if (data.latency < this.low.latency){
-      this.low = data
+    console.log(low)
+    if (data.latency < low.latency){
+      low = data
     }
     this.pingct++
     if (this.pingct > 100){
       clearInterval(this.pingInterval)
-      this.low.offset = this.low.server - this.low.start - this.low.latency
-      this.low.userid = userid
-      io.socket.post('/Room/storeOffset', this.low)
+      low.offset = low.server - low.start - low.latency
+      low.userid = userid
+      io.socket.post('/Room/storeOffset', low)
     }
   })
 }
