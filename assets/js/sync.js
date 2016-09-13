@@ -1,32 +1,33 @@
 var Sync = function(){
-  this.low = {latency: 999999}
-  this.pingInterval
-  this.pingct = 0
+  var t = this
+  t.low = {latency: 999999}
+  t.pingInterval
+  t.pingct = 0
 
-  this.startPing = function(){
-    this.pingInterval = setInterval(this.ping, 45)
+  t.startPing = function(){
+    t.pingInterval = setInterval(t.ping, 45)
   }
 
-  this.ping = function(){
+  t.ping = function(){
     io.socket.post('/Room/ping/', {start: +new Date()}, function (data){
-      this.calculatePing(data)
+      t.calculatePing(data)
     })
   }
 
-  this.calculatePing = function(data){
+  t.calculatePing = function(data){
     console.log(data)
-    console.log(this.low)
+    console.log(t.low)
     data.latency = (+new Date() - data.start) / 2
 
-    if (data.latency < this.low.latency)
-      this.low = data
+    if (data.latency < t.low.latency)
+      t.low = data
 
-    this.pingct++
-    if (this.pingct > 125){
+    t.pingct++
+    if (t.pingct > 125){
       clearInterval(pingInterval)
-      this.low.offset = this.low.server - this.low.start - this.low.latency
-      this.low.userid = userid
-      io.socket.post('/Room/storeOffset', this.low)
+      t.low.offset = t.low.server - t.low.start - t.low.latency
+      t.low.userid = userid
+      io.socket.post('/Room/storeOffset', t.low)
     }
   }
 }
