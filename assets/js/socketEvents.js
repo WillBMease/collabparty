@@ -26,13 +26,14 @@ io.socket.on('play', function (data){
     if (delay < 0)
       delay = 0
 
+    $('.play').addClass('active')
     player.currentTime = parseFloat( (player.currentTime).toFixed(6) + parseFloat(delay) )
     play()
   }
 })
 
 io.socket.on('pause', function (data){
-  $('#play').css('background-image', 'url(/images/play.jpg)')
+  $('.play').removeClass('active')
   if (userid != data.userid){
     player.pause()
     synced = false

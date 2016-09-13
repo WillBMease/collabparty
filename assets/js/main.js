@@ -154,6 +154,7 @@ var learn = new Learn()
 
 
 function play(){
+	console.log('the play function is called')
   player.play()
   synced = false
   playing = true
