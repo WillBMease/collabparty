@@ -125,7 +125,7 @@ function clickPlay(){
 
     play()
     io.socket.post('/Room/play', obj)
-    updateTimeInt = setInterval(updateTime, 100)
+    updateTimeInt = setInterval(updateTime, 65)
   }
   else {
     $('#play').css('background-image', 'url(/images/play.jpg)')
