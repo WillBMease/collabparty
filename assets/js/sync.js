@@ -1,13 +1,13 @@
 var Sync = function(){
-  var low = {latency: 999999}
-  var pingInterval
-  var pingct = 0
+  this.low = {latency: 999999}
+  this.pingInterval
+  this.pingct = 0
 
-  var startPing = function(){
+  this.startPing = function(){
     this.pingInterval = setInterval(this.ping, 1005)
   }
 
-  var ping = function(){
+  this.ping = function(){
     io.socket.post('/Room/ping/', {start: +new Date()}, function (data){
       data.latency = (+new Date() - data.start) / 2
       console.log(data)
