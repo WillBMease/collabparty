@@ -27,7 +27,7 @@ var Playlist = function(){
 
     $('#song'+data.videoid).click(function(){
       if (t.currentSong.videoid != data.videoid){
-        io.socket.post('/Room/changeSong', {videoid: data.videoid, userid: userid, roomid: roomid})
+        io.socket.post('/Room/changeSong', {videoid: data.videoid, userid: app.userid, roomid: app.roomid})
       }
     })
   }
@@ -42,7 +42,7 @@ var Playlist = function(){
     })
     player.loadSong(t.currentSong.url)
     t.addSongToBottom(t.currentSong)
-    if (data.userid == userid){
+    if (data.userid == app.userid){
       setTimeout(function(){
         app.clickPlay()
       }, 1500)
@@ -61,7 +61,7 @@ var Playlist = function(){
             t.currentSong = t.songs[0]
             i = t.songs.length
           }
-          io.socket.post('/Room/changeSong', {videoid: t.currentSong.videoid, userid: userid, roomid: roomid})
+          io.socket.post('/Room/changeSong', {videoid: t.currentSong.videoid, userid: app.userid, roomid: app.roomid})
         }
       }
     }

@@ -19,7 +19,6 @@ function getRandomToken() {
 }
 
 var checkLoadedInt, currentSong = null, songs = null
-var roomid = null
 var mobileReady = true, scrubber = false
 var updateTimeInt, myAudio
 // Object variables

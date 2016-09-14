@@ -2,10 +2,12 @@ var App = function(){
   var t = this
   t.updateTimeInt = false
   t.scrubber = false
+  t.userid = document.cookie
+  t.roomid = (window.location.hash).replace('#', '')
   t.obj = {
-    roomid: roomid,
+    roomid: t.roomid,
     time: +new Date(),
-    userid: userid
+    userid: t.userid
   }
 
   t.clickPlay = function(){
@@ -54,10 +56,9 @@ var App = function(){
   }
 
   t.socketConnect = function(data){
-    roomid = (window.location.hash).replace('#', '')
     sync.startPing()
-  	$('.uuid').text(roomid)
-    io.socket.post('/Room/join', {userid: document.cookie, roomid: roomid}, function(data){
+  	$('.uuid').text(t.roomid)
+    io.socket.post('/Room/join', {t.userid: document.cookie, roomid: t.roomid}, function(data){
       $('.song-list').empty()
       data.songs.forEach(function (s, i){
         playlist.addSongToList(s)
@@ -76,7 +77,7 @@ var App = function(){
   }
 
   t.socketPlay = function(data){
-    if (userid != data.userid){
+    if (t.userid != data.userid){
       var offset = parseFloat(sync.low.offset) - parseFloat(data.offset)
       var delay = ((+new Date() - data.time + offset) / 1000).toFixed(6)
       if (delay < 0)
@@ -94,7 +95,7 @@ var App = function(){
 
   t.socketUpdateTime = function(data){
     if (mobileReady){
-      if (userid != data.userid){
+      if (t.userid != data.userid){
         if (isNaN(sync.low.offset)){
           sync.low.offset = data.offset
         }

@@ -26,7 +26,7 @@ var Sync = function(){
       clearInterval(t.pingInterval)
       t.low.offset = t.low.server - t.low.start - t.low.latency
       app.obj.offset = t.low.offset
-      t.low.userid = userid
+      t.low.userid = app.userid
       io.socket.post('/Room/storeOffset', t.low)
     }
   }
