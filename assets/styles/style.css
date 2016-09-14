@@ -371,6 +371,7 @@ button:active {
   padding-top: 10%;
   background: white;
   text-align: center;
+  border-radius: 4px;
 }
 .question-close {
   position: absolute;
