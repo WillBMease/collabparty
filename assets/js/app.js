@@ -97,6 +97,7 @@ var App = function(){
     if (mobileReady){
       if (t.userid != data.userid){
         console.log('updating time')
+        console.log(data)
         if (isNaN(sync.low.offset)){
           sync.low.offset = data.offset
         }
