@@ -25,6 +25,7 @@ var Sync = function(){
     if (t.pingct > 50){
       clearInterval(t.pingInterval)
       t.low.offset = t.low.server - t.low.start - t.low.latency
+      app.obj.offset = t.low.offset
       t.low.userid = userid
       io.socket.post('/Room/storeOffset', t.low)
     }
