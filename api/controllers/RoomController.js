@@ -54,7 +54,6 @@ module.exports = {
         user.save()
       }
     })
-    // offsets[req.body.id] = req.body.offset
   },
 
   play: function(req, res){
@@ -66,7 +65,6 @@ module.exports = {
         room.save()
       }
     })
-    // sails.sockets.broadcast(req.body.roomid, 'play', req.body)
   },
 
   pause: function(req, res){
@@ -78,7 +76,6 @@ module.exports = {
         room.save()
       }
     })
-    // sails.sockets.broadcast(req.body.roomid, 'pause', req.body)
   },
 
   updateTime: function(req, res){
@@ -90,14 +87,12 @@ module.exports = {
   },
 
   addSong: function(req, res){
-    console.log('add songs')
     var url = req.body.url
     var split = url.split('watch?v=')
     var videoid = split[1]
     var exists = false
 
     if (fs.existsSync('assets/audio/' + videoid + '.mp3')) {
-      console.log(videoid)
       sails.sockets.broadcast(req.body.roomid, 'addSong', {url: '/audio/' + videoid + '.mp3', image: req.body.image, title: req.body.title, videoid: videoid})
     }
     else {
@@ -105,8 +100,6 @@ module.exports = {
       // Will be called when the download starts.
       video.on('info', function(info) {
         console.log('Download started');
-        console.log('filename: ' + info._filename);
-        console.log('size: ' + info.size);
       })
 
       video.on('complete', function(info){
@@ -114,7 +107,6 @@ module.exports = {
       })
 
       video.on('end', function(info){
-        console.log('end')
         sails.sockets.broadcast(req.body.roomid, 'addSong', {url: '/audio/' + videoid + '.mp3', image: req.body.image, title: req.body.title, videoid: videoid})
       })
 
@@ -129,29 +121,17 @@ module.exports = {
         room.save()
       }
     })
-
-    // if (!songs[req.body.roomid]){
-    //   songs[req.body.roomid] = []
-    // }
-    // songs[req.body.roomid].push({url: '/audio/' + videoid + '.mp3', image: req.body.image, title: req.body.title, videoid: videoid})
-    // if (!currentSong[req.body.roomid])
-    //   currentSong[req.body.roomid] = videoid
   },
 
   changeSong: function(req, res){
-    console.log('change songs')
-    console.log(req.body)
     Room.findOne({roomid: req.body.roomid}).exec(function(err, room){
       if (err) return
       if (room){
-        console.log('found room for changing song')
         room.currentSong = req.body.videoid
         sails.sockets.broadcast(req.body.roomid, 'changeSong', req.body)
         room.save()
       }
     })
-    // currentSong[req.body.roomid] = req.body.videoid
-    // sails.sockets.broadcast(req.body.roomid, 'changeSong', req.body)
   },
 
   join: function(req, res){
@@ -181,21 +161,6 @@ module.exports = {
         })
       }
     })
-
-
-
-    // var s = []
-    // if (songs[req.body.roomid]){
-    //   s = songs[req.body.roomid]
-    // }
-    // var c = false
-    // if (currentSong[req.body.roomid])
-    //   c = currentSong[req.body.roomid]
-    // res.send({songs: s, currentSong: c})
-    // if (!users[req.body.roomid]){
-    //   users[req.body.roomid] = 0
-    // }
-    // users[req.body.roomid]++
   }
 
 };

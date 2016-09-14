@@ -59,10 +59,11 @@ var Player = function() {
   }
 
   t.player.addEventListener('ended', function(){
-    // playlist.nextSong()
+    playlist.nextSong()
   })
 
   t.player.onloadedmetadata = function(){
+    console.log(playlist.currentSong)
     // if (!isNaN(t.player.duration))
     //   alert('song loaded')
     // else
@@ -70,7 +71,7 @@ var Player = function() {
   }
 
   t.player.addEventListener('error', function(){
-    // alert('there was an error')
+    $('#song'+playlist.currentSong.videoid)
   })
 
 }
