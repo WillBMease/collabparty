@@ -15,7 +15,7 @@ var App = function(){
     t.obj.time = +new Date()
     if (!player.playing){
       io.socket.post('/Room/play', t.obj)
-      t.updateTimeInt = setInterval(t.updateTime, 100)
+      t.updateTimeInt = setInterval(t.updateTime, 200)
     }
     else {
       io.socket.post('/Room/pause', t.obj)

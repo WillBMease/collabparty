@@ -26,6 +26,7 @@ var Player = function() {
     $('.play').removeClass('active')
     clearInterval(app.updateTimeInt)
     clearInterval(app.scrubber)
+    $('.syncingContainer').pause()
   }
 
   t.loadSong = function(url){
