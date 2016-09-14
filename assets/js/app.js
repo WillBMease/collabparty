@@ -5,8 +5,6 @@ var App = function(){
   t.obj = {
     roomid: roomid,
     time: +new Date(),
-    offset: sync.low.offset,
-    currentTime: player.getCurrentTime(),
     userid: userid
   }
 
