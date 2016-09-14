@@ -58,7 +58,7 @@ var App = function(){
   t.socketConnect = function(data){
     sync.startPing()
   	$('.uuid').text(t.roomid)
-    io.socket.post('/Room/join', {t.userid: document.cookie, roomid: t.roomid}, function(data){
+    io.socket.post('/Room/join', {userid: t.userid, roomid: t.roomid}, function(data){
       $('.song-list').empty()
       data.songs.forEach(function (s, i){
         playlist.addSongToList(s)
