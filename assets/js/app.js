@@ -107,6 +107,7 @@ var App = function(){
           data.offset = sync.low.offset
         }
 
+        data.currentTime = parseFloat(data.currentTime)
         var offset = parseFloat(sync.low.offset) - parseFloat(data.offset)
         var delay = parseFloat(((+new Date() - data.time + offset) / 1000).toFixed(6))
         var time = data.currentTime + delay
