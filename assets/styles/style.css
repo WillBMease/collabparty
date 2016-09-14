@@ -354,13 +354,20 @@ button:active {
   display: none;
   width: 100vw;
   height: 100vh;
+  top: 0;
+  left: 0;
   background: rgba(0, 0, 0, 0.3);
 }
 .question-content {
   position: absolute;
   top: 30vh;
+  left: 50%;
+  right: 50%;
+  margin-left: 50%;
+  margin-right: 50%;
   width: 60%;
   height: 30%;
+  padding-top: 10%;
   background: white;
   text-align: center;
 }
