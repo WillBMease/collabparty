@@ -110,7 +110,7 @@ button:active {
   position: absolute;
   width: 300px;
   height: 100px;
-  background: black;
+  background: #22313F;
   top: 0;
   bottom: 0;
   left: 0;
@@ -348,6 +348,7 @@ button:active {
   background-position: center;
   background-image: url(/images/question.png);
   cursor: pointer;
+  color: #22313F;
 }
 .question-popup {
   position: fixed;
@@ -377,6 +378,7 @@ button:active {
   right: 3px;
   color: black;
   font-size: 24px;
+  cursor: pointer;
 }
 .question-close:hover {
   color: red;
