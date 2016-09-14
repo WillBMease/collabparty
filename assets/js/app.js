@@ -99,15 +99,19 @@ var App = function(){
         console.log('updating time')
         console.log(data)
         if (isNaN(sync.low.offset)){
+          console.log('sync.low.offset is not a number')
           sync.low.offset = data.offset
         }
         else if (isNaN(data.offset)){
+          console.log('data.offset is not a number')
           data.offset = sync.low.offset
         }
 
         var offset = parseFloat(sync.low.offset) - parseFloat(data.offset)
         var delay = parseFloat(((+new Date() - data.time + offset) / 1000).toFixed(6))
         var time = data.currentTime + delay
+        console.log(data.currentTime, delay)
+        console.log('time', time)
         var bottomCheck = -0.018, aboveCheck = 0.018
         if (Math.abs(player.getCurrentTime() - time) > 0.030){
           sync.synced = false
