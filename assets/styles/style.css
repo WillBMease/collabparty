@@ -346,5 +346,5 @@ button:active {
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  background-image: url(images/question.png);
+  background-image: url(/images/question.png);
 }
