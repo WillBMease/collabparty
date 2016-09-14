@@ -63,7 +63,7 @@ var Player = function() {
   })
 
   t.player.onloadedmetadata = function(){
-    console.log(playlist.currentSong)
+    // console.log(playlist.currentSong)
     // if (!isNaN(t.player.duration))
     //   alert('song loaded')
     // else
@@ -71,7 +71,7 @@ var Player = function() {
   }
 
   t.player.addEventListener('error', function(){
-    $('#song'+playlist.currentSong.videoid)
+    $('#song'+playlist.currentSong.videoid).css('background', 'red')
   })
 
 }
