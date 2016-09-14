@@ -360,11 +360,11 @@ button:active {
 }
 .question-content {
   position: absolute;
-  top: 30vh;
-  left: 50%;
-  right: 50%;
-  margin-left: 50%;
-  margin-right: 50%;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   width: 60%;
   height: 30%;
   padding-top: 10%;
