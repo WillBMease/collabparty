@@ -25,6 +25,8 @@ var App = function(){
   t.updateTime = function(){
     t.obj.currentTime = player.getCurrentTime()
     t.obj.time = +new Date()
+    console.log('updating time')
+    console.log(t.obj)
     io.socket.post('/Room/updateTime', t.obj)
   }
 
@@ -94,6 +96,7 @@ var App = function(){
   t.socketUpdateTime = function(data){
     if (mobileReady){
       if (t.userid != data.userid){
+        console.log('updating time')
         if (isNaN(sync.low.offset)){
           sync.low.offset = data.offset
         }
