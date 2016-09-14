@@ -9,6 +9,7 @@ var App = function(){
   }
 
   t.clickPlay = function(){
+    console.log('click play')
     t.obj.currentTime = player.getCurrentTime()
     t.obj.time = +new Date()
     if (!player.playing){
