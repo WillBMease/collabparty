@@ -63,6 +63,13 @@ $('#enableContainer').click(function(){
   mobileReady = true
 })
 
+$('.question').click(function(){
+  $('.question-popup').show()
+})
+$('.question-close').click(function(){
+  $('.question-popup').hide()
+})
+
 $('#invite').click(function(){
 	if (!open){
 		$('.sidebar').css('left', '0px')
