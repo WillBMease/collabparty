@@ -3,6 +3,7 @@ var Sync = function(){
   t.low = {latency: 999999}
   t.pingInterval
   t.pingct = 0
+  t.synced = false
 
   t.startPing = function(){
     t.pingInterval = setInterval(t.ping, 35)

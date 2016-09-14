@@ -2,40 +2,30 @@ var App = function(){
   var t = this
   t.updateTimeInt = false
   t.scrubber = false
+  t.obj = {
+    roomid: roomid,
+    time: +new Date(),
+    offset: sync.low.offset,
+    currentTime: player.getCurrentTime(),
+    userid: userid
+  }
 
   t.clickPlay = function(){
+    t.obj.currentTime = player.getCurrentTime()
+    t.obj.time = +new Date()
     if (!player.playing){
-      var obj = {
-        roomid: roomid,
-        time: +new Date(),
-        offset: sync.low.offset,
-        currentTime: player.getCurrentTime(),
-        userid: userid
-      }
-      io.socket.post('/Room/play', obj)
+      io.socket.post('/Room/play', t.obj)
       t.updateTimeInt = setInterval(t.updateTime, 100)
     }
     else {
-      var obj = {
-        roomid: roomid,
-        time: +new Date(),
-        offset: sync.low.offset,
-        currentTime: player.getCurrentTime(),
-        userid: userid
-      }
-      io.socket.post('/Room/pause', obj)
+      io.socket.post('/Room/pause', t.obj)
     }
   }
 
   t.updateTime = function(){
-    var obj = {
-      roomid: roomid,
-      time: +new Date(),
-      offset: sync.low.offset,
-      currentTime: player.getCurrentTime(),
-      userid: userid
-    }
-    io.socket.post('/Room/updateTime', obj)
+    t.obj.currentTime = player.getCurrentTime()
+    t.obj.time = +new Date()
+    io.socket.post('/Room/updateTime', t.obj)
   }
 
   t.updateScrubber = function(){
@@ -80,7 +70,6 @@ var App = function(){
       }
       if (data.playing){
         $('.play').addClass('active')
-        // this.play()
         player.play()
       }
     })
@@ -95,22 +84,15 @@ var App = function(){
 
       player.setCurrentTime(parseFloat( player.getCurrentTime() + parseFloat(delay) ))
     }
-    // this.play()
     player.play()
   }
 
   t.socketPause = function(data){
-    console.log('got pause back')
     player.pause()
-    synced = false
-    // if (userid != data.userid){
-    //   player.pause()
-    //   synced = false
-    // }
+    sync.synced = false
   }
 
   t.socketUpdateTime = function(data){
-    console.log('got update time', +new Date())
     if (mobileReady){
       if (userid != data.userid){
         if (isNaN(sync.low.offset)){
@@ -119,18 +101,15 @@ var App = function(){
         else if (isNaN(data.offset)){
           data.offset = sync.low.offset
         }
-        // if (!player.playing){
-        //   // this.play()
-        //   player.play()
-        // }
+
         var offset = parseFloat(sync.low.offset) - parseFloat(data.offset)
         var delay = parseFloat(((+new Date() - data.time + offset) / 1000).toFixed(6))
         var time = data.currentTime + delay
         var bottomCheck = -0.018, aboveCheck = 0.018
         if (Math.abs(player.getCurrentTime() - time) > 0.030){
-          synced = false
+          sync.synced = false
         }
-        if (synced){
+        if (sync.synced){
           bottomCheck = -0.030
           aboveCheck = 0.030
         }
@@ -150,7 +129,7 @@ var App = function(){
           $('.syncingContainer').show()
         }
         else {
-          synced = true
+          sync.synced = true
           player.setVolume(1)
           $('.syncingContainer').hide()
         }

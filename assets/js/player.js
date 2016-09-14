@@ -15,7 +15,7 @@ var Player = function() {
   t.play = function(){
     t.player.play()
     t.playing = true
-    synced = false
+    sync.synced = false
     app.scrubber = setInterval(app.updateScrubber, 50)
     $('.play').addClass('active')
   }
@@ -29,7 +29,6 @@ var Player = function() {
   }
 
   t.loadSong = function(url){
-    console.log(url)
     t.player.src = url
     t.player.load()
   }
