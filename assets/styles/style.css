@@ -25,6 +25,14 @@ button:active {
   border: none;
 }
 
+input, select, textarea{
+  color: #3498DB;
+}
+
+textarea:focus, input:focus {
+  color: #3498DB;
+}
+
 #username {
 	position: relative;
 	float: right;
