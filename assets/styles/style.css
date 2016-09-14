@@ -337,3 +337,14 @@ button:active {
   left: 0;
   top: 0;
 }
+.question {
+  position: relative;
+  display: inline-block;
+  float: right;
+  width: 10%;
+  height: 50px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  background-image: url(images/question.png);
+}
