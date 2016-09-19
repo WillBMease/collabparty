@@ -38,7 +38,7 @@ function autocomplete(title, id, image){
   '</div>')
   $('#'+id).click(function(){
     var url = 'https://www.youtube.com/watch?v=' + id
-    io.socket.post('/Room/addSong', {url: url, roomid: roomid, image: image, title: title})
+    io.socket.post('/Room/addSong', {url: url, roomid: app.roomid, image: image, title: title})
     $('#ytsearch').val('')
     $('.results').hide().empty()
   })
