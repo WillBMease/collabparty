@@ -8,7 +8,7 @@
 module.exports = {
 
   schema: true,
-  connection: 'room',
+  // connection: 'room',
 
   attributes: {
     roomid: { type: 'string', defaultsTo: '' },

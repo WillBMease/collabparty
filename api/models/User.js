@@ -1,7 +1,7 @@
 var User = {
   // Enforce model schema in the case of schemaless databases
   schema: true,
-  connection: 'user',
+  // connection: 'user',
 
   attributes: {
     username  : { type: 'string', unique: true },
